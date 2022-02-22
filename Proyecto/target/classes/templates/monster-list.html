@@ -7,7 +7,7 @@
 <body>
     <h1>monsters</h1>
     <ul>
-        <li th:each="monster : ${monsters}"></li>
+        <li th:each="monster : ${monsters}" th:text="${monster.name}"></li>
     </ul>
 </body>
     

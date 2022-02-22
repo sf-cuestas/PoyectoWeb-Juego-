@@ -18,8 +18,8 @@ public class MonstersController {
     public String displayMonsterList(Model model)
     {
         
-        Collection<Monsters> lMonsters = db.findAllMonster();
-        model.addAttribute("monsters",lMonsters);
+        Collection<Monsters> monsters = db.findAllMonster();
+        model.addAttribute("monsters",monsters);
         return "monster-list";
 
     }

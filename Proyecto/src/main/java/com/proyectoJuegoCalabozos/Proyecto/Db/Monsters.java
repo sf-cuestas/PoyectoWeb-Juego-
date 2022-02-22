@@ -1,6 +1,8 @@
 package com.proyectoJuegoCalabozos.Proyecto.Db;
 
+
 public class Monsters {
+    
     long id;
     String name;
     String last_updated;
