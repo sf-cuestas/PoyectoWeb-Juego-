@@ -1,8 +1,14 @@
-package com.proyectoJuegoCalabozos.Proyecto.Db;
+package com.proyectoJuegoCalabozos.Proyecto.Model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
 public class Monsters {
-    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
     String name;
     String last_updated;
@@ -15,9 +21,12 @@ public class Monsters {
     String wiki_url;
 
     
-    public Monsters(long id, String name, String last_updated, int attack_level, int defence_slash, int size,
-            int hitpoints, String category, String examine, String wiki_url) {
-        this.id = id;
+    
+    public Monsters() {
+    }
+
+    public Monsters(String name, String last_updated, int attack_level, int defence_slash, int size, int hitpoints,
+            String category, String examine, String wiki_url) {
         this.name = name;
         this.last_updated = last_updated;
         this.attack_level = attack_level;
@@ -28,7 +37,7 @@ public class Monsters {
         this.examine = examine;
         this.wiki_url = wiki_url;
     }
-    
+
     public long getId() {
         return id;
     }

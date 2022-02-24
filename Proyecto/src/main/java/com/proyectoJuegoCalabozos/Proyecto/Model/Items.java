@@ -1,6 +1,15 @@
-package com.proyectoJuegoCalabozos.Proyecto.Db;
+/*
+package com.proyectoJuegoCalabozos.Proyecto.Model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Items {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
     String name;
     String last_update;
@@ -8,8 +17,13 @@ public class Items {
     double weight;
     String examine;
     String wiki_url;
-    public Items(long id, String name, String last_update, int cost, double weight, String examine, String wiki_url) {
-        this.id = id;
+   
+    public Items() {
+    }
+
+    
+
+    public Items(String name, String last_update, int cost, double weight, String examine, String wiki_url) {
         this.name = name;
         this.last_update = last_update;
         this.cost = cost;
@@ -17,6 +31,9 @@ public class Items {
         this.examine = examine;
         this.wiki_url = wiki_url;
     }
+
+
+
     public long getId() {
         return id;
     }
@@ -60,3 +77,4 @@ public class Items {
         this.wiki_url = wiki_url;
     }
 }
+*/
