@@ -9,4 +9,5 @@ import com.proyectoJuegoCalabozos.Proyecto.Model.Monsters;
 @Repository
 public interface MonstersRepository extends JpaRepository<Monsters,Long>{
     List<Monsters> findByName(String name);
+    
 }

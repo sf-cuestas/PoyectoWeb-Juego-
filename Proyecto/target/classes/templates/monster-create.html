@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        ...
+    </head>
+
+    <body>
+        <h1>Monsters</h1>
+        <form action="#" th:action="@{/monsters/save}" th:object="${monster}" method="post">
+            
+            <label for="monster-name">Name: </label>
+            <input type="text" th:field="${monster.Name}" id="monster-name">
+            <label for="monster-last_update">Last update: </label>
+            <input type="text" th:field="${monster.last_updated}" id="monster-last_update">
+            <label for="monster-attack_level">Attack level: </label>
+            <input type="text" th:field="${monster.attack_level}" id="monster-attack_level">
+            <label for="monster-defence_slash">Defence slash: </label>
+            <input type="text" th:field="${monster.defence_slash}" id="monster-defence_slash">
+            <label for="monster-size">size: </label>
+            <input type="text" th:field="${monster.size}" id="monster-size">
+            <label for="monster-hitpoints">Hitpoints: </label>
+            <input type="text" th:field="${monster.hitpoints}" id="monster-hitpoints">
+            <label for="monster-category">Category: </label>
+            <input type="text" th:field="${monster.category}" id="monster-category">
+            <label for="monster-examine">Examine: </label>
+            <input type="text" th:field="${monster.examine}" id="monster-examine">
+            <label for="monster-wiki_url">Wiki URL: </label>
+            <input type="text" th:field="${monster.wiki_url}" id="monster-wiki_url">
+            <button type="submit">Enviar</button>
+
+        </form>
+    </body>
+</html>

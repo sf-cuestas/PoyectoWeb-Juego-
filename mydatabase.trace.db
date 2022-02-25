@@ -187,3 +187,7 @@ Caused by: java.nio.channels.OverlappingFileLockException
 	at java.base/java.nio.channels.FileChannel.tryLock(FileChannel.java:1165)
 	at org.h2.mvstore.FileStore.open(FileStore.java:163)
 	... 28 more
+2022-02-24 16:28:17 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "MONSTERS" no encontrada
+Table "MONSTERS" not found; SQL statement:
+INSERT INTO MONSTERS (ID, NAME, LAST_UPDATED, ATTACK_LEVEL, DEFENCE_SLASH, SIZE, HITPOINTS, CATEGORY, EXAMINE, WIKI_URL) VALUES (1,'Molanisk','2021-09-02',40,45,1,52,'molanisks','A strange mole-like being.','https://oldschool.runescape.wiki/w/wMolanisk') [42102-200]
