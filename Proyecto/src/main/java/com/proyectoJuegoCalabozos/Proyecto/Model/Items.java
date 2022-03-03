@@ -12,7 +12,7 @@ public class Items {
     long id;
     String name;
     String last_updated;
-    int cost;
+    Integer cost;
     double weight;
     String examine;
     String wiki_url;
@@ -22,7 +22,7 @@ public class Items {
 
     
 
-    public Items(String name, String last_update, int cost, double weight, String examine, String wiki_url) {
+    public Items(String name, String last_update, Integer cost, double weight, String examine, String wiki_url) {
         this.name = name;
         this.last_updated = last_update;
         this.cost = cost;
@@ -51,10 +51,10 @@ public class Items {
     public void setLast_updated(String last_update) {
         this.last_updated = last_update;
     }
-    public int getCost() {
+    public Integer getCost() {
         return cost;
     }
-    public void setCost(int cost) {
+    public void setCost(Integer cost) {
         this.cost = cost;
     }
     public double getWeight() {

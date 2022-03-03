@@ -4,10 +4,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import com.proyectoJuegoCalabozos.Proyecto.Model.Monsters;
+import com.proyectoJuegoCalabozos.Proyecto.Model.MonstersEsp;
 
 @Repository
-public interface MonstersRepository extends JpaRepository<Monsters,Long>{
-    List<Monsters> findByName(String name);
+public interface MonstersRepository extends JpaRepository<MonstersEsp,Long>{
+    List<MonstersEsp> findByName(String name);
     
 }

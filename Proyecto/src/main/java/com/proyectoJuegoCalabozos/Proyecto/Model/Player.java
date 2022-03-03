@@ -12,6 +12,11 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
     String name;
+    contrase;a 
+    puntos de vida 
+    mochila
+    donde esta habitacion
+    
     
     public Player() {
     }

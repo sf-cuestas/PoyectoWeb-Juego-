@@ -1,5 +1,5 @@
-INSERT INTO MONSTERS (ID, NAME, LAST_UPDATED, ATTACK_LEVEL, DEFENCE_SLASH, SIZE, HITPOINTS, CATEGORY, EXAMINE, WIKI_URL) VALUES (-1,'Molanisk','2021-09-02',40,45,1,52,'molanisks','A strange mole-like being.','https://oldschool.runescape.wiki/w/wMolanisk');
-INSERT INTO MONSTERS (ID, NAME, LAST_UPDATED, ATTACK_LEVEL, DEFENCE_SLASH, SIZE, HITPOINTS, CATEGORY, EXAMINE, WIKI_URL) VALUES (-2,'Molaniskprueba','2021-09-02',40,45,1,52,'molanisks','A strange mole-like being.','https://oldschool.runescape.wiki/w/wMolanisk');
+INSERT INTO MONSTERS_ESP (ID, NAME, LAST_UPDATED, ATTACK_LEVEL, DEFENCE_SLASH, SIZE, HITPOINTS, CATEGORY, EXAMINE, WIKI_URL) VALUES (-1,'Molanisk','2021-09-02',40,45,1,52,'molanisks','A strange mole-like being.','https://oldschool.runescape.wiki/w/wMolanisk');
+INSERT INTO MONSTERS_ESP (ID, NAME, LAST_UPDATED, ATTACK_LEVEL, DEFENCE_SLASH, SIZE, HITPOINTS, CATEGORY, EXAMINE, WIKI_URL) VALUES (-2,'Molaniskprueba','2021-09-02',40,45,1,52,'molanisks','A strange mole-like being.','https://oldschool.runescape.wiki/w/wMolanisk');
 
 INSERT INTO DECORATIVES (ID, NAME) VALUES (-1,'cuadro');
 
