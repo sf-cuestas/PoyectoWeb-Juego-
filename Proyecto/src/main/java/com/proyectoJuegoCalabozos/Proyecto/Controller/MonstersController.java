@@ -43,13 +43,14 @@ public class MonstersController {
     }
     @PostMapping("/save")
     public String save(@ModelAttribute Monsters monster, Model model) {
+        System.out.println(monster.getId());
         monstersRepository.save(monster);
         return "redirect:/monsters/all";
     }
 
     @GetMapping("/edit/{id}")
     public String editMonster(Model model, @PathVariable Long id) {
-        Optional<Monsters> monster = monstersRepository.findById(id);
+        Monsters monster = monstersRepository.findById(id).get();
         if(monster != null)
         {
             model.addAttribute("monster", monster);
@@ -59,6 +60,12 @@ public class MonstersController {
         
 
         return "monster-edit";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteMonster(Model model, @PathVariable Long id) {
+        monstersRepository.deleteById(id);
+        return "redirect:/monsters/all";
     }
     
     

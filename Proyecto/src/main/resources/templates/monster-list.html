@@ -10,6 +10,8 @@
         <li th:each="monster : ${monsters}" >
             <a th:href="@{/monsters/edit/{id}(id=${monster.id})}" th:text="${monster.name}"></a></li>
     </ul>
+    <p><a th:href="@{/monsters/create}" th:text="Crear" ></a></p>
+    <p><a th:href="@{/}" th:text="Volver" ></a></p>
 </body>
     
 </html>
