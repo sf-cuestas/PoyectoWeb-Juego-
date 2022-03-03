@@ -31,7 +31,7 @@ public class MonstersController {
     public String allMonsters(Model model) {
         List<Monsters> monsters = monstersRepository.findAll();
         model.addAttribute("monsters", monsters);
-        return "monster-list";
+        return "Monsters-templates/monster-list";
     }
     
     @GetMapping("/create")
@@ -39,7 +39,7 @@ public class MonstersController {
         Monsters monster = new Monsters("",  "",  0, 0, 0, 0, "", "", "");
         model.addAttribute("monster", monster);
 
-        return "monster-create";
+        return "Monsters-templates/monster-create";
     }
     @PostMapping("/save")
     public String save(@ModelAttribute Monsters monster, Model model) {
@@ -54,12 +54,12 @@ public class MonstersController {
         if(monster != null)
         {
             model.addAttribute("monster", monster);
-            return "monster-edit";
+            return "Monsters-templates/monster-edit";
 
         }
         
 
-        return "monster-edit";
+        return "Monsters-templates/monster-edit";
     }
 
     @GetMapping("/delete/{id}")

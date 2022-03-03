@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        ...
+    </head>
+
+    <body>
+        <h1>Items</h1>
+        <form action="#" th:action="@{/items/save}" th:object="${item}" method="post">
+            
+            <label for="item-name">Name: </label>
+            <input type="text" th:field="${item.Name}" id="item-name">
+            <label for="item-last_update">Last update: </label>
+            <input type="text" th:field="${item.last_updated}" id="item-last_update">
+            <label for="item-cost">Cost: </label>
+            <input type="text" th:field="${item.cost}" id="item-cost">
+            <label for="item-weight">weight: </label>
+            <input type="text" th:field="${item.weight}" id="item-weight">
+            <label for="item-examine">examine: </label>
+            <input type="text" th:field="${item.examine}" id="item-examine">
+            <label for="item-wiki_url">wiki_url: </label>
+            <input type="text" th:field="${item.wiki_url}" id="item-wiki_url">
+            <button type="submit">Enviar</button>
+
+        </form>
+    </body>
+</html>

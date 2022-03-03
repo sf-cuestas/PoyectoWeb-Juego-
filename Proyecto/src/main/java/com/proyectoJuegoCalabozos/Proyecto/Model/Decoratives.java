@@ -1,5 +1,3 @@
-
-/*
 package com.proyectoJuegoCalabozos.Proyecto.Model;
 
 import javax.persistence.Entity;
@@ -40,4 +38,3 @@ public class Decoratives {
   
     
 }
-*/

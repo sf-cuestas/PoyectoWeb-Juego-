@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        ...
+    </head>
+
+    <body>
+        <h1>Decoratives</h1>
+        <form action="#" th:action="@{/decoratives/save}" th:object="${decorative}" method="post">
+            
+            <label for="decorative-name">Name: </label>
+            <input type="text" th:field="${decorative.Name}" id="decorative-name">
+            <button type="submit">Enviar</button>
+
+        </form>
+    </body>
+</html>

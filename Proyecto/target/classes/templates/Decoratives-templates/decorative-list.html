@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns: th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de decorativos</title>
+</head>
+<body>
+    <h1>Decoratives</h1>
+    <ul>
+        <li th:each="decorative : ${decoratives}" >
+            <a th:href="@{/decoratives/edit/{id}(id=${decorative.id})}" th:text="${decorative.name}"></a></li>
+    </ul>
+    <p><a th:href="@{/decoratives/create}" th:text="Crear" ></a></p>
+    <p><a th:href="@{/}" th:text="Volver" ></a></p>
+</body>
+    
+</html>
