@@ -1,9 +1,13 @@
 package com.proyectoJuegoCalabozos.Proyecto.Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class MonstersEsp {
@@ -19,12 +23,15 @@ public class MonstersEsp {
     String category;
     String examine;
     String wiki_url;
-    
 
+    @OneToMany(mappedBy = "monsterEsp")
+    List<Monster> monstruos = new ArrayList<>();
     
     
     public MonstersEsp() {
     }
+
+
 
     public MonstersEsp(String name, String last_updated, Integer attack_level, Integer defence_slash, Integer size, Integer hitpoints,
             String category, String examine, String wiki_url) {
@@ -99,4 +106,14 @@ public class MonstersEsp {
     public void setWiki_url(String wiki_url) {
         this.wiki_url = wiki_url;
     }
+
+    public List<Monster> getMonstruos() {
+        return monstruos;
+    }
+
+    public void setMonstruos(List<Monster> monstruos) {
+        this.monstruos = monstruos;
+    }
+
+    
 }

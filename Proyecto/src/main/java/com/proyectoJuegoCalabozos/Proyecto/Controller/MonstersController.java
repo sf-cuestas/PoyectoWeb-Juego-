@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.proyectoJuegoCalabozos.Proyecto.Model.MonstersEsp;
-import com.proyectoJuegoCalabozos.Proyecto.Repository.MonstersRepository;
+import com.proyectoJuegoCalabozos.Proyecto.Repository.MonstersEspRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class MonstersController {
 
     @Autowired
-    private MonstersRepository monstersRepository;
+    private MonstersEspRepository monstersRepository;
 
     @GetMapping("/all")
     public String allMonsters(Model model) {

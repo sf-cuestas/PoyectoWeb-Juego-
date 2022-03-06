@@ -346,3 +346,6 @@ Caused by: java.nio.channels.OverlappingFileLockException
 	at java.base/java.nio.channels.FileChannel.tryLock(FileChannel.java:1165)
 	at org.h2.mvstore.FileStore.open(FileStore.java:163)
 	... 28 more
+2022-03-05 20:32:49 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MONSTERS_ESP" not found; SQL statement:
+insert into monsters_esp (attack_level, category, defence_slash, examine, hitpoints, last_updated, name, size, wiki_url, id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [42102-200]

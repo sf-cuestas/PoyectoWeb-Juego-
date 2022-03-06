@@ -7,7 +7,7 @@ import java.util.List;
 import com.proyectoJuegoCalabozos.Proyecto.Model.MonstersEsp;
 
 @Repository
-public interface MonstersRepository extends JpaRepository<MonstersEsp,Long>{
+public interface MonstersEspRepository extends JpaRepository<MonstersEsp,Long>{
     List<MonstersEsp> findByName(String name);
     
 }
