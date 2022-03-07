@@ -12,7 +12,7 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
     String name;
-    contrase;a 
+    password 
     puntos de vida 
     mochila
     donde esta habitacion
