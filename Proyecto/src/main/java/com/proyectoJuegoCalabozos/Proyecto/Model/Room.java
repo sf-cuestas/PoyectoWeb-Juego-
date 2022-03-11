@@ -17,6 +17,8 @@ public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
+    String name;
+    String description;
     @ManyToMany
     List <Items> items = new ArrayList<>();
     @ManyToMany
@@ -27,12 +29,67 @@ public class Room {
     List <Exit> exits = new ArrayList<>();
 
 
-
     
-    public Room() {
+    public Room(String name, String description) {
+        this.name = name;
+        this.description = description;
     }
 
 
+
+    public Room() {
+    }
+    
+
+    
+    public String getName() {
+        return name;
+    }
+
+
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+
+    public String getDescription() {
+        return description;
+    }
+
+
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
+
+    public List<Items> getItems() {
+        return items;
+    }
+
+
+
+
+    public void setItems(List<Items> items) {
+        this.items = items;
+    }
+
+
+
+
+    public List<Decoratives> getDecoratives() {
+        return decoratives;
+    }
+
+
+
+
+    public void setDecoratives(List<Decoratives> decoratives) {
+        this.decoratives = decoratives;
+    }
 
 
     public long getId() {

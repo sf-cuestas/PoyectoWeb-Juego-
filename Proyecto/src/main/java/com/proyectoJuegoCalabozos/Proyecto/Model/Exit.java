@@ -15,6 +15,34 @@ public class Exit {
     Room before;
     @ManyToOne
     Room after;
-    String name;
+    
+    public Exit() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Room getBefore() {
+        return before;
+    }
+
+    public void setBefore(Room before) {
+        this.before = before;
+    }
+
+    public Room getAfter() {
+        return after;
+    }
+
+    public void setAfter(Room after) {
+        this.after = after;
+    }
+   
+    
     
 }

@@ -81,4 +81,17 @@ public class Items {
     public void setWiki_url(String wiki_url) {
         this.wiki_url = wiki_url;
     }
+    
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
+
+
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
+    }
+
+    
+
 }

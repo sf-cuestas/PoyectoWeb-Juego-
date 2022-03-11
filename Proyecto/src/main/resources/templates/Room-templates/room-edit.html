@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+    </head>
+
+    <body>
+        <h1>en esta pagina se va a editar</h1>
+        <h1>Decoratives</h1>
+        <form action="#" th:action="@{/rooms/save}" th:object="${room}" method="post">
+            <input type="hidden" th:field="${room.id}" id="room-id">
+            <label for="Room-name">Name: </label>
+            <input type="text" th:field="${room.Name}" id="room-name">
+            <label for="Room-descripcion">Descripción: </label>
+            <input type="text" th:field="${room.description}" id="room-description">
+            <button type="submit">Enviar</button>
+            <p><a th:href="@{/rooms/delete/{id}(id=${room.id})}" th:text="Borrar" ></a></p>
+
+        </form>
+    </body>
+</html>

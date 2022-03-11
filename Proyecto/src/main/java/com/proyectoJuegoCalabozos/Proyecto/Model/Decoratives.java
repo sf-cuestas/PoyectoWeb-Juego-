@@ -41,6 +41,18 @@ public class Decoratives {
     public void setName(String name) {
         this.name = name;
     }
+
+
+
+    public List<Room> getRoom() {
+        return room;
+    }
+
+
+
+    public void setRoom(List<Room> room) {
+        this.room = room;
+    }
   
     
 }

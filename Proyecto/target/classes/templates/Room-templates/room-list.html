@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns: th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de decorativos</title>
+</head>
+<body>
+    <h1>Rooms</h1>
+    <ul>
+        <li th:each="room : ${rooms}" >
+            <a th:href="@{/rooms/edit/{id}(id=${room.id})}" th:text="${room.name}"></a></li>
+    </ul>
+    <p><a th:href="@{/room/create}" th:text="Crear" ></a></p>
+    <p><a th:href="@{/}" th:text="Volver" ></a></p>
+</body>
+    
+</html>
