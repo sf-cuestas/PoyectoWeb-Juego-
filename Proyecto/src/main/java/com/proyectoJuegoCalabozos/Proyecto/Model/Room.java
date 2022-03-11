@@ -24,8 +24,8 @@ public class Room {
     @ManyToMany
     List <Decoratives> decoratives = new ArrayList<>();
     @OneToOne
-    MonstersEsp monster;
-    @OneToMany
+    Monster monster;
+    @OneToMany(mappedBy = "before")
     List <Exit> exits = new ArrayList<>();
 
 
@@ -39,9 +39,21 @@ public class Room {
 
     public Room() {
     }
-    
 
-    
+
+
+    public long getId() {
+        return id;
+    }
+
+
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+
+
     public String getName() {
         return name;
     }
@@ -72,11 +84,9 @@ public class Room {
 
 
 
-
     public void setItems(List<Items> items) {
         this.items = items;
     }
-
 
 
 
@@ -86,42 +96,35 @@ public class Room {
 
 
 
-
     public void setDecoratives(List<Decoratives> decoratives) {
         this.decoratives = decoratives;
     }
 
 
-    public long getId() {
-        return id;
-    }
-    public void setId(long id) {
-        this.id = id;
-    }
-    public List<Items> getitems() {
-        return items;
-    }
-    public void setitems(List<Items> items) {
-        this.items = items;
-    }
-    public List<Decoratives> getdecoratives() {
-        return decoratives;
-    }
-    public void setdecoratives(List<Decoratives> decoratives) {
-        this.decoratives = decoratives;
-    }
-    public MonstersEsp getMonster() {
+
+    public Monster getMonster() {
         return monster;
     }
-    public void setMonster(MonstersEsp monster) {
+
+
+
+    public void setMonster(Monster monster) {
         this.monster = monster;
     }
+
+
+
     public List<Exit> getExits() {
         return exits;
     }
+
+
+
     public void setExits(List<Exit> exits) {
         this.exits = exits;
     }
+    
+
     
 
     

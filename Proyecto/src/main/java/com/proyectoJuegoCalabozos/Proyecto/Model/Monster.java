@@ -16,6 +16,8 @@ public class Monster {
     @ManyToOne
     MonstersEsp monsterEsp;
     Integer hp;
+    @OneToOne
+    Room room;
   
     
 
@@ -75,6 +77,16 @@ public class Monster {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    public Room getRoom() {
+        return room;
+    }
+
+
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
     

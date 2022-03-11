@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Exit {
@@ -13,7 +14,7 @@ public class Exit {
     Long id;
     @ManyToOne
     Room before;
-    @ManyToOne
+    @OneToOne
     Room after;
     
     public Exit() {
@@ -42,6 +43,8 @@ public class Exit {
     public void setAfter(Room after) {
         this.after = after;
     }
+
+   
    
     
     
