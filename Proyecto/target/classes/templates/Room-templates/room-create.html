@@ -9,7 +9,19 @@
         <form action="#" th:action="@{/rooms/save}" th:object="${room}" method="post">
             
             <label for="room-name">Name: </label>
-            <input type="text" th:field="${decorative.Name}" id="decorative-name">
+            <input type="text" th:field="${room.Name}" id="room-name">
+
+            <label for="room-descripcion">Description: </label>
+            <input type="text" th:field="${room.Description}" id="room-descripcion">
+
+                <label for="yes_no_radio">Monster in room?</label>
+              <p>
+              <input type="radio" name="yes_no" checked>Yes</input>
+              </p>
+              <p>
+              <input type="radio" name="yes_no">No</input>
+              </p>
+
             <button type="submit">Enviar</button>
 
         </form>

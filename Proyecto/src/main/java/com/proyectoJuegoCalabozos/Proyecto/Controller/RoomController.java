@@ -32,7 +32,6 @@ public class RoomController {
     public String createRoom(Model model) {
         Room room = new Room("",  "");
         model.addAttribute("room", room);
-
         return "Room-templates/room-create";
     }
     @PostMapping("/save")
