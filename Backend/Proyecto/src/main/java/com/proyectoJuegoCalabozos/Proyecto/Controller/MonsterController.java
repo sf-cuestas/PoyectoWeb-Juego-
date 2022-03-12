@@ -2,9 +2,8 @@ package com.proyectoJuegoCalabozos.Proyecto.Controller;
 
 import java.util.List;
 
-
-import com.proyectoJuegoCalabozos.Proyecto.Model.MonstersEsp;
-import com.proyectoJuegoCalabozos.Proyecto.Repository.MonstersEspRepository;
+import com.proyectoJuegoCalabozos.Proyecto.Model.Monster;
+import com.proyectoJuegoCalabozos.Proyecto.Repository.MonsterRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,58 +14,51 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
-
-
-
 @Controller
-@RequestMapping("/monsters")
-public class MonstersController {
+@RequestMapping("/monster")
+public class MonsterController {
 
     @Autowired
-    private MonstersEspRepository monstersRepository;
+    private MonsterRepository monsterRepository;
 
     @GetMapping("/all")
     public String allMonsters(Model model) {
-        List<MonstersEsp> monsters = monstersRepository.findAll();
+        List<Monster> monsters = monsterRepository.findAll();
         model.addAttribute("monsters", monsters);
-        return "Monsters-templates/monster-list";
+        return "Monster-templates/Monster-list";
     }
     
     @GetMapping("/create")
     public String createMonster(Model model) {
-        MonstersEsp monster = new MonstersEsp("",  "",  0, 0, 0, 0, "", "", "");
+        Monster monster = new Monster("",0);
         model.addAttribute("monster", monster);
-
-        return "Monsters-templates/monster-create";
+        return "Monster-templates/Monster-create";
     }
+
     @PostMapping("/save")
-    public String save(@ModelAttribute MonstersEsp monster, Model model) {
+    public String save(@ModelAttribute Monster monster, Model model) {
         System.out.println(monster.getId());
-        monstersRepository.save(monster);
-        return "redirect:/monsters/all";
+        monsterRepository.save(monster);
+        return "redirect:/Monsters/all";
     }
 
     @GetMapping("/edit/{id}")
     public String editMonster(Model model, @PathVariable Long id) {
-        MonstersEsp monster = monstersRepository.findById(id).get();
+        Monster monster = monsterRepository.findById(id).get();
         if(monster != null)
         {
             model.addAttribute("monster", monster);
-            return "Monsters-templates/monster-edit";
+            return "Monster-templates/Monster-edit";
 
         }
-        
-
-        return "Monsters-templates/monster-edit";
+        return "Monster-templates/Monster-edit";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteMonster(Model model, @PathVariable Long id) {
-        monstersRepository.deleteById(id);
-        return "redirect:/monsters/all";
+        monsterRepository.deleteById(id);
+        return "redirect:/Monster/all";
     }
-    
-    
-    
+
+
 }
