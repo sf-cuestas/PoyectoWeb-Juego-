@@ -147,6 +147,8 @@ public class DatabaseInit implements ApplicationRunner{
         exitRepository.findAll().get(3).setBefore(roomRepository.findAll().get(3)); 
         exitRepository.findAll().get(3).setAfter(roomRepository.findAll().get(4));
         roomRepository.findAll().get(3).getExits().add(exitRepository.findAll().get(3));
+        roomRepository.findAll().get(3).getExits().add(exitRepository.findAll().get(2));
+        
 
         exitRepository.findAll().get(4).setBefore(roomRepository.findAll().get(4)); 
         exitRepository.findAll().get(4).setAfter(roomRepository.findAll().get(0));

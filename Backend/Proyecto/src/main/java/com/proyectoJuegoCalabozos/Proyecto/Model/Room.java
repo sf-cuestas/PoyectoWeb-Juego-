@@ -123,6 +123,14 @@ public class Room {
     public void setExits(List<Exit> exits) {
         this.exits = exits;
     }
+
+    public void disconnection(){
+        getMonster().setRoom(null);
+        setMonster(null);
+        setDecoratives(null);
+        setExits(null);
+        setItems(null);
+    }
     
 
     
