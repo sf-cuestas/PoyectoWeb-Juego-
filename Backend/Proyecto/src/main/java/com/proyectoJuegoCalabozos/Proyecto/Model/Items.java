@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Items {
@@ -22,6 +23,8 @@ public class Items {
     String wiki_url;
     @ManyToMany(mappedBy = "items")
     List <Room> rooms = new ArrayList<>();
+    @ManyToOne
+    Player player;
    
     public Items() {
     }
@@ -89,6 +92,20 @@ public class Items {
     public void setRooms(List<Room> rooms) {
         this.rooms = rooms;
     }
+
+
+    
+    public Player getPlayer() {
+        return player;
+    }
+
+
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+
 
     public void removeRoom(Room r){
         this.rooms.remove(r);
