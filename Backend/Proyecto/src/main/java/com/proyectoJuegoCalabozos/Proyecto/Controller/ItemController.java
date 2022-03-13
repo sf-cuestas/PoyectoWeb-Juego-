@@ -3,7 +3,9 @@ package com.proyectoJuegoCalabozos.Proyecto.Controller;
 import java.util.List;
 
 import com.proyectoJuegoCalabozos.Proyecto.Model.Items;
+import com.proyectoJuegoCalabozos.Proyecto.Model.Room;
 import com.proyectoJuegoCalabozos.Proyecto.Repository.ItemRepository;
+import com.proyectoJuegoCalabozos.Proyecto.Repository.RoomRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,9 @@ public class ItemController {
 
     @Autowired
     private ItemRepository itemRepository;
+
+    @Autowired 
+    private RoomRepository roomRepository;
 
     @GetMapping("/all")
     public String allItems(Model model) {
@@ -58,6 +63,14 @@ public class ItemController {
 
     @GetMapping("/delete/{id}")
     public String deleteItem(Model model, @PathVariable Long id) {
+
+
+        for(Room room : roomRepository.findAll()){
+            itemRepository.findById(id).get().removeRoom(room);
+        }
+
+
+             
         itemRepository.deleteById(id);
         return "redirect:/items/all";
     }

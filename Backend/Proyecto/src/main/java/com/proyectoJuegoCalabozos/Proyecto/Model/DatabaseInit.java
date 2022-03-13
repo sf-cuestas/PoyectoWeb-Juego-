@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import com.proyectoJuegoCalabozos.Proyecto.Repository.DecorativesRepository;
 import com.proyectoJuegoCalabozos.Proyecto.Repository.ExitRepository;
 import com.proyectoJuegoCalabozos.Proyecto.Repository.MonstersEspRepository;
+import com.proyectoJuegoCalabozos.Proyecto.Repository.PlayerRepository;
 import com.proyectoJuegoCalabozos.Proyecto.Repository.RoomRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +41,22 @@ public class DatabaseInit implements ApplicationRunner{
     @Autowired
     RoomRepository roomRepository;
 
+    @Autowired
+    PlayerRepository playerRepository;
+
 
     @Override
     @Transactional
     public void run(ApplicationArguments args) throws Exception {
+
+
+
+        // Players
+        playerRepository.save(new Player("escobartc","123",100,10,10,1,0));
+        playerRepository.save(new Player("chamy","123",100,10,10,1,0));
+        playerRepository.save(new Player("javier","1234",100,10,10,1,0));
+
+
 
         //Tipos de monstruo
         monsterEspRepository.save(new MonstersEsp("Molanisk","2021-09-02",40,45,1,52,"molanisks","A strange mole-like being.","https://oldschool.runescape.wiki/w/wMolanisk"));
@@ -79,22 +92,13 @@ public class DatabaseInit implements ApplicationRunner{
         roomRepository.save(new Room("Green Room", "Plants room"));
         roomRepository.save(new Room("Pink Room", "Flowers room"));
         roomRepository.save(new Room("Yellow Room", "Cheese room"));
+        
 
         //Salidas
         exitRepository.save(new Exit());
         exitRepository.save(new Exit());
         exitRepository.save(new Exit());
         exitRepository.save(new Exit());
-        exitRepository.save(new Exit());
-
-
-/*
-        MonstersEsp monsterEsp = monsterEspRepository.findById(1l).orElseThrow();
-        for(Monster monster : monsterRepository.findAll()){
-            monster.setMonsterEsp(monsterEsp);
-            monsterRepository.save(monster);
-        }
-*/
        
 
         // For para poner tipos a los monstruos
@@ -131,26 +135,29 @@ public class DatabaseInit implements ApplicationRunner{
        
 
 
-        // For para poner conexiones entre habitaciones y salidas
-        exitRepository.findAll().get(0).setBefore(roomRepository.findAll().get(0));
-        exitRepository.findAll().get(0).setAfter(roomRepository.findAll().get(1)); 
+        // For para poner conexiones entre habitaciones y salidas    
+        exitRepository.findAll().get(0).setBefore(roomRepository.findAll().get(4));
+        exitRepository.findAll().get(0).setAfter(roomRepository.findAll().get(0));
         roomRepository.findAll().get(0).getExits().add(exitRepository.findAll().get(0));
-        
-        exitRepository.findAll().get(1).setBefore(roomRepository.findAll().get(1)); 
-        exitRepository.findAll().get(1).setAfter(roomRepository.findAll().get(2)); 
+
+        exitRepository.findAll().get(1).setBefore(roomRepository.findAll().get(0));
+        exitRepository.findAll().get(1).setAfter(roomRepository.findAll().get(1));
         roomRepository.findAll().get(1).getExits().add(exitRepository.findAll().get(1));
 
-        exitRepository.findAll().get(2).setBefore(roomRepository.findAll().get(2)); 
-        exitRepository.findAll().get(2).setAfter(roomRepository.findAll().get(3)); 
+
+        exitRepository.findAll().get(2).setBefore(roomRepository.findAll().get(1));
+        exitRepository.findAll().get(2).setAfter(roomRepository.findAll().get(2));
         roomRepository.findAll().get(2).getExits().add(exitRepository.findAll().get(2));
 
-        exitRepository.findAll().get(3).setBefore(roomRepository.findAll().get(3)); 
-        exitRepository.findAll().get(3).setAfter(roomRepository.findAll().get(4));
+
+        exitRepository.findAll().get(3).setBefore(roomRepository.findAll().get(2));
+        exitRepository.findAll().get(3).setAfter(roomRepository.findAll().get(3));
         roomRepository.findAll().get(3).getExits().add(exitRepository.findAll().get(3));
 
-        exitRepository.findAll().get(4).setBefore(roomRepository.findAll().get(4)); 
-        exitRepository.findAll().get(4).setAfter(roomRepository.findAll().get(0));
-        roomRepository.findAll().get(4).getExits().add(exitRepository.findAll().get(4));
+    
+        
+        
+       
     }
     
 }

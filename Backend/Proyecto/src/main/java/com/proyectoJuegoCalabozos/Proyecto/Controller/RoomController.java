@@ -2,7 +2,9 @@ package com.proyectoJuegoCalabozos.Proyecto.Controller;
 
 import java.util.List;
 
+import com.proyectoJuegoCalabozos.Proyecto.Model.Exit;
 import com.proyectoJuegoCalabozos.Proyecto.Model.Room;
+import com.proyectoJuegoCalabozos.Proyecto.Repository.ExitRepository;
 import com.proyectoJuegoCalabozos.Proyecto.Repository.RoomRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class RoomController {
 
     @Autowired
     private RoomRepository roomRepository;
+
+    @Autowired
+    private ExitRepository exitRepository;
 
     @GetMapping("/all")
     public String allRoom(Model model) {
@@ -55,6 +60,29 @@ public class RoomController {
 
     @GetMapping("/delete/{id}")
     public String deleteRoom(Model model, @PathVariable Long id) {
+        for(Room room : roomRepository.findAll()){
+            if(room != null)
+            for(Exit e : room.getExits()){
+                if(e != null){
+                    if(e.getAfter()!= null && e.getAfter().getId()==id){
+                        e.setAfter(null);
+                        e.setBefore(null);
+                    }
+                    
+                    if(e.getBefore()!= null && e.getBefore().getId()==id){
+                        e.setBefore(null);
+                        e.setAfter(null);
+                    }
+                }
+                
+            }
+        }
+       
+        for(Exit salida : roomRepository.findById(id).get().getExits()){
+            exitRepository.delete(salida);
+        }
+        roomRepository.findById(id).get().disconnection();
+        roomRepository.save(roomRepository.findById(id).get());
         roomRepository.deleteById(id);
         return "redirect:/rooms/all";
     }

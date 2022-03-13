@@ -27,7 +27,8 @@ public class Room {
     Monster monster;
     @OneToMany(mappedBy = "before")
     List <Exit> exits = new ArrayList<>();
-
+    @OneToMany(mappedBy = "room")
+    List <Player> players = new ArrayList<>();
 
     
     public Room(String name, String description) {
@@ -123,15 +124,36 @@ public class Room {
     public void setExits(List<Exit> exits) {
         this.exits = exits;
     }
-    
 
     
 
-    
+    public List<Player> getPlayers() {
+        return players;
+    }
 
-    
 
-    
+
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
+
+
+
+    public void disconnection(){
+        
+        if(getMonster()!=null)
+        getMonster().setRoom(null);
+        
+        setMonster(null);
+        
+        getDecoratives().removeAll(decoratives);
+        
+        getExits().removeAll(exits);
+        
+        getItems().removeAll(items);
+
+        getPlayers().removeAll(players);
+    }
 
 
 }
