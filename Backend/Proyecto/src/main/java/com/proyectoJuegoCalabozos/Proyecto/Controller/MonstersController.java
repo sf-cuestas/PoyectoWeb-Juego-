@@ -2,8 +2,9 @@ package com.proyectoJuegoCalabozos.Proyecto.Controller;
 
 import java.util.List;
 
-
+import com.proyectoJuegoCalabozos.Proyecto.Model.Monster;
 import com.proyectoJuegoCalabozos.Proyecto.Model.MonstersEsp;
+import com.proyectoJuegoCalabozos.Proyecto.Repository.MonsterRepository;
 import com.proyectoJuegoCalabozos.Proyecto.Repository.MonstersEspRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class MonstersController {
 
     @Autowired
     private MonstersEspRepository monstersRepository;
+
+    @Autowired
+    private MonsterRepository monsterRepository;
 
     @GetMapping("/all")
     public String allMonsters(Model model) {
@@ -63,6 +67,15 @@ public class MonstersController {
 
     @GetMapping("/delete/{id}")
     public String deleteMonster(Model model, @PathVariable Long id) {
+
+        for(Monster monster : monsterRepository.findAll()){
+            if(monster!=null){
+                if(monster.getMonsterEsp() != null && monster.getMonsterEsp().getId()==id){
+                    monstersRepository.findById(id).get().unlink(monster);
+                    }
+            } 
+            
+        } 
         monstersRepository.deleteById(id);
         return "redirect:/monsters/all";
     }

@@ -60,13 +60,29 @@ public class RoomController {
 
     @GetMapping("/delete/{id}")
     public String deleteRoom(Model model, @PathVariable Long id) {
+        for(Room room : roomRepository.findAll()){
+            if(room != null)
+            for(Exit e : room.getExits()){
+                if(e != null){
+                    if(e.getAfter()!= null && e.getAfter().getId()==id){
+                        e.setAfter(null);
+                        e.setBefore(null);
+                    }
+                    
+                    if(e.getBefore()!= null && e.getBefore().getId()==id){
+                        e.setBefore(null);
+                        e.setAfter(null);
+                    }
+                }
+                
+            }
+        }
+       
         for(Exit salida : roomRepository.findById(id).get().getExits()){
-            exitRepository.delete(salida); 
+            exitRepository.delete(salida);
         }
         roomRepository.findById(id).get().disconnection();
-        System.out.println(id);
         roomRepository.save(roomRepository.findById(id).get());
-
         roomRepository.deleteById(id);
         return "redirect:/rooms/all";
     }

@@ -86,10 +86,13 @@ public class Items {
         return rooms;
     }
 
-
-
     public void setRooms(List<Room> rooms) {
         this.rooms = rooms;
+    }
+
+    public void removeRoom(Room r){
+        this.rooms.remove(r);
+        r.getItems().remove(this);
     }
 
     

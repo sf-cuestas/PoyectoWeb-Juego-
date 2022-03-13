@@ -54,5 +54,8 @@ public class Decoratives {
         this.room = room;
     }
   
-    
+    public void removeRoom(Room r){
+        this.room.remove(r);
+        r.getDecoratives().remove(this);
+    }
 }

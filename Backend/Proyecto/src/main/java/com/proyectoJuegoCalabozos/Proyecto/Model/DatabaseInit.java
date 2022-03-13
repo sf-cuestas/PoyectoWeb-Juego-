@@ -79,13 +79,14 @@ public class DatabaseInit implements ApplicationRunner{
         roomRepository.save(new Room("Green Room", "Plants room"));
         roomRepository.save(new Room("Pink Room", "Flowers room"));
         roomRepository.save(new Room("Yellow Room", "Cheese room"));
+        
 
         //Salidas
         exitRepository.save(new Exit());
         exitRepository.save(new Exit());
         exitRepository.save(new Exit());
         exitRepository.save(new Exit());
-        exitRepository.save(new Exit());
+       
 
 
 /*
@@ -132,27 +133,31 @@ public class DatabaseInit implements ApplicationRunner{
 
 
         // For para poner conexiones entre habitaciones y salidas
-        exitRepository.findAll().get(0).setBefore(roomRepository.findAll().get(0));
-        exitRepository.findAll().get(0).setAfter(roomRepository.findAll().get(1)); 
-        roomRepository.findAll().get(0).getExits().add(exitRepository.findAll().get(0));
+       
+
         
-        exitRepository.findAll().get(1).setBefore(roomRepository.findAll().get(1)); 
-        exitRepository.findAll().get(1).setAfter(roomRepository.findAll().get(2)); 
+        exitRepository.findAll().get(0).setBefore(roomRepository.findAll().get(4));
+        exitRepository.findAll().get(0).setAfter(roomRepository.findAll().get(0));
+        roomRepository.findAll().get(0).getExits().add(exitRepository.findAll().get(0));
+
+        exitRepository.findAll().get(1).setBefore(roomRepository.findAll().get(0));
+        exitRepository.findAll().get(1).setAfter(roomRepository.findAll().get(1));
         roomRepository.findAll().get(1).getExits().add(exitRepository.findAll().get(1));
 
-        exitRepository.findAll().get(2).setBefore(roomRepository.findAll().get(2)); 
-        exitRepository.findAll().get(2).setAfter(roomRepository.findAll().get(3)); 
+
+        exitRepository.findAll().get(2).setBefore(roomRepository.findAll().get(1));
+        exitRepository.findAll().get(2).setAfter(roomRepository.findAll().get(2));
         roomRepository.findAll().get(2).getExits().add(exitRepository.findAll().get(2));
 
-        exitRepository.findAll().get(3).setBefore(roomRepository.findAll().get(3)); 
-        exitRepository.findAll().get(3).setAfter(roomRepository.findAll().get(4));
-        roomRepository.findAll().get(3).getExits().add(exitRepository.findAll().get(3));
-        roomRepository.findAll().get(3).getExits().add(exitRepository.findAll().get(2));
-        
 
-        exitRepository.findAll().get(4).setBefore(roomRepository.findAll().get(4)); 
-        exitRepository.findAll().get(4).setAfter(roomRepository.findAll().get(0));
-        roomRepository.findAll().get(4).getExits().add(exitRepository.findAll().get(4));
+        exitRepository.findAll().get(3).setBefore(roomRepository.findAll().get(2));
+        exitRepository.findAll().get(3).setAfter(roomRepository.findAll().get(3));
+        roomRepository.findAll().get(3).getExits().add(exitRepository.findAll().get(3));
+
+
+        
+        
+       
     }
     
 }

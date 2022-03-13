@@ -125,11 +125,17 @@ public class Room {
     }
 
     public void disconnection(){
+        
+        if(getMonster()!=null)
         getMonster().setRoom(null);
+        
         setMonster(null);
-        setDecoratives(null);
-        setExits(null);
-        setItems(null);
+        
+        getDecoratives().removeAll(decoratives);
+        
+        getExits().removeAll(exits);
+        
+        getItems().removeAll(items);
     }
     
 

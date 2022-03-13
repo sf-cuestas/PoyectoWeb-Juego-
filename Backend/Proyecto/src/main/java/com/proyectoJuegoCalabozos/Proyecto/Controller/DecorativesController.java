@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.proyectoJuegoCalabozos.Proyecto.Model.Decoratives;
+import com.proyectoJuegoCalabozos.Proyecto.Model.Room;
 import com.proyectoJuegoCalabozos.Proyecto.Repository.DecorativesRepository;
+import com.proyectoJuegoCalabozos.Proyecto.Repository.RoomRepository;
 
 
 
@@ -23,6 +25,9 @@ import com.proyectoJuegoCalabozos.Proyecto.Repository.DecorativesRepository;
 public class DecorativesController {
     @Autowired
     private DecorativesRepository decorativesRepository;
+
+    @Autowired 
+    private RoomRepository roomRepository;
 
     @GetMapping("/all")
     public String allDecoratives(Model model) {
@@ -61,6 +66,10 @@ public class DecorativesController {
 
     @GetMapping("/delete/{id}")
     public String deleteDecorative(Model model, @PathVariable Long id) {
+
+        for(Room room : roomRepository.findAll()){
+            decorativesRepository.findById(id).get().removeRoom(room);
+        }
         decorativesRepository.deleteById(id);
         return "redirect:/decoratives/all";
     }

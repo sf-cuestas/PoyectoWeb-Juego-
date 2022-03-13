@@ -115,5 +115,13 @@ public class MonstersEsp {
         this.monstruos = monstruos;
     }
 
+    public void unlink(Monster m){
+        if(getMonstruos()!=null){
+            this.monstruos.remove(m);
+            m.setMonsterEsp(null);
+        }
+        
+    }
+
     
 }

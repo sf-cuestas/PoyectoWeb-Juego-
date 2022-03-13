@@ -44,7 +44,10 @@ public class Exit {
         this.after = after;
     }
 
-   
+   public void remove(){
+    setAfter(null);
+    setBefore(null);
+   }
    
     
     
