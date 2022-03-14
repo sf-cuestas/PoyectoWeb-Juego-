@@ -56,6 +56,18 @@ public class ExitController {
         return "Exit-templates/exit-edit";
     }
 
+    @GetMapping("/delete/{id}")
+    public String deleteMonster(Model model, @PathVariable Long id) {
+        Exit e = exitRepository.findById(id).get();
+        if(e.getAfter()==null && e.getBefore()==null){
+            exitRepository.deleteById(id);
+        } else {
+            e.remove();
+            exitRepository.deleteById(id);
+        }
+        return "redirect:/exits/all";
+    }
+
     
     
 }

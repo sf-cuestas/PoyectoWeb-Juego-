@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns: th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Players</title>
+</head>
+<body>
+    <h1>Active players</h1>
+    <ul>
+        <li th:each="player : ${player}" >
+            <a th:text="${player.username}"></a></li>
+    </ul>
+    <p><a th:href="@{/}" th:text="Back" ></a></p>
+</body>
+    
+</html>

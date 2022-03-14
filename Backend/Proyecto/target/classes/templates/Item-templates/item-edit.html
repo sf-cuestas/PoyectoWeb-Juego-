@@ -4,7 +4,7 @@
     </head>
 
     <body>
-        <h1>en esta pagina se va a editar</h1>
+        <h1>Here you are able to edit items.</h1>
         <h1>Items</h1>
         <form action="#" th:action="@{/items/save}" th:object="${item}" method="post">
             <input type="hidden" th:field="${item.id}" id="item-id">
@@ -20,8 +20,8 @@
             <input type="text" th:field="${item.examine}" id="item-examine">
             <label for="item-wiki_url">wiki_url: </label>
             <input type="text" th:field="${item.wiki_url}" id="item-wiki_url">
-            <button type="submit">Enviar</button>
-            <p><a th:href="@{/items/delete/{id}(id=${item.id})}" th:text="Borrar" ></a></p>
+            <button type="submit">Send</button>
+            <p><a th:href="@{/items/delete/{id}(id=${item.id})}" th:text="Delete" ></a></p>
 
         </form>
     </body>

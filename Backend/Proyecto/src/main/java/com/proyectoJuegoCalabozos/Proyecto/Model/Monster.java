@@ -89,6 +89,13 @@ public class Monster {
         this.room = room;
     }
 
+    public void unlink(Room r, MonstersEsp t){
+        this.setRoom(null);
+        this.setMonsterEsp(null);
+        r.setMonster(null);
+        t.getMonstruos().remove(this);
+    }
+
     
     
 

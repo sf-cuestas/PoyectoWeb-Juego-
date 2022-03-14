@@ -4,14 +4,14 @@
     </head>
 
     <body>
-        <h1>en esta pagina se va a editar</h1>
+        <h1>Here you are able to edit decoratives.</h1>
         <h1>Decoratives</h1>
         <form action="#" th:action="@{/decoratives/save}" th:object="${decorative}" method="post">
             <input type="hidden" th:field="${decorative.id}" id="decorative-id">
             <label for="decorative-name">Name: </label>
             <input type="text" th:field="${decorative.Name}" id="decorative-name">
-            <button type="submit">Enviar</button>
-            <p><a th:href="@{/decoratives/delete/{id}(id=${decorative.id})}" th:text="Borrar" ></a></p>
+            <button type="submit">Send</button>
+            <p><a th:href="@{/decoratives/delete/{id}(id=${decorative.id})}" th:text="Delete" ></a></p>
 
         </form>
     </body>

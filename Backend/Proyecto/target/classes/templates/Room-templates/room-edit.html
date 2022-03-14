@@ -4,7 +4,7 @@
     </head>
 
     <body>
-        <h1>en esta pagina se va a editar</h1>
+        <h1>You can edit rooms here.</h1>
         <h1>Rooms</h1>
         <form action="#" th:action="@{/rooms/save}" th:object="${room}" method="post">
             <input type="hidden" th:field="${room.id}" id="room-id">
@@ -12,8 +12,8 @@
             <input type="text" th:field="${room.Name}" id="room-name">
             <label for="Room-descripcion">Descripción: </label>
             <input type="text" th:field="${room.description}" id="room-description">
-            <button type="submit">Enviar</button>
-            <p><a th:href="@{/rooms/delete/{id}(id=${room.id})}" th:text="Borrar" ></a></p>
+            <button type="submit">Send</button>
+            <p><a th:href="@{/rooms/delete/{id}(id=${room.id})}" th:text="Delete" ></a></p>
 
         </form>
     </body>

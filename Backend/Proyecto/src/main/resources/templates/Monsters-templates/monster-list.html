@@ -2,16 +2,16 @@
 <html xmlns: th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Listado de monstruos >:)</title>
+    <title>Types list.</title>
 </head>
 <body>
-    <h1>monsters</h1>
+    <h1>Types:</h1>
     <ul>
         <li th:each="monster : ${monsters}" >
             <a th:href="@{/monsters/edit/{id}(id=${monster.id})}" th:text="${monster.name}"></a></li>
     </ul>
-    <p><a th:href="@{/monsters/create}" th:text="Crear" ></a></p>
-    <p><a th:href="@{/}" th:text="Volver" ></a></p>
+    <p><a th:href="@{/monsters/create}" th:text="Create" ></a></p>
+    <p><a th:href="@{/}" th:text="Back" ></a></p>
 </body>
     
 </html>

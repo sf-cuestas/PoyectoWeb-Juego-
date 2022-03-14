@@ -2,10 +2,6 @@ package com.proyectoJuegoCalabozos.Proyecto.Model;
 import com.proyectoJuegoCalabozos.Proyecto.Repository.ItemRepository;
 import com.proyectoJuegoCalabozos.Proyecto.Repository.MonsterRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import javax.transaction.Transactional;
 
 import com.proyectoJuegoCalabozos.Proyecto.Repository.DecorativesRepository;

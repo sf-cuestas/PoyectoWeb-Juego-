@@ -5,7 +5,7 @@
     </head>
 
     <body>
-        <h1>en esta pagina se va a editar</h1>
+        <h1>Here you can edit monster types.</h1>
         <h1>Monsters</h1>
         <form action="#" th:action="@{/monsters/save}" th:object="${monster}" method="post">
             <input type="hidden" th:field="${monster.id}" id="monster-id">
@@ -27,8 +27,8 @@
             <input type="text" th:field="${monster.examine}" id="monster-examine">
             <label for="monster-wiki_url">Wiki URL: </label>
             <input type="text" th:field="${monster.wiki_url}" id="monster-wiki_url">
-            <button type="submit">Enviar</button>
-            <p><a th:href="@{/monsters/delete/{id}(id=${monster.id})}" th:text="Borrar" ></a></p>
+            <button type="submit">Send</button>
+            <p><a th:href="@{/monsters/delete/{id}(id=${monster.id})}" th:text="Delete" ></a></p>
 
         </form>
     </body>
