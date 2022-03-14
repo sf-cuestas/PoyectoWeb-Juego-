@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        ...
+    </head>
+
+    <body>
+        <h1>Exits</h1>
+        <form action="#" th:action="@{/exits/save}" th:object="${exit}" method="post">
+            
+            <label for="exit-before">Before: </label>
+            <input type="text" th:field="${exit.before}" before="exit-before">
+            <label for="exit-after">After: </label>
+            <input type="text" th:field="${exit.after}" after="exit-after">
+            <button type="submit">Enviar</button>
+
+        </form>
+    </body>
+</html>

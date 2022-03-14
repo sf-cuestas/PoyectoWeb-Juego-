@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        ...
+    </head>
+
+    <body>
+        <h1>Monsters</h1>
+        <form action="#" th:action="@{/monster/save}" th:object="${monster}" method="post">
+            
+            <label for="monster-name">Name: </label>
+            <input type="text" th:field="${monster.name}" id="monster-name">
+            <label for="monster-hp">Hp: </label>
+            <input type="text" th:field="${monster.hp}" id="monster-hp">
+            <button type="submit">Enviar</button>
+
+        </form>
+    </body>
+</html>

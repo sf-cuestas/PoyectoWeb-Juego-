@@ -39,7 +39,7 @@ public class MonsterController {
     public String save(@ModelAttribute Monster monster, Model model) {
         System.out.println(monster.getId());
         monsterRepository.save(monster);
-        return "redirect:/Monsters/all";
+        return "redirect:/monster/all";
     }
 
     @GetMapping("/edit/{id}")
@@ -57,7 +57,7 @@ public class MonsterController {
     @GetMapping("/delete/{id}")
     public String deleteMonster(Model model, @PathVariable Long id) {
         monsterRepository.deleteById(id);
-        return "redirect:/Monster/all";
+        return "redirect:/monster/all";
     }
 
 

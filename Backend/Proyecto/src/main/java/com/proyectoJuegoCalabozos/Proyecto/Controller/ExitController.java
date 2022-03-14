@@ -21,5 +21,41 @@ public class ExitController {
     @Autowired
     private ExitRepository exitRepository;
 
+    @GetMapping("/all")
+    public String allExits(Model model) {
+        List<Exit> exits = exitRepository.findAll();
+        model.addAttribute("exits", exits);
+        return "Exit-templates/exit-list";
+    }
+
+    @GetMapping("/create")
+    public String createExit(Model model) {
+        Exit exit = new Exit();
+        model.addAttribute("exit", exit);
+
+        return "Exit-templates/exit-create";
+    }
+    @PostMapping("/save")
+    public String save(@ModelAttribute Exit exit, Model model) {
+        System.out.println(exit.getId());
+        exitRepository.save(exit);
+        return "redirect:/exits/all";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editDecorative(Model model, @PathVariable Long id) {
+        Exit exit = exitRepository.findById(id).get();
+        if(exit != null)
+        {
+            model.addAttribute("exit", exit);
+            return "Exit-templates/exit-edit";
+
+        }
+        
+
+        return "Exit-templates/exit-edit";
+    }
+
+    
     
 }

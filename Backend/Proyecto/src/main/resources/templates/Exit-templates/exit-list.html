@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns: th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>List of exits</title>
+</head>
+
+<body>
+    <h1>Exits</h1>
+    <ul>
+        <li th:each="exits : ${exits}">
+            <a th:href="@{/exits/edit/{id}(id=${exits.id})}" th:text="${exits.id}"></a>
+        </li>
+    </ul>
+    <p><a th:href="@{/exits/create}" th:text="Crear" ></a></p>
+    <p><a th:href="@{/}" th:text="back"></a></p>
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+    </head>
+
+    <body>
+        <h1>en esta pagina se va a editar</h1>
+        <h1>Exits</h1>
+        <form action="#" th:action="@{/exits/save}" th:object="${exit}" method="post">
+            <input type="hidden" th:field="${exit.id}" id="exit-id">
+            <label for="exit-before">Before: </label>
+            <input type="text" th:field="${exit.before}" before="exit-before">
+            <label for="exit-after">After: </label>
+            <input type="text" th:field="${exit.after}" after="exit-after">
+            <button type="submit">Enviar</button>
+            <p><a th:href="@{/exits/delete/{id}(id=${exit.id})}" th:text="Borrar" ></a></p>
+
+        </form>
+    </body>
+</html>
