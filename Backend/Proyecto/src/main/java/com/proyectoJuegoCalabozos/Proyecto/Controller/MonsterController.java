@@ -5,10 +5,10 @@ import java.util.List;
 
 import com.proyectoJuegoCalabozos.Proyecto.Model.Monster;
 import com.proyectoJuegoCalabozos.Proyecto.Model.MonstersEsp;
-
+import com.proyectoJuegoCalabozos.Proyecto.Model.Room;
 import com.proyectoJuegoCalabozos.Proyecto.Repository.MonsterRepository;
 import com.proyectoJuegoCalabozos.Proyecto.Repository.MonstersEspRepository;
-
+import com.proyectoJuegoCalabozos.Proyecto.Repository.RoomRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +28,9 @@ public class MonsterController {
 
     @Autowired
     private MonstersEspRepository monstersRepository;
+
+    @Autowired
+    private RoomRepository roomRepository;
 
 
     @GetMapping("/all")
@@ -59,6 +62,12 @@ public class MonsterController {
     public String editMonster(Model model, @PathVariable Long id) {
         List<MonstersEsp> types = monstersRepository.findAll();
         Monster monster = monsterRepository.findById(id).get();
+        for(Room r : roomRepository.findAll()){
+            if(r.getMonster()!=null&&r.getMonster().getId()==id)
+            monster.setRoom(r);
+            monsterRepository.save(monster);
+        }
+
         model.addAttribute("types", types);
         
         if(monster != null)

@@ -62,11 +62,12 @@ public class RoomController {
 
     @PostMapping("/save")
     public String save(@ModelAttribute Room room, Model model) {
-
+        
         if(room.getMonster()!=null){
-            room.getMonster().setRoom(room);
+            Monster m = room.getMonster();
+            m.setRoom(room);
             roomRepository.save(room);
-            monsterRepository.save(room.getMonster());
+            monsterRepository.save(m);
         }  else {
 
             roomRepository.save(room);
@@ -80,14 +81,18 @@ public class RoomController {
         Room room = roomRepository.findById(id).get();
         List<Monster> monsters = new ArrayList<>();
 
-
+        //Monstruo actual
+        if(room.getMonster()!=null)
+        monsters.add(room.getMonster());
+        //Monstruos disponibles
         for(Monster m :monsterRepository.findAll()){
-            if(m.getRoom()==null||m.getRoom().getId()==id)
+            if(m.getRoom()==null)
             monsters.add(m);
         }
 
+
         if(room != null && room.getMonster()!=null)
-        {
+        {    
             monsterRepository.findById(room.getMonster().getId()).get().setRoom(null);
             monsterRepository.save(monsterRepository.findById(room.getMonster().getId()).get());
             room.setMonster(null);
@@ -150,4 +155,6 @@ public class RoomController {
         itemRepository.save(item);
         return "redirect:/rooms/all";
     }
+
 }
+
