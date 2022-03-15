@@ -19,6 +19,7 @@
                 th:text="${types.name}"
                 ></option>
             </select>
+            <input type="hidden" th:field="${monster.room}" id="monster-room">
             <button type="submit">Send</button>
             <p><a th:href="@{/monster/delete/{id}(id=${monster.id})}" th:text="Delete" ></a></p>
 

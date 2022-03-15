@@ -80,14 +80,18 @@ public class RoomController {
         Room room = roomRepository.findById(id).get();
         List<Monster> monsters = new ArrayList<>();
 
-
+        //Monstruo actual
+        if(room.getMonster()!=null)
+        monsters.add(room.getMonster());
+        //Monstruos disponibles
         for(Monster m :monsterRepository.findAll()){
-            if(m.getRoom()==null||m.getRoom().getId()==id)
+            if(m.getRoom()==null)
             monsters.add(m);
         }
 
+
         if(room != null && room.getMonster()!=null)
-        {
+        {    
             monsterRepository.findById(room.getMonster().getId()).get().setRoom(null);
             monsterRepository.save(monsterRepository.findById(room.getMonster().getId()).get());
             room.setMonster(null);
@@ -149,4 +153,8 @@ public class RoomController {
         itemRepository.save(item);
         return "redirect:/rooms/all";
     }
+
+
+
+
 }
