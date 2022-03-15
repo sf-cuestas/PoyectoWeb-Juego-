@@ -8,8 +8,8 @@
     <h1>Room Add Items </h1>
     <ul>
         <li th:each="item : ${roomItems}" >
-            <a th:href="@{/edit/{idRoom}/addItems/{idItem}(idRoom=${room.id})+( idItem = ${item.id})}" th:text="${item.name}"></a></li>
-    </ul>
+            <a th:href="@{{id} (id='/rooms/edit/'+ ${room} +'/additems/' + ${item.id})} " th:text="${item.name}"></a></li>
+
 </body>
     
 </html>

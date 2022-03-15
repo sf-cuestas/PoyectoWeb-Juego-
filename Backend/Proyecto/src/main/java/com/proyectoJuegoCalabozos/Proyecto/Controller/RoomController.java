@@ -136,10 +136,11 @@ public class RoomController {
     public String addItemsToRoom(Model model, @PathVariable Long idRoom){
         List<Items> items = itemRepository.findAll();
         model.addAttribute("roomItems", items);
+        model.addAttribute("room", idRoom);
         return "Room-templates/room-item-add";
     }
 
-    @GetMapping("/edit/{idRoom}/addItems/{idItem}")
+    @GetMapping("/edit/{idRoom}/additems/{idItem}")
     public String saveItemToRoom(Model model, @PathVariable Long idRoom,@PathVariable Long idItem){
         Room room = roomRepository.getById(idRoom);
         Items item = itemRepository.getById(idItem);
