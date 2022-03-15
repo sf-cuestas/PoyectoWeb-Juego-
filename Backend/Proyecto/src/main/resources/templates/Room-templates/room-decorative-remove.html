@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns: th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Decorative</title>
+</head>
+<body>
+    <h1>Room Remove Decorative </h1>
+    <ul>
+        <li th:each="decorative : ${roomDecoratives}" >
+            <a th:href="@{{id} (id='/rooms/edit/'+ ${room} +'/removedecorative/' + ${decorative.id})} " th:text="${decorative.name}"></a></li>
+
+</body>
+    
+</html>

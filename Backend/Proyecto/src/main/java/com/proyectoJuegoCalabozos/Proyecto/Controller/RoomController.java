@@ -3,10 +3,12 @@ package com.proyectoJuegoCalabozos.Proyecto.Controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.proyectoJuegoCalabozos.Proyecto.Model.Decoratives;
 import com.proyectoJuegoCalabozos.Proyecto.Model.Exit;
 import com.proyectoJuegoCalabozos.Proyecto.Model.Items;
 import com.proyectoJuegoCalabozos.Proyecto.Model.Monster;
 import com.proyectoJuegoCalabozos.Proyecto.Model.Room;
+import com.proyectoJuegoCalabozos.Proyecto.Repository.DecorativesRepository;
 import com.proyectoJuegoCalabozos.Proyecto.Repository.ExitRepository;
 import com.proyectoJuegoCalabozos.Proyecto.Repository.ItemRepository;
 import com.proyectoJuegoCalabozos.Proyecto.Repository.MonsterRepository;
@@ -37,6 +39,9 @@ public class RoomController {
 
     @Autowired
     private ItemRepository itemRepository;
+
+    @Autowired
+    private DecorativesRepository decorativeRepository;
 
     @GetMapping("/all")
     public String allRoom(Model model) {
@@ -155,6 +160,71 @@ public class RoomController {
         itemRepository.save(item);
         return "redirect:/rooms/all";
     }
+
+    @GetMapping("/edit/{idRoom}/removeitems")
+    public String removeItemsToRoom(Model model, @PathVariable Long idRoom){
+        Room room=roomRepository.getById(idRoom);
+        List<Items> items = room.getItems();
+        model.addAttribute("roomItems", items);
+        model.addAttribute("room", idRoom);
+
+        return "Room-templates/room-item-remove";
+    }
+
+    @GetMapping("/edit/{idRoom}/removeitems/{idItem}")
+    public String saveRemoveItemToRoom(Model model, @PathVariable Long idRoom,@PathVariable Long idItem){
+        Room room = roomRepository.getById(idRoom);
+        Items item = itemRepository.getById(idItem);
+        room.getItems().remove(item);
+        item.getRooms().remove(room);
+        roomRepository.save(room);
+        itemRepository.save(item);
+        return "redirect:/rooms/all";
+    }
+
+    @GetMapping("/edit/{idRoom}/adddecorative")
+    public String addDecorativeToRoom(Model model, @PathVariable Long idRoom){
+        List <Decoratives> decoratives = decorativeRepository.findAll();
+        model.addAttribute("roomDecoratives", decoratives);
+        model.addAttribute("room", idRoom);
+        return "Room-templates/room-decorative-add";
+       
+    }
+
+    @GetMapping("/edit/{idRoom}/adddecorative/{idDecorative}")
+    public String saveDecorativeToRoom(Model model, @PathVariable Long idRoom,@PathVariable Long idDecorative){
+        Room room = roomRepository.getById(idRoom);
+        Decoratives decorative = decorativeRepository.getById(idDecorative);
+        room.getDecoratives().add(decorative);
+        decorative.getRoom().add(room);
+        roomRepository.save(room);
+        decorativeRepository.save(decorative);
+        return "redirect:/rooms/all";
+    }
+
+    @GetMapping("/edit/{idRoom}/removedecorative")
+    public String removeDecorativeToRoom(Model model, @PathVariable Long idRoom){
+        Room room=roomRepository.getById(idRoom);
+        List<Decoratives> decoratives = room.getDecoratives();
+        model.addAttribute("roomDecoratives", decoratives);
+        model.addAttribute("room", idRoom);
+
+        return "Room-templates/room-decorative-remove";
+    }
+
+    @GetMapping("/edit/{idRoom}/removedecorative/{idDecorative}")
+    public String saveRemoveDecorativeToRoom(Model model, @PathVariable Long idRoom,@PathVariable Long idDecorative){
+        Room room = roomRepository.getById(idRoom);
+        Decoratives decorative = decorativeRepository.getById(idDecorative);
+        decorative.removeRoom(room);
+        decorativeRepository.save(decorative);
+        room.getDecoratives().remove(decorative);
+        roomRepository.save(room);
+        return "redirect:/rooms/all";
+    }
+    
+
+
 
 }
 
