@@ -12,9 +12,17 @@
             <input type="text" th:field="${room.Name}" id="room-name">
             <label for="Room-descripcion">Descripción: </label>
             <input type="text" th:field="${room.description}" id="room-description">
+            <label for="monster-room">Monster: </label>
+            <select th:field="${room.monster}">
+                <option th:each="monsters : ${monsters}" 
+                th:value="${monsters.id}"
+                th:text="${monsters.monsterEsp.name}+'-'+${monsters.name}"
+                ></option>
+            </select>   
             <button type="submit">Send</button>
             <p><a th:href="@{/rooms/delete/{id}(id=${room.id})}" th:text="Delete" ></a></p>
 
         </form>
+        <p><a th:href="@{/rooms/all}" th:text="Back" ></a></p>
     </body>
 </html>

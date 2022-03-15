@@ -1,10 +1,13 @@
 package com.proyectoJuegoCalabozos.Proyecto.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.proyectoJuegoCalabozos.Proyecto.Model.Exit;
+import com.proyectoJuegoCalabozos.Proyecto.Model.Monster;
 import com.proyectoJuegoCalabozos.Proyecto.Model.Room;
 import com.proyectoJuegoCalabozos.Proyecto.Repository.ExitRepository;
+import com.proyectoJuegoCalabozos.Proyecto.Repository.MonsterRepository;
 import com.proyectoJuegoCalabozos.Proyecto.Repository.RoomRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,9 @@ public class RoomController {
     private RoomRepository roomRepository;
 
     @Autowired
+    private MonsterRepository monsterRepository;
+
+    @Autowired
     private ExitRepository exitRepository;
 
     @GetMapping("/all")
@@ -36,26 +42,58 @@ public class RoomController {
     @GetMapping("/create")
     public String createRoom(Model model) {
         Room room = new Room("",  "");
+    
+        List<Monster> monsters = new ArrayList<>();
+        for(Monster m :monsterRepository.findAll()){
+            if(m.getRoom()==null)
+            monsters.add(m);
+        }
+
         model.addAttribute("room", room);
+        model.addAttribute("monsters", monsters);
         return "Room-templates/room-create";
     }
+
     @PostMapping("/save")
     public String save(@ModelAttribute Room room, Model model) {
-        System.out.println(room.getId());
-        roomRepository.save(room);
-        return "redirect:/rooms/all";
+
+        if(room.getMonster()!=null){
+            room.getMonster().setRoom(room);
+            roomRepository.save(room);
+            monsterRepository.save(room.getMonster());
+        }  else {
+
+            roomRepository.save(room);
+
+        }
+                return "redirect:/rooms/all";
     }
 
     @GetMapping("/edit/{id}")
     public String editRoom(Model model, @PathVariable Long id) {
         Room room = roomRepository.findById(id).get();
-        if(room != null)
-        {
-            model.addAttribute("room", room);
-            return "Room-templates/room-edit";
+        List<Monster> monsters = new ArrayList<>();
 
+
+        for(Monster m :monsterRepository.findAll()){
+            if(m.getRoom()==null||m.getRoom().getId()==id)
+            monsters.add(m);
         }
+
+        if(room != null && room.getMonster()!=null)
+        {
+            monsterRepository.findById(room.getMonster().getId()).get().setRoom(null);
+            monsterRepository.save(monsterRepository.findById(room.getMonster().getId()).get());
+            room.setMonster(null);
+            model.addAttribute("room", room);
+            model.addAttribute("monsters", monsters);
+        } else {
+            model.addAttribute("monsters", monsters);
+            model.addAttribute("room", room);
+        }
+
         return "Room-templates/room-edit";
+
     }
 
     @GetMapping("/delete/{id}")

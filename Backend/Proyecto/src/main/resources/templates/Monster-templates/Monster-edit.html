@@ -4,7 +4,7 @@
     </head>
 
     <body>
-        <h1>en esta pagina se va a editar</h1>
+        <h1>You can edit monsters here.</h1>
         <h1>Monsters</h1>
         <form action="#" th:action="@{/monster/save}" th:object="${monster}" method="post">
             <input type="hidden" th:field="${monster.id}" id="monster-id">
@@ -12,9 +12,18 @@
             <input type="text" th:field="${monster.name}" id="monster-name">
             <label for="monster-hp">Hp: </label>
             <input type="text" th:field="${monster.hp}" id="monster-hp">
+            <label for="monster-type">Type: </label>
+            <select th:field="${monster.monsterEsp}">
+                <option th:each="types : ${types}" 
+                th:value="${types.id}"
+                th:text="${types.name}"
+                ></option>
+            </select>
             <button type="submit">Send</button>
             <p><a th:href="@{/monster/delete/{id}(id=${monster.id})}" th:text="Delete" ></a></p>
 
         </form>
+
+        <p><a th:href="@{/monster/all}" th:text="Back" ></a></p>
     </body>
 </html>

@@ -14,16 +14,16 @@
             <label for="room-descripcion">Description: </label>
             <input type="text" th:field="${room.Description}" id="room-descripcion">
 
-                <label for="yes_no_radio">Monster in room?</label>
-              <p>
-              <input type="radio" name="yes_no" checked>Yes</input>
-              </p>
-              <p>
-              <input type="radio" name="yes_no">No</input>
-              </p>
-
+            <label for="monster-room">Monster: </label>
+            <select th:field="${room.monster}">
+                <option th:each="monsters : ${monsters}" 
+                th:value="${monsters.id}"
+                th:text="${monsters.monsterEsp.name}+'-'+${monsters.name}"
+                ></option>
+            </select>    
             <button type="submit">Send</button>
 
         </form>
+        <p><a th:href="@{/rooms/all}" th:text="Back" ></a></p>
     </body>
 </html>

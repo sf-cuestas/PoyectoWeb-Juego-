@@ -151,7 +151,8 @@ public class DatabaseInit implements ApplicationRunner{
         roomRepository.findAll().get(3).getExits().add(exitRepository.findAll().get(3));
 
     
-        
+    
+
         
        
     }

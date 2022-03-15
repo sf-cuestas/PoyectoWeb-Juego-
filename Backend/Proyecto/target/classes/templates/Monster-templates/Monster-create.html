@@ -12,9 +12,18 @@
             <input type="text" th:field="${monster.name}" id="monster-name">
             <label for="monster-hp">Hp: </label>
             <input type="text" th:field="${monster.hp}" id="monster-hp">
+            <label for="monster-type">Type: </label>
+            <select th:field="${monster.monsterEsp}">
+                <option th:each="types : ${types}" 
+                th:value="${types.id}"
+                th:text="${types.name}"
+                ></option>
+            </select>
             <button type="submit">Send</button>
 
 
         </form>
+
+        <p><a th:href="@{/monster/all}" th:text="Back" ></a></p>
     </body>
 </html>
