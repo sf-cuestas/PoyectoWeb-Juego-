@@ -62,11 +62,12 @@ public class RoomController {
 
     @PostMapping("/save")
     public String save(@ModelAttribute Room room, Model model) {
-
+        
         if(room.getMonster()!=null){
-            room.getMonster().setRoom(room);
+            Monster m = room.getMonster();
+            m.setRoom(room);
             roomRepository.save(room);
-            monsterRepository.save(room.getMonster());
+            monsterRepository.save(m);
         }  else {
 
             roomRepository.save(room);
