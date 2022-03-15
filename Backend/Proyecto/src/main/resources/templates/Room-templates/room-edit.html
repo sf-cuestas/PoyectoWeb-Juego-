@@ -20,9 +20,10 @@
                 ></option>
             </select>   
             <button type="submit">Send</button>
+            <p><a th:href="@{/rooms/edit/{idRoom}/additems(idRoom=${room.id})}" >Add items</a></p>
             <p><a th:href="@{/rooms/delete/{id}(id=${room.id})}" th:text="Delete" ></a></p>
-
         </form>
+        
         <p><a th:href="@{/rooms/all}" th:text="Back" ></a></p>
     </body>
 </html>

@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.proyectoJuegoCalabozos.Proyecto.Model.Exit;
+import com.proyectoJuegoCalabozos.Proyecto.Model.Items;
 import com.proyectoJuegoCalabozos.Proyecto.Model.Monster;
 import com.proyectoJuegoCalabozos.Proyecto.Model.Room;
 import com.proyectoJuegoCalabozos.Proyecto.Repository.ExitRepository;
+import com.proyectoJuegoCalabozos.Proyecto.Repository.ItemRepository;
 import com.proyectoJuegoCalabozos.Proyecto.Repository.MonsterRepository;
 import com.proyectoJuegoCalabozos.Proyecto.Repository.RoomRepository;
 
+import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +34,9 @@ public class RoomController {
 
     @Autowired
     private ExitRepository exitRepository;
+
+    @Autowired
+    private ItemRepository itemRepository;
 
     @GetMapping("/all")
     public String allRoom(Model model) {
@@ -122,6 +128,25 @@ public class RoomController {
         roomRepository.findById(id).get().disconnection();
         roomRepository.save(roomRepository.findById(id).get());
         roomRepository.deleteById(id);
+        return "redirect:/rooms/all";
+    }
+
+
+    @GetMapping("/edit/{idRoom}/additems")
+    public String addItemsToRoom(Model model, @PathVariable Long idRoom){
+        List<Items> items = itemRepository.findAll();
+        model.addAttribute("roomItems", items);
+        return "Room-templates/room-item-add";
+    }
+
+    @GetMapping("/edit/{idRoom}/addItems/{idItem}")
+    public String saveItemToRoom(Model model, @PathVariable Long idRoom,@PathVariable Long idItem){
+        Room room = roomRepository.getById(idRoom);
+        Items item = itemRepository.getById(idItem);
+        room.getItems().add(item);
+        item.getRooms().add(room);
+        roomRepository.save(room);
+        itemRepository.save(item);
         return "redirect:/rooms/all";
     }
 }
