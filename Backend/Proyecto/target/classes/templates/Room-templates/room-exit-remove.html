@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns: th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List of exits</title>
+</head>
+<body>
+    <h1>Room Remove Exits </h1>
+    <ul>
+        <li th:each="exits : ${roomExits}" >
+            <a th:href="@{{id} (id='/rooms/edit/'+ ${room} +'/removeExits/' + ${exits.id})} " th:text="${exits.id}+' exit goes to '+${exits.after.name}"></a></li>
+
+</body>
+    
+</html>

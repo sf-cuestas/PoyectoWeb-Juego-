@@ -14,7 +14,6 @@ import com.proyectoJuegoCalabozos.Proyecto.Repository.ItemRepository;
 import com.proyectoJuegoCalabozos.Proyecto.Repository.MonsterRepository;
 import com.proyectoJuegoCalabozos.Proyecto.Repository.RoomRepository;
 
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -223,6 +222,45 @@ public class RoomController {
         return "redirect:/rooms/all";
     }
     
+    @GetMapping("/edit/{idRoom}/addExits")
+    public String addExitsToRoom(Model model, @PathVariable Long idRoom){
+        List<Exit> exits = exitRepository.findAll();
+        model.addAttribute("roomExits", exits);
+        model.addAttribute("room", idRoom);
+        return "Room-templates/room-exit-add";
+    }
+
+    @GetMapping("/edit/{idRoom}/addExits/{idExit}")
+    public String saveExitToRoom(Model model, @PathVariable Long idRoom,@PathVariable Long idExit){
+        Room room = roomRepository.getById(idRoom);
+        Exit exit = exitRepository.getById(idExit);
+        room.getExits().add(exit);
+        exit.setBefore(room);
+        roomRepository.save(room);
+        exitRepository.save(exit);
+        return "redirect:/rooms/all";
+    }
+
+    @GetMapping("/edit/{idRoom}/removeExits")
+    public String removeExitsToRoom(Model model, @PathVariable Long idRoom){
+        Room room=roomRepository.getById(idRoom);
+        List<Exit> exits = room.getExits();
+        model.addAttribute("roomExits", exits);
+        model.addAttribute("room", idRoom);
+
+        return "Room-templates/room-exit-remove";
+    }
+
+    @GetMapping("/edit/{idRoom}/removeExits/{idExit}")
+    public String saveRemoveExitToRoom(Model model, @PathVariable Long idRoom,@PathVariable Long idExit){
+        Room room = roomRepository.getById(idRoom);
+        Exit exit = exitRepository.getById(idExit);
+        room.getExits().remove(exit);
+        exit.setBefore(null);
+        roomRepository.save(room);
+        exitRepository.save(exit);
+        return "redirect:/rooms/all";
+    }
 
 
 

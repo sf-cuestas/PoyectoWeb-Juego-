@@ -24,6 +24,8 @@
             <p><a th:href="@{/rooms/edit/{idRoom}/removeitems(idRoom=${room.id})}" >Remove items</a></p>
             <p><a th:href="@{/rooms/edit/{idRoom}/adddecorative(idRoom=${room.id})}" >Add Decoratives</a></p>
             <p><a th:href="@{/rooms/edit/{idRoom}/removedecorative(idRoom=${room.id})}" >Remove Decoratives</a></p>
+            <p><a th:href="@{/rooms/edit/{idRoom}/addExits(idRoom=${room.id})}" >Add Exits</a></p>
+            <p><a th:href="@{/rooms/edit/{idRoom}/removeExits(idRoom=${room.id})}" >Remove Exits</a></p>
             <p><a th:href="@{/rooms/delete/{id}(id=${room.id})}" th:text="Delete" ></a></p>
         </form>
         
