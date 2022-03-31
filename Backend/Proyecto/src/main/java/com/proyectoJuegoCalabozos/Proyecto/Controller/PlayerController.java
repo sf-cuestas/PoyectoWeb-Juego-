@@ -1,9 +1,9 @@
-package com.proyectoJuegoCalabozos.Proyecto.Controller;
+package com.proyectoJuegoCalabozos.Proyecto.controller;
 
 import java.util.List;
 
-import com.proyectoJuegoCalabozos.Proyecto.Model.Player;
-import com.proyectoJuegoCalabozos.Proyecto.Repository.PlayerRepository;
+import com.proyectoJuegoCalabozos.Proyecto.model.Player;
+import com.proyectoJuegoCalabozos.Proyecto.repository.PlayerRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

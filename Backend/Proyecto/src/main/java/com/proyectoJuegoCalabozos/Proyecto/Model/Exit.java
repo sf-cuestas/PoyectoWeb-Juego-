@@ -1,4 +1,4 @@
-package com.proyectoJuegoCalabozos.Proyecto.Model;
+package com.proyectoJuegoCalabozos.Proyecto.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

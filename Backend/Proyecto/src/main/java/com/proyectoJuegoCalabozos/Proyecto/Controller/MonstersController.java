@@ -1,11 +1,11 @@
-package com.proyectoJuegoCalabozos.Proyecto.Controller;
+package com.proyectoJuegoCalabozos.Proyecto.controller;
 
 import java.util.List;
 
-import com.proyectoJuegoCalabozos.Proyecto.Model.Monster;
-import com.proyectoJuegoCalabozos.Proyecto.Model.MonstersEsp;
-import com.proyectoJuegoCalabozos.Proyecto.Repository.MonsterRepository;
-import com.proyectoJuegoCalabozos.Proyecto.Repository.MonstersEspRepository;
+import com.proyectoJuegoCalabozos.Proyecto.model.Monster;
+import com.proyectoJuegoCalabozos.Proyecto.model.MonstersEsp;
+import com.proyectoJuegoCalabozos.Proyecto.repository.MonsterRepository;
+import com.proyectoJuegoCalabozos.Proyecto.repository.MonstersEspRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,9 +1,9 @@
-package com.proyectoJuegoCalabozos.Proyecto.Controller;
+package com.proyectoJuegoCalabozos.Proyecto.controller;
 
 import java.util.List;
 
-import com.proyectoJuegoCalabozos.Proyecto.Model.Exit;
-import com.proyectoJuegoCalabozos.Proyecto.Repository.ExitRepository;
+import com.proyectoJuegoCalabozos.Proyecto.model.Exit;
+import com.proyectoJuegoCalabozos.Proyecto.repository.ExitRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

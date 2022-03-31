@@ -1,5 +1,5 @@
 
-package com.proyectoJuegoCalabozos.Proyecto.Model;
+package com.proyectoJuegoCalabozos.Proyecto.model;
 
 import java.util.ArrayList;
 import java.util.List;

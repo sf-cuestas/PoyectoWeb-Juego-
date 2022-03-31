@@ -1,4 +1,4 @@
-package com.proyectoJuegoCalabozos.Proyecto.Controller;
+package com.proyectoJuegoCalabozos.Proyecto.controller;
 
 import java.util.List;
 
@@ -11,10 +11,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.proyectoJuegoCalabozos.Proyecto.Model.Decoratives;
-import com.proyectoJuegoCalabozos.Proyecto.Model.Room;
-import com.proyectoJuegoCalabozos.Proyecto.Repository.DecorativesRepository;
-import com.proyectoJuegoCalabozos.Proyecto.Repository.RoomRepository;
+
+import com.proyectoJuegoCalabozos.Proyecto.model.Decoratives;
+import com.proyectoJuegoCalabozos.Proyecto.model.Room;
+import com.proyectoJuegoCalabozos.Proyecto.repository.DecorativesRepository;
+import com.proyectoJuegoCalabozos.Proyecto.repository.RoomRepository;
 
 
 

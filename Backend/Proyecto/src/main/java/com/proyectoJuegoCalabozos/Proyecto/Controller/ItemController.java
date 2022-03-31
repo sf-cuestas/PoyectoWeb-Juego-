@@ -1,11 +1,11 @@
-package com.proyectoJuegoCalabozos.Proyecto.Controller;
+package com.proyectoJuegoCalabozos.Proyecto.controller;
 
 import java.util.List;
 
-import com.proyectoJuegoCalabozos.Proyecto.Model.Items;
-import com.proyectoJuegoCalabozos.Proyecto.Model.Room;
-import com.proyectoJuegoCalabozos.Proyecto.Repository.ItemRepository;
-import com.proyectoJuegoCalabozos.Proyecto.Repository.RoomRepository;
+import com.proyectoJuegoCalabozos.Proyecto.model.Items;
+import com.proyectoJuegoCalabozos.Proyecto.model.Room;
+import com.proyectoJuegoCalabozos.Proyecto.repository.ItemRepository;
+import com.proyectoJuegoCalabozos.Proyecto.repository.RoomRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

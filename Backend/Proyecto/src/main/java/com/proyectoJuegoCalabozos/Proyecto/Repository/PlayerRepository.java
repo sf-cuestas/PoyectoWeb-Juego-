@@ -1,9 +1,9 @@
-package com.proyectoJuegoCalabozos.Proyecto.Repository;
+package com.proyectoJuegoCalabozos.Proyecto.repository;
 
 
 
 
-import com.proyectoJuegoCalabozos.Proyecto.Model.Player;
+import com.proyectoJuegoCalabozos.Proyecto.model.Player;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

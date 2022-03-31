@@ -1,18 +1,18 @@
-package com.proyectoJuegoCalabozos.Proyecto.Controller;
+package com.proyectoJuegoCalabozos.Proyecto.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.proyectoJuegoCalabozos.Proyecto.Model.Decoratives;
-import com.proyectoJuegoCalabozos.Proyecto.Model.Exit;
-import com.proyectoJuegoCalabozos.Proyecto.Model.Items;
-import com.proyectoJuegoCalabozos.Proyecto.Model.Monster;
-import com.proyectoJuegoCalabozos.Proyecto.Model.Room;
-import com.proyectoJuegoCalabozos.Proyecto.Repository.DecorativesRepository;
-import com.proyectoJuegoCalabozos.Proyecto.Repository.ExitRepository;
-import com.proyectoJuegoCalabozos.Proyecto.Repository.ItemRepository;
-import com.proyectoJuegoCalabozos.Proyecto.Repository.MonsterRepository;
-import com.proyectoJuegoCalabozos.Proyecto.Repository.RoomRepository;
+import com.proyectoJuegoCalabozos.Proyecto.model.Decoratives;
+import com.proyectoJuegoCalabozos.Proyecto.model.Exit;
+import com.proyectoJuegoCalabozos.Proyecto.model.Items;
+import com.proyectoJuegoCalabozos.Proyecto.model.Monster;
+import com.proyectoJuegoCalabozos.Proyecto.model.Room;
+import com.proyectoJuegoCalabozos.Proyecto.repository.DecorativesRepository;
+import com.proyectoJuegoCalabozos.Proyecto.repository.ExitRepository;
+import com.proyectoJuegoCalabozos.Proyecto.repository.ItemRepository;
+import com.proyectoJuegoCalabozos.Proyecto.repository.MonsterRepository;
+import com.proyectoJuegoCalabozos.Proyecto.repository.RoomRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
