@@ -28,6 +28,7 @@ public class Player {
     List <Items> backpack = new ArrayList<>();
     @ManyToOne
     Room room;
+    Integer clock;
 
 
 
@@ -48,6 +49,7 @@ public class Player {
         this.defence_slash = defence_slash;
         this.size = size;
         this.weight = weight;
+        this.clock = 0;
     }
 
 
@@ -209,6 +211,24 @@ public class Player {
 
     public void setRoom(Room room) {
         this.room = room;
+    }
+
+
+
+
+
+
+    public Integer getClock() {
+        return clock;
+    }
+
+
+
+
+
+
+    public void setClock(Integer clock) {
+        this.clock = clock;
     }
     
     
