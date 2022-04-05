@@ -4,3 +4,14 @@
     MUD es un juego multijugador donde los participantes exploran un calabozo con monstruos y tesoros.
     El objetivo es recolectar la mayor cantidad de tesoros, sin morir, en un tiempo determinado. <br />
 </div>
+
+<div [hidden]="isPlayer" id = "player">
+  <h1>Menu</h1>
+  <button (click)="startGame()">Play</button>
+</div>
+<div [hidden]="isAdmin" id = "admin">
+  <button (click)="startGame()">Sign up new player</button>
+</div>
+<div  [hidden]="isDesigner" id = "designer">
+  <button (click)="startGame()">Disigner's actions</button>
+</div>

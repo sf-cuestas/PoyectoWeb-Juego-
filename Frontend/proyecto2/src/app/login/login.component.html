@@ -1,1 +1,16 @@
 <p>login works!</p>
+
+<form method="post" >
+    <ul>
+        <li>
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="user_name" [(ngModel)]="userName">
+        </li>
+        <li>
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="user_password" [(ngModel)]="userPassword">
+        </li>
+       </ul>
+       
+</form>
+<button type="submit" (click)="logIn()" >Log In</button>
