@@ -21,7 +21,6 @@ import com.proyectoJuegoCalabozos.Proyecto.repository.MonstersEspRepository;
 import com.proyectoJuegoCalabozos.Proyecto.repository.PlayerRepository;
 import com.proyectoJuegoCalabozos.Proyecto.repository.RoomRepository;
 
-import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -56,8 +55,12 @@ public class DatabaseInit implements ApplicationRunner{
     @Override
     @Transactional
     public void run(ApplicationArguments args) throws Exception {
+        //Generates items in database from json file
         generateItems();
-        
+        //Generates decoratives in database from json file
+        generateDecoratives();
+        //Generates monster types in database from json file
+        generateMonsterTypes();
        
 
         
@@ -213,8 +216,7 @@ public class DatabaseInit implements ApplicationRunner{
                 String wiki_url = "";
                 if(!jobject.get("wiki_url").isJsonNull())
                 wiki_url = jobject.get("wiki_url").getAsString();
-                System.out.println("--------------------------------------------------------------------");
-                System.out.println(name);
+              
 
                 item.setName(name);
                 item.setLast_updated(last_updated);
@@ -224,6 +226,111 @@ public class DatabaseInit implements ApplicationRunner{
                 item.setWiki_url(wiki_url); 
                  
                 itemRepository.save(item);
+                }
+
+            } catch (FileNotFoundException e) {
+                System.out.println("Error input file not found");
+                e.printStackTrace();
+            } catch (Exception e) {
+                System.out.println("Error processing input file!");
+                e.printStackTrace();
+            }
+        
+    }
+
+    public void generateDecoratives(){
+        File input = new File(System.getProperty("user.dir") + File.separator + "assets" + File.separator + "objetos-decorativos.json");
+            
+        
+        try{
+                String s = Files.readString(input.toPath());
+                JsonParser fileElement = new JsonParser();
+                JsonArray data = fileElement.parse(s).getAsJsonArray();
+
+                for(JsonElement objeto : data){
+                JsonObject jobject = objeto.getAsJsonObject(); 
+                Decoratives decorative = new Decoratives ();
+                String name = "";     
+
+                if(!jobject.get("name").isJsonNull())
+                name = jobject.get("name").getAsString();
+                decorative.setName(name);
+                decorativesRepository.save(decorative);
+                }
+
+            } catch (FileNotFoundException e) {
+                System.out.println("Error input file not found");
+                e.printStackTrace();
+            } catch (Exception e) {
+                System.out.println("Error processing input file!");
+                e.printStackTrace();
+            }
+        
+    }
+
+    public void generateMonsterTypes(){
+        File input = new File(System.getProperty("user.dir") + File.separator + "assets" + File.separator + "monstruos.json");
+            
+        
+        try{
+                String s = Files.readString(input.toPath());
+                JsonParser fileElement = new JsonParser();
+                JsonArray data = fileElement.parse(s).getAsJsonArray();
+
+                for(JsonElement objeto : data){
+                JsonObject jobject = objeto.getAsJsonObject(); 
+                MonstersEsp type = new MonstersEsp ();
+                String name = "";     
+                String last_updated = "";
+                Integer attack_level = 0;
+                Integer defence_slash = 0;
+                Integer size = 0;
+                Integer hitpoints = 0;
+                String category = "";
+                String examine = "";
+                String wiki_url = "";
+
+                if(!jobject.get("name").isJsonNull())
+                name = jobject.get("name").getAsString();
+                type.setName(name);
+
+                if(!jobject.get("last_updated").isJsonNull())
+                last_updated = jobject.get("last_updated").getAsString();
+                type.setLast_updated(last_updated);
+
+                if(!jobject.get("attack_level").isJsonNull())
+                attack_level = jobject.get("attack_level").getAsInt();
+                type.setAttack_level(attack_level);
+
+                if(!jobject.get("defence_slash").isJsonNull())
+                defence_slash = jobject.get("defence_slash").getAsInt();
+                type.setDefence_slash(defence_slash);
+
+                if(!jobject.get("size").isJsonNull())
+                size = jobject.get("size").getAsInt();
+                type.setSize(size);
+
+                if(!jobject.get("hitpoints").isJsonNull())
+                hitpoints = jobject.get("hitpoints").getAsInt();
+                type.setHitpoints(hitpoints);
+
+                if(!jobject.get("category").isJsonNull() && jobject.get("category").getAsJsonArray().size()>0)
+                {
+                    category = jobject.get("category").getAsJsonArray().get(0).getAsString();
+                    type.setCategory(category);
+                } 
+                
+
+                if(!jobject.get("examine").isJsonNull())
+                examine = jobject.get("examine").getAsString();
+                type.setExamine(examine);
+
+                if(!jobject.get("wiki_url").isJsonNull())
+                wiki_url = jobject.get("wiki_url").getAsString();
+                type.setWiki_url(wiki_url);
+
+
+                monsterEspRepository.save(type);
                 }
 
             } catch (FileNotFoundException e) {
