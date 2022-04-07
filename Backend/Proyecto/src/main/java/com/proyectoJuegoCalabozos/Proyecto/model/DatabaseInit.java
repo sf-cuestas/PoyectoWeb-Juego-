@@ -1,6 +1,18 @@
 package com.proyectoJuegoCalabozos.Proyecto.model;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.transaction.Transactional;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.proyectoJuegoCalabozos.Proyecto.repository.DecorativesRepository;
 import com.proyectoJuegoCalabozos.Proyecto.repository.ExitRepository;
 import com.proyectoJuegoCalabozos.Proyecto.repository.ItemRepository;
@@ -9,6 +21,7 @@ import com.proyectoJuegoCalabozos.Proyecto.repository.MonstersEspRepository;
 import com.proyectoJuegoCalabozos.Proyecto.repository.PlayerRepository;
 import com.proyectoJuegoCalabozos.Proyecto.repository.RoomRepository;
 
+import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -43,9 +56,13 @@ public class DatabaseInit implements ApplicationRunner{
     @Override
     @Transactional
     public void run(ApplicationArguments args) throws Exception {
+        generateItems();
+        
+       
 
-
-
+        
+        
+        /*
         // Players
         playerRepository.save(new Player("escobartc","123",100,10,10,1,0));
         playerRepository.save(new Player("chamy","123",100,10,10,1,0));
@@ -148,12 +165,75 @@ public class DatabaseInit implements ApplicationRunner{
         exitRepository.findAll().get(3).setBefore(roomRepository.findAll().get(2));
         exitRepository.findAll().get(3).setAfter(roomRepository.findAll().get(3));
         roomRepository.findAll().get(3).getExits().add(exitRepository.findAll().get(3));
-
+           */
     
     
 
         
        
+    }
+
+    public void generateItems(){
+        File input = new File(System.getProperty("user.dir") + File.separator + "assets" + File.separator + "items.json");
+            
+        
+        try{
+                String s = Files.readString(input.toPath());
+                JsonParser fileElement = new JsonParser();
+                JsonArray data = fileElement.parse(s).getAsJsonArray();
+                System.out.println("--------------------------------------------------------------------");
+                for(JsonElement objeto : data){
+                JsonObject jobject = objeto.getAsJsonObject(); 
+                Items item = new Items();
+
+
+
+                String name = "";
+                if(!jobject.get("name").isJsonNull())
+                name = jobject.get("name").getAsString();
+
+
+                String last_updated = "";
+                if(!jobject.get("last_updated").isJsonNull())
+                last_updated = jobject.get("last_updated").getAsString();
+
+                Integer cost = 0;
+                if(!jobject.get("cost").isJsonNull())
+                cost = jobject.get("cost").getAsInt();
+
+
+                double weight = 0;
+                if(!jobject.get("weight").isJsonNull())
+                weight = jobject.get("weight").getAsDouble();
+
+                String examine = "";
+                if(!jobject.get("examine").isJsonNull())
+                examine = jobject.get("examine").getAsString();
+
+                String wiki_url = "";
+                if(!jobject.get("wiki_url").isJsonNull())
+                wiki_url = jobject.get("wiki_url").getAsString();
+                System.out.println("--------------------------------------------------------------------");
+                System.out.println(name);
+
+                item.setName(name);
+                item.setLast_updated(last_updated);
+                item.setCost(cost);
+                item.setWeight(weight);
+                item.setExamine(examine);
+                item.setWiki_url(wiki_url); 
+                 
+                itemRepository.save(item);
+                }
+
+            } catch (FileNotFoundException e) {
+                System.out.println("Error input file not found");
+                e.printStackTrace();
+            } catch (Exception e) {
+                System.out.println("Error processing input file!");
+                e.printStackTrace();
+            }
+        
     }
     
 }
