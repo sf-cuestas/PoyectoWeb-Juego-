@@ -51,6 +51,9 @@ public class DatabaseInit implements ApplicationRunner{
     @Autowired
     PlayerRepository playerRepository;
 
+    //int nmonstruos = 1000;
+
+
 
     @Override
     @Transactional
@@ -61,6 +64,15 @@ public class DatabaseInit implements ApplicationRunner{
         generateDecoratives();
         //Generates monster types in database from json file
         generateMonsterTypes();
+        System.out.println("----------------------------------------------------------");
+        System.out.println(monsterEspRepository.count());
+        //Generates rooms with city names from json file
+        generateRooms();
+        //Generates creatures 
+        generateMonsters();
+        putTypesToMonsters();
+        //
+        //Monstruos
        
 
         
@@ -73,40 +85,7 @@ public class DatabaseInit implements ApplicationRunner{
 
 
 
-        //Tipos de monstruo
-        monsterEspRepository.save(new MonstersEsp("Molanisk","2021-09-02",40,45,1,52,"molanisks","A strange mole-like being.","https://oldschool.runescape.wiki/w/wMolanisk"));
-        monsterEspRepository.save(new MonstersEsp("Aberrant spectre","2021-09-02",1,20,2,90,"aberrant spectres","A very smelly ghost.","https://oldschool.runescape.wiki/w/Aberrant_spectre"));
-        monsterEspRepository.save(new MonstersEsp("Nechryael","2021-09-24",97,20,1,105,"nechryael","An evil death demon.","https://oldschool.runescape.wiki/w/Nechryael#Normal"));
-        monsterEspRepository.save(new MonstersEsp("Death spawn","2021-08-05",67,20,1,60,"","An evil death spawn.","https://oldschool.runescape.wiki/w/Death_spawn"));
-        monsterEspRepository.save(new MonstersEsp("Zombie","2021-09-02",8,0,1,22,"zombies","Dead man walking.","https://oldschool.runescape.wiki/w/Zombie#Level_13"));
 
-        //Decorativos
-        decorativesRepository.save(new Decoratives("Crate"));
-        decorativesRepository.save(new Decoratives("Cave Entrance"));
-        decorativesRepository.save(new Decoratives("Door"));
-        decorativesRepository.save(new Decoratives("Broken multicannon"));
-        decorativesRepository.save(new Decoratives("Dwarf multicannon"));
-
-        //Items
-        itemRepository.save(new Items("Dwarf remains","2021-09-24",1,16,"The body of a Dwarf savaged by Goblins.","https://oldschool.runescape.wiki/w/Dwarf_remains"));
-        itemRepository.save(new Items("Toolkit","2021-08-05",1,0.453,"Good for repairing broken cannons.","https://oldschool.runescape.wiki/w/Toolkit"));
-        itemRepository.save(new Items("Cannonball","2021-08-05",5,0,"Ammo for the Dwarf Cannon.","https://oldschool.runescape.wiki/w/Cannonball"));
-        itemRepository.save(new Items("Nulodion's notes","2021-08-05",1,0.028,"Construction notes for Dwarf cannon ammo.","https://oldschool.runescape.wiki/w/Nulodion's_notes"));
-        itemRepository.save(new Items("Ammo mould","2021-08-05",5,4.535,"Used to make cannon ammunition.","https://oldschool.runescape.wiki/w/Ammo_mould"));
-
-        //Monstruos
-        monsterRepository.save(new Monster("Paco",1000));
-        monsterRepository.save(new Monster("Luis",1000));
-        monsterRepository.save(new Monster("Pepe",1000));
-        monsterRepository.save(new Monster("Vladimir",1000));
-        monsterRepository.save(new Monster("X AE A-XII",1000));
-
-        //Habitaciones
-        roomRepository.save(new Room("Red Room", "Room with a lot of blood"));
-        roomRepository.save(new Room("Blue Room", "Room with water "));
-        roomRepository.save(new Room("Green Room", "Plants room"));
-        roomRepository.save(new Room("Pink Room", "Flowers room"));
-        roomRepository.save(new Room("Yellow Room", "Cheese room"));
         
 
         //Salidas
@@ -116,12 +95,7 @@ public class DatabaseInit implements ApplicationRunner{
         exitRepository.save(new Exit());
        
 
-        // For para poner tipos a los monstruos
-        for(int i=0; i < monsterRepository.findAll().size(); i++){
-         monsterRepository.findAll().get(i).setMonsterEsp(monsterEspRepository.findAll().get(i));
-         monsterRepository.save(monsterRepository.findAll().get(i));
-         monsterEspRepository.findAll().get(i).getMonstruos().add(monsterRepository.findAll().get(i));
-        }
+       
 
         // For para poner items en los cuartos
         for(Room room : roomRepository.findAll()){
@@ -342,5 +316,95 @@ public class DatabaseInit implements ApplicationRunner{
             }
         
     }
+
+    public void generateRooms(){
+        File input = new File(System.getProperty("user.dir") + File.separator + "assets" + File.separator + "cities.json");
+            int n = 1100, i=0;
+
+        
+        try{
+                String s = Files.readString(input.toPath());
+                JsonParser fileElement = new JsonParser();
+                JsonArray data = fileElement.parse(s).getAsJsonArray();
+
+                for(JsonElement objeto : data){
+                JsonObject jobject = objeto.getAsJsonObject(); 
+                Room room = new Room ();
+                String name = "";     
+
+                if(i >= n)
+                return;
+
+                if(!jobject.get("name").isJsonNull())
+                name = jobject.get("name").getAsString();
+                room.setName(name);
+                room.setDescription("This room has a city name which is " + name);
+                roomRepository.save(room);
+                i++;
+                }
+
+            } catch (FileNotFoundException e) {
+                System.out.println("Error input file not found");
+                e.printStackTrace();
+            } catch (Exception e) {
+                System.out.println("Error processing input file!");
+                e.printStackTrace();
+            }
+        
+    }
+
+    public void generateMonsters(){
+        long n = roomRepository.findAll().size();
+
+    for(int i=0;i<n;i++)
+    {
+        Monster monster = new Monster("Monster" + getAlphaNumericString(5),1000);
+        monsterRepository.save(monster);
+    }
+    }
     
+    // function to generate a random string of length n
+    public String getAlphaNumericString(int n)
+    {
+  
+        // chose a Character random from this String
+        String AlphaNumericString = "ABC" + "0123456789";
+                                    
+  
+        // create StringBuffer size of AlphaNumericString
+        StringBuilder sb = new StringBuilder(n);
+  
+        for (int i = 0; i < n; i++) {
+  
+            // generate a random number between
+            // 0 to AlphaNumericString variable length
+            int index
+                = (int)(AlphaNumericString.length()
+                        * Math.random());
+  
+            // add Character one by one in end of sb
+            sb.append(AlphaNumericString
+                          .charAt(index));
+        }
+  
+        return sb.toString();
+    }
+
+    public void putTypesToMonsters(){
+        List<Monster> monsters = monsterRepository.findAll();
+        List<MonstersEsp> types = monsterEspRepository.findAll();
+        long min = types.get(0).getId();
+        long max = types.get(types.size()-1).getId();
+
+    // For para poner tipos a los monstruos
+    for(int i=0; i < monsters.size(); i++){
+    long random_long = (long)Math.floor(Math.random()*(max-min+1)+min);
+    monsters.get(i).setMonsterEsp(monsterEspRepository.getById(random_long));
+    monsterRepository.save(monsters.get(i));
+    monsterEspRepository.getById(random_long).getMonstruos().add(monsters.get(i));
+    }
+    }
+     
 }
+
+

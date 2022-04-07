@@ -61,8 +61,10 @@ public class MonsterController {
     @GetMapping("/edit/{id}")
     public String editMonster(Model model, @PathVariable Long id) {
         List<MonstersEsp> types = monstersRepository.findAll();
-        Monster monster = monsterRepository.findById(id).get();
-        for(Room r : roomRepository.findAll()){
+        Monster monster = monsterRepository.getById(id);
+        List<Room> rooms = roomRepository.findAll();
+
+        for(Room r : rooms){
             if(r.getMonster()!=null&&r.getMonster().getId()==id)
             monster.setRoom(r);
             monsterRepository.save(monster);
