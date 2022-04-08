@@ -64,8 +64,6 @@ public class DatabaseInit implements ApplicationRunner{
         generateDecoratives();
         //Generates monster types in database from json file
         generateMonsterTypes();
-        System.out.println("----------------------------------------------------------");
-        System.out.println(monsterEspRepository.count());
         //Generates rooms with city names from json file
         generateRooms();
         //Generates creatures 
