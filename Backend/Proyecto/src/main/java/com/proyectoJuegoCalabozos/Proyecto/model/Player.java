@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,6 +31,41 @@ public class Player {
     @ManyToOne
     Room room;
     Integer clock;
+    @Enumerated(EnumType.ORDINAL)
+    Role role;
+
+
+
+
+    
+    public Player(String username, String password, Role role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
+
+
+
+
+
+
+    public Player(String username, String password, Integer hp, Integer attack_level, Integer defence_slash,
+            Integer size, Integer weight, List<Items> backpack, Room room, Integer clock, Role role) {
+        this.username = username;
+        this.password = password;
+        this.hp = hp;
+        this.attack_level = attack_level;
+        this.defence_slash = defence_slash;
+        this.size = size;
+        this.weight = weight;
+        this.backpack = backpack;
+        this.room = room;
+        this.clock = clock;
+        this.role = role;
+    }
+
+
+
 
 
 
@@ -40,21 +77,18 @@ public class Player {
 
 
 
-    public Player(String username, String password, Integer hp, Integer attack_level, Integer defence_slash,
-            Integer size, Integer weight) {
-        this.username = username;
-        this.password = password;
-        this.hp = hp;
-        this.attack_level = attack_level;
-        this.defence_slash = defence_slash;
-        this.size = size;
-        this.weight = weight;
-        this.clock = 0;
+    public Role getRole() {
+        return role;
     }
 
 
 
 
+
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
 
     public long getId() {

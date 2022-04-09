@@ -79,9 +79,7 @@ public class DatabaseInit implements ApplicationRunner{
         //set decoratives to rooms
         putDecorativesIntoRooms();
         // Players
-        playerRepository.save(new Player("escobartc","123",100,10,10,1,0));
-        playerRepository.save(new Player("chamy","123",100,10,10,1,0));
-        playerRepository.save(new Player("javier","1234",100,10,10,1,0));
+        playerRepository.save(new Player("escobartc","123",Role.ADMIN));
     }
 
     public void generateItems(){
