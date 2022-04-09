@@ -69,8 +69,10 @@ public class DatabaseInit implements ApplicationRunner{
         //Generates creatures 
         generateMonsters();
         putTypesToMonsters();
-        //
+        //Puts monsters in 
         //Monstruos
+        generateExits();
+
        
 
         
@@ -400,6 +402,38 @@ public class DatabaseInit implements ApplicationRunner{
     monsters.get(i).setMonsterEsp(monsterEspRepository.getById(random_long));
     monsterRepository.save(monsters.get(i));
     monsterEspRepository.getById(random_long).getMonstruos().add(monsters.get(i));
+    }
+    }
+
+    public void generateExits(){
+        List<Room> roomsList = roomRepository.findAll();
+        long rooms = roomRepository.findAll().size();
+        long nsalidas, random, max,min;
+        Room room;
+
+    for(int i=0;i<rooms;i++)
+    {
+        nsalidas = (long)Math.floor(Math.random()*(3-1+1)+1);
+        for(int j =0;j<nsalidas;j++)
+        {
+            if(i<roomsList.size()){
+                room = roomsList.get(i);
+                max=roomsList.size()-1;
+                min=i;
+                random = (long)Math.floor(Math.random()*(max-min+1)+min);
+                Exit exit = new Exit(roomsList.get(i),roomsList.get((int) random));
+                exitRepository.save(exit);
+                roomsList.get(i).getExits().add(exit);
+                roomRepository.save(roomsList.get(i));
+            } else {
+                Exit exit = new Exit(roomsList.get(i),roomsList.get(0));
+                exitRepository.save(exit);
+                roomsList.get(i).getExits().add(exit);
+                roomRepository.save(roomsList.get(i));
+            }
+            
+        }
+        
     }
     }
      

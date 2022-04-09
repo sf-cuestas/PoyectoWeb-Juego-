@@ -20,6 +20,15 @@ public class Exit {
     public Exit() {
     }
 
+    
+
+    public Exit(Room before, Room after) {
+        this.before = before;
+        this.after = after;
+    }
+
+
+
     public Long getId() {
         return id;
     }
