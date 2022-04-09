@@ -68,86 +68,20 @@ public class DatabaseInit implements ApplicationRunner{
         generateRooms();
         //Generates creatures 
         generateMonsters();
+        //Set types to monsters
         putTypesToMonsters();
-        //Puts monsters in 
-        //Monstruos
+        //Create and set exits to rooms
         generateExits();
-
-       
-
-        
-        
-        /*
+        //Set monsters to rooms
+        putMonstersIntoRooms();
+        //set items to rooms
+        putItemsIntoRooms();
+        //set decoratives to rooms
+        putDecorativesIntoRooms();
         // Players
         playerRepository.save(new Player("escobartc","123",100,10,10,1,0));
         playerRepository.save(new Player("chamy","123",100,10,10,1,0));
         playerRepository.save(new Player("javier","1234",100,10,10,1,0));
-
-
-
-
-        
-
-        //Salidas
-        exitRepository.save(new Exit());
-        exitRepository.save(new Exit());
-        exitRepository.save(new Exit());
-        exitRepository.save(new Exit());
-       
-
-       
-
-        // For para poner items en los cuartos
-        for(Room room : roomRepository.findAll()){
-            for(Items item : itemRepository.findAll()){
-                room.getItems().add(item);
-                roomRepository.save(room);
-            }
-        }
-
-        // For para poner decorativos a los cuartos
-
-        for(Room room : roomRepository.findAll()){
-            for(Decoratives decorative : decorativesRepository.findAll()){
-                room.getDecoratives().add(decorative);
-                roomRepository.save(room);
-            }
-        }
-
-        // For para poner monstros en habitaciones
-        for(int i=0; i < roomRepository.findAll().size(); i++){
-            monsterRepository.findAll().get(i).setRoom(roomRepository.findAll().get(i));
-            roomRepository.findAll().get(i).setMonster(monsterRepository.findAll().get(i));
-            monsterRepository.save(monsterRepository.findAll().get(i));
-            roomRepository.save(roomRepository.findAll().get(i));
-           }
-       
-
-
-        // For para poner conexiones entre habitaciones y salidas    
-        exitRepository.findAll().get(0).setBefore(roomRepository.findAll().get(4));
-        exitRepository.findAll().get(0).setAfter(roomRepository.findAll().get(0));
-        roomRepository.findAll().get(0).getExits().add(exitRepository.findAll().get(0));
-
-        exitRepository.findAll().get(1).setBefore(roomRepository.findAll().get(0));
-        exitRepository.findAll().get(1).setAfter(roomRepository.findAll().get(1));
-        roomRepository.findAll().get(1).getExits().add(exitRepository.findAll().get(1));
-
-
-        exitRepository.findAll().get(2).setBefore(roomRepository.findAll().get(1));
-        exitRepository.findAll().get(2).setAfter(roomRepository.findAll().get(2));
-        roomRepository.findAll().get(2).getExits().add(exitRepository.findAll().get(2));
-
-
-        exitRepository.findAll().get(3).setBefore(roomRepository.findAll().get(2));
-        exitRepository.findAll().get(3).setAfter(roomRepository.findAll().get(3));
-        roomRepository.findAll().get(3).getExits().add(exitRepository.findAll().get(3));
-           */
-    
-    
-
-        
-       
     }
 
     public void generateItems(){
@@ -358,7 +292,7 @@ public class DatabaseInit implements ApplicationRunner{
 
     for(int i=0;i<n;i++)
     {
-        Monster monster = new Monster("Monster" + getAlphaNumericString(5),1000);
+        Monster monster = new Monster("Monster " + getAlphaNumericString(5),1000);
         monsterRepository.save(monster);
     }
     }
@@ -436,6 +370,76 @@ public class DatabaseInit implements ApplicationRunner{
         
     }
     }
+
+    public void putMonstersIntoRooms(){
+        List<Room> roomsList = roomRepository.findAll();
+        List<Monster> monsterList = monsterRepository.findAll();
+        int n = roomsList.size();
+        long random;
+
+        for(int i=0;i<n;i++){
+            random = (long)Math.floor(Math.random()*(9-0+1)+0);
+            if(random%2==0){
+                roomsList.get(i).setMonster(monsterList.get(i));
+                monsterList.get(i).setRoom(roomsList.get(i));
+                monsterRepository.save(monsterList.get(i));
+                roomRepository.save(roomsList.get(i));
+            }
+        }
+
+    }
+    public void putDecorativesIntoRooms(){
+        List<Room> roomsList = roomRepository.findAll();
+        List<Decoratives> decorativesList = decorativesRepository.findAll();
+        long rooms = roomRepository.findAll().size();
+        long nDecorativos, random, max=decorativesList.get(decorativesList.size()-1).getId(),min=decorativesList.get(0).getId();
+        Room room;
+        Decoratives deco;
+        
+        for(int i=0;i<rooms;i++)
+    {
+        room = roomsList.get(i);
+        nDecorativos = (long)Math.floor(Math.random()*(10-1+1)+1);
+        for(int j =0;j<nDecorativos;j++)
+        {  
+                random = (long)Math.floor(Math.random()*(max-min+1)+min);
+                deco = decorativesRepository.getById(random);
+                room.getDecoratives().add(deco);
+                deco.getRoom().add(room);
+                decorativesRepository.save(deco);
+        }
+        roomRepository.save(room);
+        
+    }
+
+
+
+    }
+    public void putItemsIntoRooms(){
+        List<Room> roomsList = roomRepository.findAll();
+        List<Items> itemsList = itemRepository.findAll();
+        long rooms = roomRepository.findAll().size();
+        long nItems, random, max=itemsList.get(itemsList.size()-1).getId(),min=itemsList.get(0).getId();
+        Room room;
+        Items item;
+        
+        for(int i=0;i<rooms;i++)
+    {
+        room = roomsList.get(i);
+        nItems = (long)Math.floor(Math.random()*(12-1+1)+1);
+        for(int j =0;j<nItems;j++)
+        {  
+                random = (long)Math.floor(Math.random()*(max-min+1)+min);
+                item = itemRepository.getById(random);
+                room.getItems().add(item);
+                item.getRooms().add(room);
+                itemRepository.save(item);
+        }
+        roomRepository.save(room);
+        
+    }
+    }
+
      
 }
 
