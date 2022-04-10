@@ -80,6 +80,9 @@ public class DatabaseInit implements ApplicationRunner{
         putDecorativesIntoRooms();
         // Players
         playerRepository.save(new Player("escobartc","123",Role.ADMIN));
+        playerRepository.save(new Player("player","123",Role.PLAYER));
+        playerRepository.save(new Player("admin","123",Role.ADMIN));
+        playerRepository.save(new Player("designer","123",Role.DESIGNER));
     }
 
     public void generateItems(){

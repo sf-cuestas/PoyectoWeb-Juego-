@@ -7,7 +7,7 @@ import { Player } from '../model/player';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  isPlayer:boolean = false;
+  isPlayer:boolean = true;
   isAdmin:boolean = true;
   isDesigner:boolean = true;
   actualPlayer: Player | undefined;
@@ -18,9 +18,15 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.actualPlayer = JSON.parse(sessionStorage.getItem("actualPlayer")!)
     console.log("se paso el jugador", this.actualPlayer?.username);
+    if(this.actualPlayer?.role == 'PLAYER'){
+      this.isPlayer = false;
+    }else if (this.actualPlayer?.role == 'DESIGNER') {
+      this.isDesigner = false;
+    } else {
+      this.isAdmin = false;
+    }
   }
   startGame(): void{
-    this.isAdmin = !this.isAdmin;
 
   }
 

@@ -15,6 +15,7 @@ export class Player {
       public backpack : Item[],
       public room : Room,
       public clock: number,
+      public role: string
 
     ){}
 }

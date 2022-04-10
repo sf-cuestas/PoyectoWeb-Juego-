@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
       .logIn(this.userName, this.userPassword)
       .subscribe((player) => {
         console.log("Bienvenido");
-        console.log(player.username);
+        console.log(player.username, player.role);
         this.router.navigate(['home']);
         sessionStorage.setItem("actualPlayer",JSON.stringify(player));
       });
