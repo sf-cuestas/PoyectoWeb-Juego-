@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Player } from '../model/player';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,7 @@ export class HomeComponent implements OnInit {
   actualPlayer: Player | undefined;
 
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit(): void {
     this.actualPlayer = JSON.parse(sessionStorage.getItem("actualPlayer")!)
@@ -27,6 +28,8 @@ export class HomeComponent implements OnInit {
     }
   }
   startGame(): void{
+    this.router.navigate(['game']);
+    
 
   }
 

@@ -42,6 +42,13 @@ public class Player {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.hp = 100;
+        this.attack_level = 5;
+        this.defence_slash = 5;
+        this.size = 30;
+        this.weight = 0;
+        this.backpack = new ArrayList<>();
+        this.clock = 0;
     }
 
 
