@@ -51,7 +51,7 @@ public class DatabaseInit implements ApplicationRunner{
     @Autowired
     PlayerRepository playerRepository;
 
-    //int nmonstruos = 1000;
+    
 
 
 
@@ -79,12 +79,33 @@ public class DatabaseInit implements ApplicationRunner{
         putItemsIntoRooms();
         //set decoratives to rooms
         putDecorativesIntoRooms();
-        
+
         // Players
         playerRepository.save(new Player("escobartc","123",Role.ADMIN));
+
+        List<Room> roomsxd = roomRepository.findAll();
+        List<Items> itemsPlayer = itemRepository.findAll();
+        List<Player> activePlayers = playerRepository.findAll();
+        for(int i=0;i<1;i++){
+         activePlayers.get(0).getBackpack().add(itemsPlayer.get(i));
+         itemsPlayer.get(i).setPlayer(activePlayers.get(0));
+         itemRepository.save(itemsPlayer.get(i));
+        }
+        activePlayers.get(0).setRoom(roomsxd.get(0));
+        roomsxd.get(0).getPlayers().add(activePlayers.get(0));
+        playerRepository.save(activePlayers.get(0));
+        roomRepository.save(roomsxd.get(0));
+
+
+        
         playerRepository.save(new Player("player","123",Role.PLAYER));
         playerRepository.save(new Player("admin","123",Role.ADMIN));
         playerRepository.save(new Player("designer","123",Role.DESIGNER));
+        
+
+
+
+
     }
 
     public void generateItems(){

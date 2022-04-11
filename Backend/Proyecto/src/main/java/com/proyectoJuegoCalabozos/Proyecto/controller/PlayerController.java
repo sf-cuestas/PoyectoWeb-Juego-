@@ -39,7 +39,7 @@ public class PlayerController {
     }
     @PostMapping("/save")
     public String save(@ModelAttribute Player player, Model model) {
-        System.out.println(player.getId());
+        player.init();
         playerRepository.save(player);
         return "redirect:/player/all";
     }

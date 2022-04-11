@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-
 @Entity
 public class Player {
     @Id
@@ -271,8 +270,16 @@ public class Player {
     public void setClock(Integer clock) {
         this.clock = clock;
     }
-    
-    
+
+    public void init() {
+        this.hp = 100;
+        this.attack_level = 5;
+        this.defence_slash = 5;
+        this.size = 30;
+        this.weight = 0;
+        this.backpack = new ArrayList<>();
+        this.clock = 0;
+    }
 
     
 }

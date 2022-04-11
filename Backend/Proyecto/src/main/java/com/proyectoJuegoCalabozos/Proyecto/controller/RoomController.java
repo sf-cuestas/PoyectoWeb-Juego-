@@ -7,11 +7,13 @@ import com.proyectoJuegoCalabozos.Proyecto.model.Decoratives;
 import com.proyectoJuegoCalabozos.Proyecto.model.Exit;
 import com.proyectoJuegoCalabozos.Proyecto.model.Items;
 import com.proyectoJuegoCalabozos.Proyecto.model.Monster;
+import com.proyectoJuegoCalabozos.Proyecto.model.Player;
 import com.proyectoJuegoCalabozos.Proyecto.model.Room;
 import com.proyectoJuegoCalabozos.Proyecto.repository.DecorativesRepository;
 import com.proyectoJuegoCalabozos.Proyecto.repository.ExitRepository;
 import com.proyectoJuegoCalabozos.Proyecto.repository.ItemRepository;
 import com.proyectoJuegoCalabozos.Proyecto.repository.MonsterRepository;
+import com.proyectoJuegoCalabozos.Proyecto.repository.PlayerRepository;
 import com.proyectoJuegoCalabozos.Proyecto.repository.RoomRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,9 @@ public class RoomController {
 
     @Autowired
     private DecorativesRepository decorativeRepository;
+
+    @Autowired
+    private PlayerRepository playerRepository;
 
     @GetMapping("/all")
     public String allRoom(Model model) {
@@ -113,27 +118,39 @@ public class RoomController {
 
     @GetMapping("/delete/{id}")
     public String deleteRoom(Model model, @PathVariable Long id) {
-        for(Room room : roomRepository.findAll()){
+        Room actual = roomRepository.findById(id).get();
+        List<Room> rooms = roomRepository.findAll();
+
+        for(Room room : rooms){
             if(room != null)
             for(Exit e : room.getExits()){
                 if(e != null){
                     if(e.getAfter()!= null && e.getAfter().getId()==id){
                         e.setAfter(null);
                         e.setBefore(null);
+                        exitRepository.save(e);
                     }
                     
                     if(e.getBefore()!= null && e.getBefore().getId()==id){
                         e.setBefore(null);
                         e.setAfter(null);
+                        exitRepository.save(e);
                     }
                 }
                 
             }
         }
        
-        for(Exit salida : roomRepository.findById(id).get().getExits()){
+        for(Exit salida : actual.getExits()){
             exitRepository.delete(salida);
         }
+
+        for(Player p : actual.getPlayers()){
+            p.setRoom(null);
+            playerRepository.save(p);
+        }
+
+
         roomRepository.findById(id).get().disconnection();
         roomRepository.save(roomRepository.findById(id).get());
         roomRepository.deleteById(id);
