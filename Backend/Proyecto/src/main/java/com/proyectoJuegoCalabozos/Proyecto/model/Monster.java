@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Monster {
     @Id
@@ -17,6 +19,7 @@ public class Monster {
     MonstersEsp monsterEsp;
     Integer hp;
     @OneToOne
+    @JsonIgnore
     Room room;
   
     

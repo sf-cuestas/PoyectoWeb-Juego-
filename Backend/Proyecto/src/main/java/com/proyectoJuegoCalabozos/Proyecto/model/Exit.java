@@ -7,14 +7,18 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Exit {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
     @ManyToOne
+    @JsonIgnore
     Room before;
     @OneToOne
+    @JsonIgnore
     Room after;
     
     public Exit() {

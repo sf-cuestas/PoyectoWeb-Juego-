@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Player {
     @Id
@@ -28,6 +30,7 @@ public class Player {
     @OneToMany(mappedBy = "player")
     List <Items> backpack = new ArrayList<>();
     @ManyToOne
+    @JsonIgnore
     Room room;
     Integer clock;
     @Enumerated(EnumType.ORDINAL)

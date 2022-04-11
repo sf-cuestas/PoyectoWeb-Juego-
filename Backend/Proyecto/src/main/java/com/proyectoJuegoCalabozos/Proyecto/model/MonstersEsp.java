@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class MonstersEsp {
     @Id
@@ -25,6 +27,7 @@ public class MonstersEsp {
     String wiki_url;
 
     @OneToMany(mappedBy = "monsterEsp")
+    @JsonIgnore
     List<Monster> monstruos = new ArrayList<>();
     
     
