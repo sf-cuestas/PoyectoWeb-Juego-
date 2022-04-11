@@ -8,9 +8,10 @@
     <h1>Active players</h1>
     <ul>
         <li th:each="player : ${player}" >
-            <a th:text="${player.username}"></a></li>
+            <a th:href="@{/player/edit/{id}(id=${player.id})}"  th:text="${player.username}"></a></li>
     </ul>
-    <p><a th:href="@{/}" th:text="Back" ></a></p>
+    <p><a th:href="@{/player/create}" th:text="Create" ></a></p>
+    <p><a th:href="@{http://localhost:4200/home}" th:text="Back" ></a></p>
 </body>
     
 </html>

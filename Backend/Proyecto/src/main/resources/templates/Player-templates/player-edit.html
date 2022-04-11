@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+    </head>
+
+    <body>
+        <h1>Here you are able to edit players.</h1>
+        <h1>Player</h1>
+        <form action="#" th:action="@{/player/save}" th:object="${player}" method="post">
+            <input type="hidden" th:field="${player.id}" id="player-id">
+            <label for="player-name">Name: </label>
+            <input type="text" th:field="${player.username}" id="player-name">
+            <label for="player-name">Password: </label>
+            <input type="text" th:field="${player.password}" id="player-pass">
+            <select name="role">
+                <option th:each="roleOpt : ${T(com.proyectoJuegoCalabozos.Proyecto.model.Role).values()}" 
+                    th:value="${roleOpt}" th:text="${roleOpt}"></option>
+            </select>
+            <button type="submit">Send</button>
+            <p><a th:href="@{/player/delete/{id}(id=${player.id})}" th:text="Delete" ></a></p>
+
+        </form>
+        <p><a th:href="@{/player/all}" th:text="Back" ></a></p>
+    </body>
+</html>

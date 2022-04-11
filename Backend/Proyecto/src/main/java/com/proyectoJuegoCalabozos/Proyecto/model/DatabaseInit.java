@@ -58,6 +58,7 @@ public class DatabaseInit implements ApplicationRunner{
     @Override
     @Transactional
     public void run(ApplicationArguments args) throws Exception {
+        
         //Generates items in database from json file
         generateItems();
         //Generates decoratives in database from json file
@@ -78,6 +79,7 @@ public class DatabaseInit implements ApplicationRunner{
         putItemsIntoRooms();
         //set decoratives to rooms
         putDecorativesIntoRooms();
+        
         // Players
         playerRepository.save(new Player("escobartc","123",Role.ADMIN));
         playerRepository.save(new Player("player","123",Role.PLAYER));
