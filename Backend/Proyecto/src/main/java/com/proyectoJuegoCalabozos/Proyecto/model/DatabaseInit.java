@@ -86,7 +86,7 @@ public class DatabaseInit implements ApplicationRunner{
         List<Room> roomsxd = roomRepository.findAll();
         List<Items> itemsPlayer = itemRepository.findAll();
         List<Player> activePlayers = playerRepository.findAll();
-        for(int i=0;i<1;i++){
+        for(int i=0;i<5;i++){
          activePlayers.get(0).getBackpack().add(itemsPlayer.get(i));
          itemsPlayer.get(i).setPlayer(activePlayers.get(0));
          itemRepository.save(itemsPlayer.get(i));

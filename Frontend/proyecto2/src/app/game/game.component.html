@@ -4,7 +4,8 @@
     <li >{{item.name}}</li><button (click)="throwItem(item)">throw</button>
 </ul>
 
-<p>{{actualRoom?.name}}</p>
-<ul *ngFor="let item of actualRoom?.items">
+<p>{{actualPlayer?.room?.name}}</p>
+<ul *ngFor="let item of actualPlayer?.room?.items">
     <li >{{item.name}}</li><button (click)="pickUpItem(item)">Pick Up</button>
 </ul>
+

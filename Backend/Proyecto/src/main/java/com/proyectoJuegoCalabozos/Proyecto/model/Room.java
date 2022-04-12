@@ -12,6 +12,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Room {
@@ -29,6 +31,7 @@ public class Room {
     @OneToMany(mappedBy = "before")
     List <Exit> exits = new ArrayList<>();
     @OneToMany(mappedBy = "room")
+    @JsonIgnore
     List <Player> players = new ArrayList<>();
 
     

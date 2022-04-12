@@ -30,7 +30,6 @@ public class Player {
     @OneToMany(mappedBy = "player")
     List <Items> backpack = new ArrayList<>();
     @ManyToOne
-    @JsonIgnore
     Room room;
     Integer clock;
     @Enumerated(EnumType.ORDINAL)
@@ -282,6 +281,7 @@ public class Player {
         this.weight = 0;
         this.backpack = new ArrayList<>();
         this.clock = 0;
+        
     }
 
     
