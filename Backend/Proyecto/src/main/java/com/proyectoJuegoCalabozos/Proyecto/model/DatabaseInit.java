@@ -81,7 +81,7 @@ public class DatabaseInit implements ApplicationRunner{
         putDecorativesIntoRooms();
 
         // Players
-        playerRepository.save(new Player("escobartc","123",Role.ADMIN));
+        playerRepository.save(new Player("escobartc","123",Role.PLAYER));
 
         List<Room> roomsxd = roomRepository.findAll();
         List<Items> itemsPlayer = itemRepository.findAll();

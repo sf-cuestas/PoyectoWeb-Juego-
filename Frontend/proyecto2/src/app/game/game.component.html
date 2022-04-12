@@ -1,5 +1,10 @@
 <p>{{actualPlayer?.username}}</p>
 <p>{{actualPlayer?.hp}}</p>
 <ul *ngFor="let item of actualPlayer?.backpack">
-    <li >{{item.name}}</li>
+    <li >{{item.name}}</li><button (click)="throwItem(item)">throw</button>
+</ul>
+
+<p>{{actualRoom?.name}}</p>
+<ul *ngFor="let item of actualRoom?.items">
+    <li >{{item.name}}</li><button (click)="pickUpItem(item)">Pick Up</button>
 </ul>

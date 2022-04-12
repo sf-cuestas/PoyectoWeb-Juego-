@@ -1,9 +1,9 @@
 package com.proyectoJuegoCalabozos.Proyecto.apiControllers;
-
 import java.util.List;
 
 import com.proyectoJuegoCalabozos.Proyecto.model.Items;
 import com.proyectoJuegoCalabozos.Proyecto.model.Player;
+import com.proyectoJuegoCalabozos.Proyecto.model.Room;
 import com.proyectoJuegoCalabozos.Proyecto.repository.ItemRepository;
 import com.proyectoJuegoCalabozos.Proyecto.repository.PlayerRepository;
 import com.proyectoJuegoCalabozos.Proyecto.repository.RoomRepository;
@@ -22,8 +22,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
-@RequestMapping("/api/player")
-public class PlayerApiController {
+@RequestMapping("/api/room")
+public class RoomApiController {
     @Autowired
     private PlayerRepository playerRepository;
 
@@ -42,22 +42,9 @@ public class PlayerApiController {
             @ApiResponse(responseCode = "400", description = "Invalid id supplied", content = @Content), 
             @ApiResponse(responseCode = "404", description = "Monster not found", content = @Content) })
    @CrossOrigin(origins = "http://localhost:4200")
-   @GetMapping("/{userName}")
-    public Player findPlayerByUserName(@PathVariable String userName) {
-        return playerRepository.findPlayerByUsername(userName);
-    }
+   @GetMapping("/{playerId}")
+    public Room findActualPlayerRoom(@PathVariable Long playerId) {
 
-    @CrossOrigin(origins = "http://localhost:4200")
-   @GetMapping("/{userId}/{itemId}")
-    public Player throwItemByUserName(@PathVariable Long userId, @PathVariable Long itemId) {
-        Player actual = playerRepository.findById(userId).get();
-        Items item = itemsRepository.findById(itemId).get();
-        actual.getBackpack().remove(item);
-        item.setPlayer(null);
-        actual.getRoom().getItems().add(item);
-        roomsRepository.save(actual.getRoom());
-        playerRepository.save(actual);
-        return actual;
+        return roomsRepository.findById(playerRepository.findById(playerId).get().getRoom().getId()).get();
     }
-    
 }
