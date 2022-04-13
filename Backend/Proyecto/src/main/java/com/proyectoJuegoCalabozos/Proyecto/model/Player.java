@@ -13,7 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Player {
@@ -27,10 +28,13 @@ public class Player {
     Integer defence_slash;
     Integer size;
     Integer weight;
+
     @OneToMany(mappedBy = "player")
     List <Items> backpack = new ArrayList<>();
+
     @ManyToOne
     Room room;
+
     Integer clock;
     @Enumerated(EnumType.ORDINAL)
     Role role;
@@ -226,7 +230,7 @@ public class Player {
 
 
 
-
+    @JsonManagedReference
     public List<Items> getBackpack() {
         return backpack;
     }
@@ -242,7 +246,7 @@ public class Player {
 
 
 
-
+    
     public Room getRoom() {
         return room;
     }

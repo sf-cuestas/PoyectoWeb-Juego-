@@ -31,5 +31,8 @@ export class SessionService {
   pickUpItemFromRoom(user: Player, item: Item): Observable<Player>{
     return this.http.get<Player>("http://localhost:8080/api/player/pickup/" + user.id + "/" + item.id);
   }
+  spawnPlayer(user:Player): Observable<Player> {
+    return this.http.get<Player>("http://localhost:8080/api/player/spawn/" + user.id);
+  }
 
 }

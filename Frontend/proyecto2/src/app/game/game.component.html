@@ -21,14 +21,9 @@
         <li >{{decorative.name}}</li>
     </ul>
 
-    <p>Decoratives</p>
-    <ul *ngFor="let decorative of actualPlayer?.room?.decoratives">
-        <li >{{decorative.name}}</li>
-    </ul>
-
     <p>Exits</p>
     <ul *ngFor="let exit of actualPlayer?.room?.exits">
-        <li >{{exit.after.name}}</li><button (click)="changeRoom(exit.after)">Go</button>
+        <li >Exit: {{exit.id}}</li><button (click)="changeRoom(exit.after)">Go</button>
     </ul>
 
     <p>Monster</p>

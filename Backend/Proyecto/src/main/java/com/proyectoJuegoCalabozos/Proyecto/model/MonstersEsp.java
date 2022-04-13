@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class MonstersEsp {
@@ -27,7 +28,6 @@ public class MonstersEsp {
     String wiki_url;
 
     @OneToMany(mappedBy = "monsterEsp")
-    @JsonIgnore
     List<Monster> monstruos = new ArrayList<>();
     
     
@@ -109,7 +109,7 @@ public class MonstersEsp {
     public void setWiki_url(String wiki_url) {
         this.wiki_url = wiki_url;
     }
-
+    @JsonManagedReference
     public List<Monster> getMonstruos() {
         return monstruos;
     }

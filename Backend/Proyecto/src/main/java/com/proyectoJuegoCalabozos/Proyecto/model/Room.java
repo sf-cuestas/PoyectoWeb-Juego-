@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
@@ -22,16 +23,22 @@ public class Room {
     long id;
     String name;
     String description;
+
+
     @ManyToMany
     List <Items> items = new ArrayList<>();
+
     @ManyToMany
     List <Decoratives> decoratives = new ArrayList<>();
+
     @OneToOne
     Monster monster;
+
+
     @OneToMany(mappedBy = "before")
     List <Exit> exits = new ArrayList<>();
+
     @OneToMany(mappedBy = "room")
-    @JsonIgnore
     List <Player> players = new ArrayList<>();
 
     
@@ -118,7 +125,7 @@ public class Room {
     }
 
 
-
+    @JsonManagedReference
     public List<Exit> getExits() {
         return exits;
     }
@@ -130,7 +137,7 @@ public class Room {
     }
 
     
-
+    @JsonIgnore
     public List<Player> getPlayers() {
         return players;
     }

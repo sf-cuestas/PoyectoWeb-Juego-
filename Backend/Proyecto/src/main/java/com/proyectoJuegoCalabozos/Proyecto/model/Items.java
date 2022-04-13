@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -23,11 +24,11 @@ public class Items {
     double weight;
     String examine;
     String wiki_url;
+
     @ManyToMany(mappedBy = "items")
-    @JsonIgnore
     List <Room> rooms = new ArrayList<>();
+
     @ManyToOne
-    @JsonIgnore
     Player player;
    
     public Items() {
@@ -88,7 +89,7 @@ public class Items {
     public void setWiki_url(String wiki_url) {
         this.wiki_url = wiki_url;
     }
-    
+    @JsonIgnore
     public List<Room> getRooms() {
         return rooms;
     }
@@ -98,7 +99,7 @@ public class Items {
     }
 
 
-    
+    @JsonBackReference
     public Player getPlayer() {
         return player;
     }

@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -15,11 +16,13 @@ public class Monster {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
     String name;
+
     @ManyToOne
     MonstersEsp monsterEsp;
+
     Integer hp;
+
     @OneToOne
-    @JsonIgnore
     Room room;
   
     
@@ -45,7 +48,7 @@ public class Monster {
     }
 
 
-
+    @JsonBackReference
     public MonstersEsp getMonsterEsp() {
         return monsterEsp;
     }
@@ -82,7 +85,7 @@ public class Monster {
         this.name = name;
     }
 
-
+    @JsonIgnore
     public Room getRoom() {
         return room;
     }

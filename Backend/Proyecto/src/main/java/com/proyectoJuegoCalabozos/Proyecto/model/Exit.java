@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -14,11 +15,11 @@ public class Exit {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
+
     @ManyToOne
-    @JsonIgnore
     Room before;
+
     @OneToOne
-    @JsonIgnore
     Room after;
     
     public Exit() {
@@ -41,6 +42,7 @@ public class Exit {
         this.id = id;
     }
 
+    @JsonBackReference
     public Room getBefore() {
         return before;
     }
@@ -49,6 +51,7 @@ public class Exit {
         this.before = before;
     }
 
+    @JsonIgnore
     public Room getAfter() {
         return after;
     }

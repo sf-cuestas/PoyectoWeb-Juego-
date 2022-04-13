@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.proyectoJuegoCalabozos.Proyecto.model.Items;
 import com.proyectoJuegoCalabozos.Proyecto.model.Player;
+import com.proyectoJuegoCalabozos.Proyecto.model.Room;
 import com.proyectoJuegoCalabozos.Proyecto.repository.ItemRepository;
 import com.proyectoJuegoCalabozos.Proyecto.repository.PlayerRepository;
 import com.proyectoJuegoCalabozos.Proyecto.repository.RoomRepository;
@@ -69,6 +70,17 @@ public class PlayerApiController {
         item.setPlayer(actual);
         actual.getRoom().getItems().remove(item);
         roomsRepository.save(actual.getRoom());
+        playerRepository.save(actual);
+        return actual;
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/spawn/{userId}")
+    public Player spawnPlayer(@PathVariable Long userId) {
+        Player actual = playerRepository.findById(userId).get();
+        List<Room> rooms = roomsRepository.findAll();
+        long random = (long)Math.floor(Math.random()*(rooms.get(rooms.size()-1).getId()-rooms.get(0).getId()+1)+rooms.get(0).getId());
+        actual.setRoom(roomsRepository.getById(random));
         playerRepository.save(actual);
         return actual;
     }

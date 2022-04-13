@@ -18,7 +18,6 @@ public class Decoratives {
     long id;
     String name;
     @ManyToMany(mappedBy = "decoratives")
-    @JsonIgnore
     List <Room> room = new ArrayList<>();
 
     public Decoratives() {
@@ -46,7 +45,7 @@ public class Decoratives {
     }
 
 
-
+    @JsonIgnore
     public List<Room> getRoom() {
         return room;
     }
