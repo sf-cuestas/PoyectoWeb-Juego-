@@ -1,6 +1,7 @@
 import { Decorative } from "./decorative";
 import { Exit } from "./exit";
 import { Item } from "./item";
+import { Monster } from "./monster";
 import { Player } from "./player";
 
 export class Room {
@@ -11,7 +12,7 @@ export class Room {
       public description : string,
       public items : Item[],
       public decoratives : Decorative[],
-      public monster : any,
+      public monster : Monster | undefined,
       public exits : Exit[],
       public players : Player[],
 

@@ -59,5 +59,18 @@ public class PlayerApiController {
         playerRepository.save(actual);
         return actual;
     }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/pickup/{userId}/{itemId}")
+    public Player pickUpItemByUserName(@PathVariable Long userId, @PathVariable Long itemId) {
+        Player actual = playerRepository.findById(userId).get();
+        Items item = itemsRepository.findById(itemId).get();
+        actual.getBackpack().add(item);
+        item.setPlayer(actual);
+        actual.getRoom().getItems().remove(item);
+        roomsRepository.save(actual.getRoom());
+        playerRepository.save(actual);
+        return actual;
+    }
     
 }

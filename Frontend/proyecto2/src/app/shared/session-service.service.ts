@@ -28,4 +28,8 @@ export class SessionService {
     return this.http.get<Room>("http://localhost:8080/api/room/" + user.id);
   }
 
+  pickUpItemFromRoom(user: Player, item: Item): Observable<Player>{
+    return this.http.get<Player>("http://localhost:8080/api/player/pickup/" + user.id + "/" + item.id);
+  }
+
 }
