@@ -51,7 +51,7 @@ public class Player {
         this.attack_level = 5;
         this.defence_slash = 5;
         this.size = 30;
-        this.weight = 0;
+        this.weight = 50;
         this.backpack = new ArrayList<>();
         this.clock = 0;
     }

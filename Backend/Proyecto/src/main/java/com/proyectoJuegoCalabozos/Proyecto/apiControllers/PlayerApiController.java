@@ -3,9 +3,11 @@ package com.proyectoJuegoCalabozos.Proyecto.apiControllers;
 import java.util.List;
 
 import com.proyectoJuegoCalabozos.Proyecto.model.Items;
+import com.proyectoJuegoCalabozos.Proyecto.model.Monster;
 import com.proyectoJuegoCalabozos.Proyecto.model.Player;
 import com.proyectoJuegoCalabozos.Proyecto.model.Room;
 import com.proyectoJuegoCalabozos.Proyecto.repository.ItemRepository;
+import com.proyectoJuegoCalabozos.Proyecto.repository.MonsterRepository;
 import com.proyectoJuegoCalabozos.Proyecto.repository.PlayerRepository;
 import com.proyectoJuegoCalabozos.Proyecto.repository.RoomRepository;
 
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import ch.qos.logback.core.joran.action.ActionUtil;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -33,6 +37,9 @@ public class PlayerApiController {
 
     @Autowired
     private RoomRepository roomsRepository;
+
+    @Autowired
+    private MonsterRepository monsterRepository;
 
     // OpenAPI
     @Operation(summary = "Retrieves a User by name")
@@ -81,6 +88,31 @@ public class PlayerApiController {
         List<Room> rooms = roomsRepository.findAll();
         long random = (long)Math.floor(Math.random()*(rooms.get(rooms.size()-1).getId()-rooms.get(0).getId()+1)+rooms.get(0).getId());
         actual.setRoom(roomsRepository.getById(random));
+        playerRepository.save(actual);
+        return actual;
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/attackmonster/{userId}/{attack}")
+    public Player attackMonsterByPlayer(@PathVariable Long userId, @PathVariable int attack) {
+        Player actual = playerRepository.findById(userId).get();
+        Monster actualMonster = actual.getRoom().getMonster();
+        actualMonster.setHp(attack);
+        monsterRepository.save(actualMonster);
+        playerRepository.save(actual);
+        return actual;
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/changeroom/{userId}/{roomId}")
+    public Player changeRoom(@PathVariable Long userId, @PathVariable long roomId) {
+        Player actual = playerRepository.findById(userId).get();
+        Room actualRoom = actual.getRoom();
+        Room nextRoom = roomsRepository.findById(roomId).get();
+        actualRoom.getPlayers().remove(actual);
+        actual.setRoom(nextRoom);
+        roomsRepository.save(actualRoom);
+        roomsRepository.save(nextRoom);
         playerRepository.save(actual);
         return actual;
     }

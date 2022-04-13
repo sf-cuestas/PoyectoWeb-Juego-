@@ -1,6 +1,7 @@
 package com.proyectoJuegoCalabozos.Proyecto.apiControllers;
 
 import com.proyectoJuegoCalabozos.Proyecto.model.Monster;
+import com.proyectoJuegoCalabozos.Proyecto.model.MonstersEsp;
 import com.proyectoJuegoCalabozos.Proyecto.repository.MonsterRepository;
 
 import org.slf4j.Logger;
@@ -49,5 +50,11 @@ public class MonsterApiController {
     public Monster saveMonster(@RequestBody Monster monster) {
         log.info("monster {}", monster.getName());
         return monsterRepository.save(monster);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/type/{monsterId}")
+    public MonstersEsp getMonsterType(@PathVariable Long monsterId) {
+        return monsterRepository.findById(monsterId).get().getMonsterEsp();
     }
 }

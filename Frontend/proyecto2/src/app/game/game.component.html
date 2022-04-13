@@ -6,28 +6,36 @@
     <ul *ngFor="let item of actualPlayer?.backpack">
         <li >{{item.name}}</li><button (click)="throwItem(item)">throw</button>
     </ul>
+    <p>--------------------------------------------------------------------------</p>
 </div>
 <div>
     <p>Room</p>
     <p>{{actualPlayer?.room?.name}}</p>
+    <p>--------------------------------------------------------------------------</p>
 
     <p>Items</p>
     <ul *ngFor="let item of actualPlayer?.room?.items">
-        <li >{{item.name}}</li><button (click)="pickUpItem(item)">Pick Up</button>
+        <li >{{item.name}}</li><button  [hidden]="isMonsterAlive" (click)="pickUpItem(item)">Pick Up</button>
     </ul>
+    <p>--------------------------------------------------------------------------</p>
 
     <p>Decoratives</p>
     <ul *ngFor="let decorative of actualPlayer?.room?.decoratives">
         <li >{{decorative.name}}</li>
     </ul>
+    <p>--------------------------------------------------------------------------</p>
 
     <p>Exits</p>
     <ul *ngFor="let exit of actualPlayer?.room?.exits">
-        <li >Exit: {{exit.id}}</li><button (click)="changeRoom(exit.after)">Go</button>
+        <li >Exit: {{exit.id}}</li><button [hidden]="isMonsterAlive" (click)="changeRoom(exit)">Go</button>
+        <button [hidden]="!isMonsterAlive" (click)="escapeRoom(exit)">Escape</button>
     </ul>
+    <p>--------------------------------------------------------------------------</p>
 
     <p>Monster</p>
-    <p>{{actualPlayer?.room?.monster?.name}}</p><button (click)="attackMonster(actualPlayer?.room?.monster)">Attack</button>
+    <p>{{actualPlayer?.room?.monster?.name}}</p>
+    <p>{{actualPlayer?.room?.monster?.hp}}</p><button  [hidden]="!isMonsterAlive" (click)="attackMonster(actualPlayer?.room?.monster)">Attack</button>
+    <p>--------------------------------------------------------------------------</p>
 
 </div>
 
