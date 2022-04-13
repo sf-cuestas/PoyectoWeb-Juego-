@@ -48,7 +48,7 @@ public class Monster {
     }
 
 
-    
+    @JsonBackReference
     public MonstersEsp getMonsterEsp() {
         return monsterEsp;
     }

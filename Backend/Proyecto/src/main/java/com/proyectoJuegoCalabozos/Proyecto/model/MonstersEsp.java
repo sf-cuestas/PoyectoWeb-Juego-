@@ -109,7 +109,7 @@ public class MonstersEsp {
     public void setWiki_url(String wiki_url) {
         this.wiki_url = wiki_url;
     }
-    @JsonIgnore
+    @JsonManagedReference
     public List<Monster> getMonstruos() {
         return monstruos;
     }
