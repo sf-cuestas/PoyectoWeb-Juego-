@@ -16,7 +16,8 @@
 
     <p>Items</p>
     <ul *ngFor="let item of actualPlayer?.room?.items">
-        <li >{{item.name}}</li><button  [hidden]="isMonsterAlive" (click)="pickUpItem(item)">Pick Up</button>
+        <li >{{item.name}}</li> <img  class="images" src="assets/items-icons/{{item.id}}.png"/> <button
+        [hidden]="isMonsterAlive" (click)="pickUpItem(item)">Pick Up</button>
     </ul>
     <p>--------------------------------------------------------------------------</p>
 

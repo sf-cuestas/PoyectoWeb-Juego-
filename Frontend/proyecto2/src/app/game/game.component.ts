@@ -130,7 +130,6 @@ export class GameComponent implements OnInit {
   }
 /*
 falta
-- iconos 
 - mostrar jugadores de la habitacion
 */
 }

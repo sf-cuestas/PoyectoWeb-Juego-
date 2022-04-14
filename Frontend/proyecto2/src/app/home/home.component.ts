@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
   constructor(private router:Router,private sessionService:SessionService) { }
 
   ngOnInit(): void {
+    this.playAudio();
     this.actualPlayer = JSON.parse(sessionStorage.getItem("actualPlayer")!)
     console.log("se paso el jugador", this.actualPlayer?.username);
     if(this.actualPlayer?.role == 'PLAYER'){
@@ -42,5 +43,13 @@ export class HomeComponent implements OnInit {
 
 
   }
+
+  playAudio(){
+    let audio = new Audio();
+    audio.src = "../../../assets/song.mp3";
+    audio.load();
+    audio.play();
+  }
+
 
 }

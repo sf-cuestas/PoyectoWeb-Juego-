@@ -5,7 +5,7 @@ import { SessionService } from '../shared/session-service.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css','./nicepage.css']
 })
 export class LoginComponent implements OnInit {
   userName: string = "";

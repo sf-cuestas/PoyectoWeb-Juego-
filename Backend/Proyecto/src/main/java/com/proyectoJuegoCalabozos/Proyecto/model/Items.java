@@ -16,7 +16,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class Items {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
     String name;
     String last_updated;

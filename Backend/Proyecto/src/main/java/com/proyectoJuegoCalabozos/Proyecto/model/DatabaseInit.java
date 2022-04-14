@@ -110,7 +110,7 @@ public class DatabaseInit implements ApplicationRunner{
 
     public void generateItems(){
         File input = new File(System.getProperty("user.dir") + File.separator + "assets" + File.separator + "items.json");
-            
+            long id;
         
         try{
                 String s = Files.readString(input.toPath());
@@ -121,7 +121,8 @@ public class DatabaseInit implements ApplicationRunner{
                 JsonObject jobject = objeto.getAsJsonObject(); 
                 Items item = new Items();
 
-
+                
+                 id = jobject.get("id").getAsLong();
 
                 String name = "";
                 if(!jobject.get("name").isJsonNull())
@@ -149,7 +150,7 @@ public class DatabaseInit implements ApplicationRunner{
                 if(!jobject.get("wiki_url").isJsonNull())
                 wiki_url = jobject.get("wiki_url").getAsString();
               
-
+                item.setId(id);
                 item.setName(name);
                 item.setLast_updated(last_updated);
                 item.setCost(cost);
@@ -437,7 +438,7 @@ public class DatabaseInit implements ApplicationRunner{
         List<Room> roomsList = roomRepository.findAll();
         List<Items> itemsList = itemRepository.findAll();
         long rooms = roomRepository.findAll().size();
-        long nItems, random, max=itemsList.get(itemsList.size()-1).getId(),min=itemsList.get(0).getId();
+        long nItems, random, max=itemsList.size()-1,min=0;
         Room room;
         Items item;
         
@@ -448,7 +449,7 @@ public class DatabaseInit implements ApplicationRunner{
         for(int j =0;j<nItems;j++)
         {  
                 random = (long)Math.floor(Math.random()*(max-min+1)+min);
-                item = itemRepository.getById(random);
+                item = itemsList.get((int) random);
                 room.getItems().add(item);
                 item.getRooms().add(room);
                 itemRepository.save(item);
