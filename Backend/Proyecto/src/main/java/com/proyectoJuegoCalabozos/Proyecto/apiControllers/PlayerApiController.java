@@ -91,7 +91,8 @@ public class PlayerApiController {
         playerRepository.save(actual);
         return actual;
     }
-
+   
+    
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/attackmonster/{userId}/{attack}")
     public Player attackMonsterByPlayer(@PathVariable Long userId, @PathVariable int attack) {
@@ -111,10 +112,22 @@ public class PlayerApiController {
         Room nextRoom = roomsRepository.findById(roomId).get();
         actualRoom.getPlayers().remove(actual);
         actual.setRoom(nextRoom);
+        actual.setClock(actual.getClock()+1);
         roomsRepository.save(actualRoom);
         roomsRepository.save(nextRoom);
         playerRepository.save(actual);
         return actual;
     }
+
     
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/attackplayer/{userId}/{attack}")
+    public Player attackPlayerByMonster(@PathVariable Long userId, @PathVariable int attack) {
+        Player actual = playerRepository.findById(userId).get();
+        actual.setHp(attack);
+        playerRepository.save(actual);
+        return actual;
+    }
+    
+
 }

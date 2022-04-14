@@ -57,4 +57,7 @@ public class MonsterApiController {
     public MonstersEsp getMonsterType(@PathVariable Long monsterId) {
         return monsterRepository.findById(monsterId).get().getMonsterEsp();
     }
+
+
+    
 }

@@ -47,7 +47,7 @@ public class Player {
         this.username = username;
         this.password = password;
         this.role = role;
-        this.hp = 100;
+        this.hp = 1000;
         this.attack_level = 5;
         this.defence_slash = 5;
         this.size = 30;
@@ -278,7 +278,7 @@ public class Player {
     }
 
     public void init() {
-        this.hp = 100;
+        this.hp = 1000;
         this.attack_level = 5;
         this.defence_slash = 5;
         this.size = 30;

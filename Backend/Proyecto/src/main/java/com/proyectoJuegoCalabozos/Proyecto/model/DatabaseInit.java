@@ -374,21 +374,15 @@ public class DatabaseInit implements ApplicationRunner{
         nsalidas = (long)Math.floor(Math.random()*(3-1+1)+1);
         for(int j =0;j<nsalidas;j++)
         {
-            if(i<roomsList.size()){
+            
                 room = roomsList.get(i);
                 max=roomsList.size()-1;
-                min=i;
+                min=0;
                 random = (long)Math.floor(Math.random()*(max-min+1)+min);
                 Exit exit = new Exit(roomsList.get(i),roomsList.get((int) random));
                 exitRepository.save(exit);
                 roomsList.get(i).getExits().add(exit);
                 roomRepository.save(roomsList.get(i));
-            } else {
-                Exit exit = new Exit(roomsList.get(i),roomsList.get(0));
-                exitRepository.save(exit);
-                roomsList.get(i).getExits().add(exit);
-                roomRepository.save(roomsList.get(i));
-            }
             
         }
         

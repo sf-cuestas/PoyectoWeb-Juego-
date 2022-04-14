@@ -2,6 +2,7 @@
 <div>
     <p> Player {{actualPlayer?.username}}</p>
     <p> HP: {{actualPlayer?.hp}}</p>
+    <p> Time: {{actualPlayer?.clock}}</p>
     <p>BackPack</p>
     <ul *ngFor="let item of actualPlayer?.backpack">
         <li >{{item.name}}</li><button (click)="throwItem(item)">throw</button>

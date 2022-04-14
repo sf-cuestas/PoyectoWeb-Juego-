@@ -55,4 +55,8 @@ export class SessionService {
     return this.http.get<MonstersEsp>("http://localhost:8080/api/monster/type/" + monster.id);
   }
 
+  attackPlayerByMonster(user: Player, attack: number): Observable<Player>{
+    return this.http.get<Player>("http://localhost:8080/api/player/attackplayer/" + user.id + "/" + attack);
+  }
+
 }

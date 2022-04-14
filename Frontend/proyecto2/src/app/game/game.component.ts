@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Exit } from '../model/exit';
 import { Item } from '../model/item';
 import { Monster } from '../model/monster';
@@ -17,8 +18,9 @@ export class GameComponent implements OnInit {
   isMonsterAlive: Boolean = true;
   sum: number = 0;
   numAux: number = 0;
+  numAuxp: number = 0;
 
-  constructor(private sessionService:SessionService) { }
+  constructor(private sessionService:SessionService,private router:Router) { }
 
   ngOnInit(): void {
     this.actualPlayer = JSON.parse(sessionStorage.getItem("actualPlayer")!);
@@ -27,6 +29,7 @@ export class GameComponent implements OnInit {
       this.isMonsterAlive = false;
     }
     if (this.actualPlayer?.hp as number <= 0 || this.actualPlayer?.clock as number >= 20){
+      this.router.navigate(['end']);
     }
 
   }
@@ -46,7 +49,7 @@ export class GameComponent implements OnInit {
     }else{
       console.log("You can not pick up this item, it is too heavy to carry" , this.sumWeightBackpack());
     }
-    
+
   }
   sumWeightBackpack(): number{
     this.sum = 0;
@@ -57,7 +60,7 @@ export class GameComponent implements OnInit {
   }
 
   changeRoom(exit: Exit): void {
-    //TODO: 
+    //TODO:
     this.sessionService.nextRoom(exit).subscribe((room)=>{
       console.log(room);
       this.sessionService.changeRoom(this.actualPlayer as Player, room).subscribe((player) =>{
@@ -86,26 +89,34 @@ export class GameComponent implements OnInit {
         if(this.actualPlayer.room.monster?.hp as number < 0 ){
           this.isMonsterAlive = !this.isMonsterAlive
         }
+        this.attackPlayerByMonster();
       });
-    }); 
+    });
   }
 
 
-  attackPlayerByMonster(): number{
-    window.location.reload();
-    return this.random(0, this.actualPlayer?.room.monster?.type.attack_level as number) - this.random(0, (this.actualPlayer?.defence_slash as number));
+  attackPlayerByMonster(): void{
+    if(this.isMonsterAlive == true){
+      this.sessionService.getMonsterType(this.actualPlayer?.room.monster!).subscribe((a)=>{
+        this.numAuxp = this.random(0,a.attack_level as number +100) - this.random(0,this.actualPlayer?.defence_slash as number);
+        this.sessionService.attackPlayerByMonster(this.actualPlayer as Player, (this.actualPlayer?.hp! - this.numAuxp) as number).subscribe((player)=>{
+          this.actualPlayer = player;
+          sessionStorage.setItem("actualPlayer",JSON.stringify(player));
+
+        });
+      });
+
+    } else {window.location.reload();}
+
   }
 
-  random(min: number, max: number) { 
+  random(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
 /*
-falta 
-- monstruo ataca jugador despues de que el jugador lo ataca
-- monstruo ataca jugador antes de huir
-- contador de tiempo
+falta
+- Puntaje - END
 - bitacora
-- que no se conecte la habitacion a si misma 
 - mostrar jugadores de la habitacion
 */
 }
