@@ -1,24 +1,110 @@
-<div class="home-wrapper">
-  <h1 class="home-title">Multi User Dungeon</h1>
-  <p class="home-text">
-    MUD es un juego multijugador donde los participantes exploran un calabozo con monstruos y tesoros.
-    El objetivo es recolectar la mayor cantidad de tesoros, sin morir, en un tiempo determinado. <br />
-</div>
-<h1>Menu</h1>
-<div [hidden]="isPlayer" id = "player">
-  <button (click)="startGame()">Play</button>
-</div>
-<div [hidden]="isAdmin" id = "admin">
-  <li><a href="http://localhost:8080/player/all">CRUD Players</a></li>
+<!DOCTYPE html>
+<html style="font-size: 16px;">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Burger Menu">
+    <meta name="description" content="">
+    <meta name="page_type" content="np-template-header-footer-from-plugin">
+    <title>Home</title>
+    <link rel="stylesheet" href="nicepage.css" media="screen">
+<link rel="stylesheet" href="home.component.css" media="screen">
+    <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
+    <meta name="generator" content="Nicepage 4.8.2, nicepage.com">
+    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+    <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
 
-</div>
-<div  [hidden]="isDesigner" id = "designer">
 
-  <ul>
-    <li><a href="http://localhost:8080/rooms/all">CRUD rooms</a></li>
-    <li><a href="http://localhost:8080/monster/all">CRUD monsters</a></li>
-    <li><a href="http://localhost:8080/monsters/all">CRUD monster types</a></li>
-    <li><a href="http://localhost:8080/items/all">CRUD items</a></li>
-    <li><a href="http://localhost:8080/decoratives/all">CRUD decorative objects</a></li>
-  </ul>
-</div>
+    <script type="application/ld+json">{
+		"@context": "http://schema.org",
+		"@type": "Organization",
+		"name": ""
+}</script>
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:title" content="Home">
+    <meta property="og:type" content="website">
+  </head>
+  <body class="u-body u-xl-mode">
+    <section class="u-align-center u-clearfix u-gradient u-section-1" id="carousel_0e98">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <h2 class="u-text u-text-body-alt-color u-text-default u-text-1"> Multi User Dungeon</h2>
+        <p class="u-text u-text-white u-text-2"> MUD es un juego multijugador donde los participantes exploran un calabozo con monstruos y tesoros. El objetivo es recolectar la mayor cantidad de tesoros, sin morir, en un tiempo determinado. </p>
+        <button (click)="startGame()"class="u-active-palette-2-light-1 u-border-none u-btn u-btn-round u-button-style u-hover-palette-2-light-1 u-palette-2-base u-radius-50 u-btn-1">Play</button>
+
+        <div class="u-list u-list-1">
+          <div class="u-repeater u-repeater-1">
+            <div [hidden]="isAdmin" id = "admin">
+            <div class="u-align-right u-container-style u-image u-list-item u-repeater-item u-shading u-video-cover u-image-1" data-image-width="786" data-image-height="457">
+              <div class="u-container-layout u-similar-container u-container-layout-1">
+                <div class="u-align-center u-container-style u-gradient u-group u-opacity u-opacity-35 u-video-cover u-group-1">
+                  <div class="u-container-layout u-valign-middle u-container-layout-2">
+                    <h6 class="u-text u-text-palette-2-light-1 u-text-3">CRUD PLAYERS</h6>
+                    <a href="http://localhost:8080/player/all" class="u-active-palette-2-light-1 u-border-none u-btn u-btn-round u-button-style u-hover-palette-2-light-1 u-palette-2-base u-radius-50 u-btn-2">GO</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+            <div  [hidden]="isDesigner" id = "designer">
+            <div class="u-align-right u-container-style u-image u-list-item u-repeater-item u-shading u-image-2" data-image-width="600" data-image-height="338">
+              <div class="u-container-layout u-similar-container u-container-layout-3">
+                <div class="u-align-center u-container-style u-gradient u-group u-opacity u-opacity-35 u-video-cover u-group-2">
+                  <div class="u-container-layout u-valign-middle u-container-layout-4">
+                    <h6 class="u-text u-text-default u-text-palette-2-light-1 u-text-4">CRUD ROOMS</h6>
+                    <a href="http://localhost:8080/rooms/all" class="u-active-palette-2-light-1 u-border-none u-btn u-btn-round u-button-style u-hover-palette-2-light-1 u-palette-2-base u-radius-50 u-btn-3">GO</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="u-align-right u-container-style u-image u-list-item u-repeater-item u-shading u-video-cover u-image-3" data-image-width="474" data-image-height="527">
+              <div class="u-container-layout u-similar-container u-container-layout-5">
+                <div class="u-align-center u-container-style u-gradient u-group u-opacity u-opacity-35 u-video-cover u-group-3">
+                  <div class="u-container-layout u-valign-middle u-container-layout-6">
+                    <h6 class="u-text u-text-default u-text-palette-2-light-1 u-text-5"> CRUD MONSTERS</h6>
+                    <a href="http://localhost:8080/monster/all" class="u-active-palette-2-light-1 u-border-none u-btn u-btn-round u-button-style u-hover-palette-2-light-1 u-palette-2-base u-radius-50 u-btn-4">Go</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="u-align-right u-container-style u-image u-list-item u-repeater-item u-shading u-video-cover u-image-4" data-image-width="236" data-image-height="193">
+              <div class="u-container-layout u-similar-container u-container-layout-7">
+                <div class="u-align-center u-container-style u-gradient u-group u-opacity u-opacity-35 u-video-cover u-group-4">
+                  <div class="u-container-layout u-valign-middle u-container-layout-8">
+                    <h6 class="u-text u-text-default u-text-palette-2-light-1 u-text-6"> CRUD MONSTERS TYPE</h6>
+                    <a href="http://localhost:8080/monsters/all" class="u-active-palette-2-light-1 u-border-none u-btn u-btn-round u-button-style u-hover-palette-2-light-1 u-palette-2-base u-radius-50 u-btn-5">GO</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="u-align-right u-container-style u-image u-list-item u-repeater-item u-shading u-video-cover u-image-5" data-image-width="500" data-image-height="500">
+              <div class="u-container-layout u-similar-container u-container-layout-9">
+                <div class="u-align-center u-container-style u-gradient u-group u-opacity u-opacity-35 u-video-cover u-group-5">
+                  <div class="u-container-layout u-valign-middle u-container-layout-10">
+                    <h6 class="u-text u-text-default u-text-palette-2-light-1 u-text-7">CRUD DECORATIVES</h6>
+                    <a href="http://localhost:8080/decoratives/all" class="u-active-palette-2-light-1 u-border-none u-btn u-btn-round u-button-style u-hover-palette-2-light-1 u-palette-2-base u-radius-50 u-btn-6">GO</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="u-align-right u-container-style u-image u-list-item u-repeater-item u-shading u-video-cover u-image-6" data-image-width="468" data-image-height="533">
+              <div class="u-container-layout u-similar-container u-container-layout-11">
+                <div class="u-align-center u-container-style u-gradient u-group u-opacity u-opacity-35 u-video-cover u-group-6">
+                  <div class="u-container-layout u-valign-middle u-container-layout-12">
+                    <h6 class="u-text u-text-default u-text-palette-2-light-1 u-text-8">CRUD ITEMS</h6>
+                    <a href="http://localhost:8080/items/all" class="u-active-palette-2-light-1 u-border-none u-btn u-btn-round u-button-style u-hover-palette-2-light-1 u-palette-2-base u-radius-50 u-btn-7">GO</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </section>
+
+
+
+
+  </body>
+</html>

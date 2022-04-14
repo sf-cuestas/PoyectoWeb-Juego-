@@ -6,7 +6,7 @@ import { SessionService } from '../shared/session-service.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css','./nicepage.css']
 })
 export class HomeComponent implements OnInit {
   isPlayer:boolean = true;
