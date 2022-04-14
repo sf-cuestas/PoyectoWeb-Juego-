@@ -32,6 +32,7 @@ export class GameComponent implements OnInit {
       this.isMonsterAlive = false;
     }
     if (this.actualPlayer?.hp as number <= 0 || this.actualPlayer?.clock as number >= 20){
+      this.playAudioDeath();
       sessionStorage.setItem("actualPlayer",JSON.stringify(this.actualPlayer));
       sessionStorage.setItem("logBook",JSON.stringify(this.logBook));
       this.router.navigate(['end']);
@@ -39,6 +40,7 @@ export class GameComponent implements OnInit {
 
   }
   throwItem(item: Item): void {
+    this.playAudioDrop();
     this.sessionService.throwPlayerItem(this.actualPlayer as Player, item).subscribe((player) => {
       this.actualPlayer = player;
       sessionStorage.setItem("actualPlayer",JSON.stringify(player));
@@ -48,6 +50,7 @@ export class GameComponent implements OnInit {
   }
 
   pickUpItem(item: Item): void {
+    this.playAudioDrop();
     if (this.actualPlayer?.weight as number > this.sumWeightBackpack() + item.weight){
       this.sessionService.pickUpItemFromRoom(this.actualPlayer as Player, item).subscribe((player) => {
         this.actualPlayer = player;
@@ -94,6 +97,7 @@ export class GameComponent implements OnInit {
 
   attackMonster(monster : Monster | undefined): void {
     console.log(monster);
+    this.playAudioHit();
     this.sessionService.getMonsterType(this.actualPlayer?.room.monster!).subscribe((espec)=>{
       this.numAux = this.random(0,this.actualPlayer?.attack_level as number +200 ) - this.random(0,-1 * espec.defence_slash);
       this.sessionService.attackMonsterByPlayer(this.actualPlayer as Player, this.actualPlayer?.room.monster?.hp as number - this.numAux).subscribe((player)=>{
@@ -113,6 +117,7 @@ export class GameComponent implements OnInit {
 
   attackPlayerByMonster(): void{
     if(this.isMonsterAlive == true  && this.actualPlayer?.hp! >0){
+      this.playAudioHit();
       this.sessionService.getMonsterType(this.actualPlayer?.room.monster!).subscribe((a)=>{
         this.numAuxp = this.random(0,a.attack_level as number +100) - this.random(0,this.actualPlayer?.defence_slash as number);
         this.sessionService.attackPlayerByMonster(this.actualPlayer as Player, (this.actualPlayer?.hp! - this.numAuxp) as number).subscribe((player)=>{
@@ -127,6 +132,27 @@ export class GameComponent implements OnInit {
 
   random(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1) + min)
+  }
+
+  playAudioDeath(){
+    let audio = new Audio();
+    audio.src = "../../../assets/sounds/death.mp3";
+    audio.load();
+    audio.play();
+  }
+
+  playAudioDrop(){
+    let audio = new Audio();
+    audio.src = "../../../assets/sounds/drop.mp3";
+    audio.load();
+    audio.play();
+  }
+
+  playAudioHit(){
+    let audio = new Audio();
+    audio.src = "../../../assets/sounds/hit.mp3";
+    audio.load();
+    audio.play();
   }
 /*
 falta
