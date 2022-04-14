@@ -19,16 +19,21 @@ export class GameComponent implements OnInit {
   sum: number = 0;
   numAux: number = 0;
   numAuxp: number = 0;
+  logBook: String[] = []
 
   constructor(private sessionService:SessionService,private router:Router) { }
 
   ngOnInit(): void {
     this.actualPlayer = JSON.parse(sessionStorage.getItem("actualPlayer")!);
+    this.logBook = JSON.parse(sessionStorage.getItem("logBook")!);
     console.log(this.actualPlayer);
+    console.log(this.logBook);
     if (this.actualPlayer?.room.monster == undefined || this.actualPlayer.room.monster.hp <= 0){
       this.isMonsterAlive = false;
     }
     if (this.actualPlayer?.hp as number <= 0 || this.actualPlayer?.clock as number >= 20){
+      sessionStorage.setItem("actualPlayer",JSON.stringify(this.actualPlayer));
+      sessionStorage.setItem("logBook",JSON.stringify(this.logBook));
       this.router.navigate(['end']);
     }
 
@@ -37,6 +42,8 @@ export class GameComponent implements OnInit {
     this.sessionService.throwPlayerItem(this.actualPlayer as Player, item).subscribe((player) => {
       this.actualPlayer = player;
       sessionStorage.setItem("actualPlayer",JSON.stringify(player));
+      this.logBook.push(this.actualPlayer.username + " Throw " + item.name);
+      sessionStorage.setItem("logBook",JSON.stringify(this.logBook));
     });
   }
 
@@ -45,9 +52,13 @@ export class GameComponent implements OnInit {
       this.sessionService.pickUpItemFromRoom(this.actualPlayer as Player, item).subscribe((player) => {
         this.actualPlayer = player;
         sessionStorage.setItem("actualPlayer",JSON.stringify(player));
+        this.logBook.push(this.actualPlayer.username + " Pick up " + item.name);
+        sessionStorage.setItem("logBook",JSON.stringify(this.logBook));
       });
     }else{
       console.log("You can not pick up this item, it is too heavy to carry" , this.sumWeightBackpack());
+      this.logBook.push(this.actualPlayer?.username + " Tried to pick up " + item.name + " but does not have space for it. ");
+      sessionStorage.setItem("logBook",JSON.stringify(this.logBook));
     }
 
   }
@@ -60,12 +71,13 @@ export class GameComponent implements OnInit {
   }
 
   changeRoom(exit: Exit): void {
-    //TODO:
     this.sessionService.nextRoom(exit).subscribe((room)=>{
       console.log(room);
       this.sessionService.changeRoom(this.actualPlayer as Player, room).subscribe((player) =>{
         this.actualPlayer = player;
         sessionStorage.setItem("actualPlayer",JSON.stringify(player));
+        this.logBook.push(this.actualPlayer.username + " Move to  " + room.name);
+        sessionStorage.setItem("logBook",JSON.stringify(this.logBook));
         window.location.reload();
       });
     });
@@ -74,21 +86,25 @@ export class GameComponent implements OnInit {
 
   escapeRoom(exit: Exit): void {
     this.attackPlayerByMonster();
+    this.logBook.push(this.actualPlayer?.username + " Escape");
+    sessionStorage.setItem("logBook",JSON.stringify(this.logBook));
     this.changeRoom(exit);
   }
 
 
   attackMonster(monster : Monster | undefined): void {
-    //TODO
     console.log(monster);
     this.sessionService.getMonsterType(this.actualPlayer?.room.monster!).subscribe((espec)=>{
       this.numAux = this.random(0,this.actualPlayer?.attack_level as number +200 ) - this.random(0,-1 * espec.defence_slash);
       this.sessionService.attackMonsterByPlayer(this.actualPlayer as Player, this.actualPlayer?.room.monster?.hp as number - this.numAux).subscribe((player)=>{
         this.actualPlayer = player;
         sessionStorage.setItem("actualPlayer",JSON.stringify(player));
+        this.logBook.push(this.actualPlayer.username + " Attacked " + this.actualPlayer?.room.monster?.name + "(" + espec.name + ") with " + this.numAux + " of damage.");
         if(this.actualPlayer.room.monster?.hp as number < 0 ){
           this.isMonsterAlive = !this.isMonsterAlive
+          this.logBook.push(this.actualPlayer.username + " killed " + this.actualPlayer?.room.monster?.name + "(" + espec.name + ")");
         }
+        sessionStorage.setItem("logBook",JSON.stringify(this.logBook));
         this.attackPlayerByMonster();
       });
     });
@@ -96,18 +112,17 @@ export class GameComponent implements OnInit {
 
 
   attackPlayerByMonster(): void{
-    if(this.isMonsterAlive == true){
+    if(this.isMonsterAlive == true  && this.actualPlayer?.hp! >0){
       this.sessionService.getMonsterType(this.actualPlayer?.room.monster!).subscribe((a)=>{
         this.numAuxp = this.random(0,a.attack_level as number +100) - this.random(0,this.actualPlayer?.defence_slash as number);
         this.sessionService.attackPlayerByMonster(this.actualPlayer as Player, (this.actualPlayer?.hp! - this.numAuxp) as number).subscribe((player)=>{
           this.actualPlayer = player;
           sessionStorage.setItem("actualPlayer",JSON.stringify(player));
-
+          this.logBook.push(this.actualPlayer?.room.monster?.name + "(" + a.name + ")"  + " Attacked " + this.actualPlayer.username + " with " + this.numAuxp + " of damage.");
+          sessionStorage.setItem("logBook",JSON.stringify(this.logBook));
         });
       });
-
     } else {window.location.reload();}
-
   }
 
   random(min: number, max: number) {
@@ -115,8 +130,6 @@ export class GameComponent implements OnInit {
   }
 /*
 falta
-- Puntaje - END
-- bitacora
 - mostrar jugadores de la habitacion
 */
 }

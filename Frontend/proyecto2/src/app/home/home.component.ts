@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit {
   isAdmin:boolean = true;
   isDesigner:boolean = true;
   actualPlayer: Player | undefined;
+  logBook: String[] = [];
 
 
   constructor(private router:Router,private sessionService:SessionService) { }
@@ -33,6 +34,8 @@ export class HomeComponent implements OnInit {
     subscribe((player)=>{
         this.actualPlayer=player;
         sessionStorage.setItem("actualPlayer",JSON.stringify(player));
+        this.logBook.push(this.actualPlayer.username + " Start the game, good luck!");
+        sessionStorage.setItem("logBook",JSON.stringify(this.logBook));
         this.router.navigate(['game']);
     });
 
