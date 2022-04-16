@@ -1,49 +1,156 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="MonsterName, Room Name, UserName, Log, Exits, Backpack">
+    <meta name="description" content="">
+    <meta name="page_type" content="np-template-header-footer-from-plugin">
+    <title>Rune Escape</title>
+    <link rel="stylesheet" href="nicepage.css" media="screen">
+<link rel="stylesheet" href="game.component.css" media="screen">
+    <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
+    <meta name="generator" content="Nicepage 4.8.2, nicepage.com">
+    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
 
-<div>
-    <p> Player {{actualPlayer?.username}}</p>
-    <p> HP: {{actualPlayer?.hp}}</p>
-    <p> Time: {{actualPlayer?.clock}}</p>
-    <p>BackPack</p>
-    <ul *ngFor="let item of actualPlayer?.backpack">
-        <li >{{item.name}}</li><button (click)="throwItem(item)">throw</button>
-    </ul>
-    <p>--------------------------------------------------------------------------</p>
-</div>
-<div>
-    <p>Room</p>
-    <p>{{actualPlayer?.room?.name}}</p>
-    <p>--------------------------------------------------------------------------</p>
 
-    <p>Items</p>
-    <ul *ngFor="let item of actualPlayer?.room?.items">
-        <li >{{item.name}}</li> <img  class="images" src="assets/items-icons/{{item.id}}.png"/> <button
-        [hidden]="isMonsterAlive" (click)="pickUpItem(item)">Pick Up</button>
-    </ul>
-    <p>--------------------------------------------------------------------------</p>
+    <script type="application/ld+json">{
+		"@context": "http://schema.org",
+		"@type": "Organization",
+		"name": ""
+}</script>
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:title" content="Rune Escape">
+    <meta property="og:type" content="website">
+  </head>
+  <body class="u-body u-xl-mode"><header class="u-border-6 u-border-grey-75 u-clearfix u-header u-palette-2-base u-header" id="sec-f0b6"><div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <h1 class="u-align-center u-text u-text-default u-text-1">Room: {{actualPlayer?.room?.name}}</h1>
+      </div></header>
+    <section class="u-align-center u-clearfix u-image u-section-1" id="sec-2bb6" data-image-width="1920" data-image-height="1202">
+      <div class="u-clearfix u-expanded-width u-grey-90 u-gutter-0 u-layout-wrap u-layout-wrap-1">
+        <div class="u-layout">
+          <div class="u-layout-col">
+            <div class="u-size-30">
+              <div class="u-layout-row">
+                <div class="u-container-style u-layout-cell u-palette-3-dark-3 u-size-14 u-layout-cell-1">
+                  <div class="u-border-3 u-border-palette-5-dark-3 u-container-layout u-container-layout-1">
+                    <div [hidden]="!isMonsterAlive">
+                      <h1 class="u-text u-text-default u-text-white u-text-1">{{actualPlayer?.room?.monster?.name}}</h1>
+                      <img class="u-border-3 u-border-palette-2-base u-image u-image-default u-preserve-proportions u-image-1" src="assets/monster.png" alt="" data-image-width="654" data-image-height="727">
+                      <p class="u-align-center u-text u-text-palette-2-base ">Type: {{actualType?.name}}</p>
+                      <p class="u-align-center u-text u-text-palette-2-base ">Health Points: {{actualPlayer?.room?.monster?.hp}}</p>
+                      <p class="u-align-center u-text u-text-palette-2-base ">Attack lvl: {{actualType?.attack_level}}</p>
+                      <p class="u-align-center u-text u-text-palette-2-base ">Defence Slash: {{actualType?.defence_slash}}</p>
+                      <p class="u-align-center u-text u-text-palette-2-base ">Lore: {{actualType?.examine}}</p>
+                      <button class="u-border-none u-btn u-button-style u-palette-2-base u-btn-1" (click)="attackMonster(actualPlayer?.room?.monster)">Attack</button>
+                    </div>
 
-    <p>Decoratives</p>
-    <ul *ngFor="let decorative of actualPlayer?.room?.decoratives">
-        <li >{{decorative.name}}</li>
-    </ul>
-    <p>--------------------------------------------------------------------------</p>
+                  </div>
+                </div>
+                <div class="u-container-style u-layout-cell u-size-18 u-layout-cell-2">
 
-    <p>Exits</p>
-    <ul *ngFor="let exit of actualPlayer?.room?.exits">
-        <li >Exit: {{exit.id}}</li><button [hidden]="isMonsterAlive" (click)="changeRoom(exit)">Go</button>
-        <button [hidden]="!isMonsterAlive" (click)="escapeRoom(exit)">Escape</button>
-    </ul>
-    <p>--------------------------------------------------------------------------</p>
+                  <div class="u-border-1 u-border-palette-5-dark-2 u-container-layout u-container-layout-2">
+                    <h1 class=" u-text u-text-default u-text-white u-text-6">Room Items</h1>
+                     <div class="DivWithScroll">
 
-    <p>Monster</p>
-    <p>{{actualPlayer?.room?.monster?.name}}</p>
-    <p>{{actualPlayer?.room?.monster?.hp}}</p><button  [hidden]="!isMonsterAlive" (click)="attackMonster(actualPlayer?.room?.monster)">Attack</button>
-    <p>--------------------------------------------------------------------------</p>
+                         <ul *ngFor="let item of actualPlayer?.room?.items">
+                        <li >{{item.name}} <img  class="images" src="assets/items-icons/{{item.id}}.png"/>
+                          <button style="color: black;" class="u-border-none u-button-style " [hidden]="isMonsterAlive" (click)="pickUpItem(item)">Pick Up</button>
+                        </li>
+                        </ul>
 
-</div>
 
-<div>
-    <p>LogBook</p>
-    <ul *ngFor="let log of logBook">
-        <li>{{log}}</li>
-    </ul>
-</div>
+                     </div>
+
+                  </div>
+
+                </div>
+                <div class="cell-temp-clone u-container-style u-layout-cell u-size-18 u-layout-cell-3">
+                  <div class="u-border-3 u-border-palette-5-dark-2 u-container-layout u-container-layout-3">
+                    <h1 class="u-text u-text-default u-text-white u-text-8">Room Decoratives</h1>
+                    <div class="DivWithScroll">
+                      <ul class="u-align-left u-custom-list" *ngFor="let decorative of actualPlayer?.room?.decoratives">
+                      <li>
+                        <div class="u-list-icon">
+                          <div>-</div>
+                        </div>{{decorative.name}}
+                      </li>
+                    </ul>
+                  </div>
+
+                  </div>
+                </div>
+                <div class="cell-temp-clone u-container-style u-grey-90 u-layout-cell u-size-10 u-layout-cell-4">
+                  <div class="u-border-2 u-border-palette-5-dark-2 u-container-layout u-container-layout-4">
+                    <h1 class="u-text u-text-default u-text-white u-text-10">{{actualPlayer?.username}}</h1>
+                    <img class="u-border-3 u-border-palette-4-base u-image u-image-default u-preserve-proportions u-image-2" src="assets/Doge.png" alt="" data-image-width="200" data-image-height="200">
+                    <h6 class="u-text u-text-white u-text-11">Time: {{actualPlayer?.clock}}<br>
+                    </h6>
+                    <h6 class="u-text u-text-white u-text-12">Health points: {{actualPlayer?.hp}}/<a class="u-text u-text-12" style="color: rgb(97, 187, 97);">500</a><br>
+                    </h6>
+                    <h6 class="u-text u-text-white u-text-12">Current weight: {{sum}} / {{actualPlayer?.weight}}<br>
+                    </h6>
+                    <h6 class="u-text u-text-white u-text-12">Attack Lvl: {{actualPlayer?.attack_level}}<br>
+                    </h6>
+                    <h6 class="u-text u-text-white u-text-12">Defence: {{actualPlayer?.defence_slash}}<br>
+                    </h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="u-size-30">
+              <div class="u-layout-row">
+                <div class="u-container-style u-layout-cell u-size-27 u-layout-cell-5">
+                  <div class="u-border-2 u-border-palette-5-dark-2 u-container-layout u-container-layout-5">
+                    <h1 class="u-text u-text-default u-text-white u-text-13">Log</h1>
+                    <div class="DivWithScroll">
+                      <ul class="u-align-left u-custom-list u-text u-text-body-alt-color u-text-14" *ngFor="let log of logBook">
+                        <li>
+                          <div class="u-list-icon u-text-white">
+                            <div xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xml:space="preserve" class="u-svg-content">-</div>
+                          </div>{{log}}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="u-container-style u-grey-90 u-layout-cell u-size-11 u-layout-cell-6">
+                  <div class="u-border-3 u-border-grey-75 u-container-layout u-container-layout-6">
+                    <h1 class="u-text u-text-default u-text-white u-text-15">Players</h1>
+                    <div class="DivWithScroll">
+                      <ul class="u-align-left u-custom-list u-text u-text-white u-text-16" *ngFor="let pl of actualRoomPlayers">
+                      <li>
+                        {{pl.username}}
+                      </li>
+                    </ul>
+                  </div>
+                  </div>
+                </div>
+                <div class="u-container-style u-layout-cell u-size-10 u-layout-cell-7">
+                  <div class="u-border-2 u-border-palette-5-dark-2 u-container-layout u-valign-top u-container-layout-7">
+                    <h1 class="u-text u-text-default u-text-white u-text-17">Exits</h1>
+                    <ul class="u-align-left  u-text u-text-white u-text-18" *ngFor="let exit of actualPlayer?.room?.exits">
+                      <li >Exit: {{exit.id}} <button style="color: black;" [hidden]="isMonsterAlive" (click)="changeRoom(exit)">Go</button>
+                        <button style="color: black;" [hidden]="!isMonsterAlive" (click)="escapeRoom(exit)">Escape</button> </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="cell-temp-clone u-container-style u-layout-cell u-size-12 u-layout-cell-8">
+                  <div class="u-border-2 u-border-palette-5-dark-2 u-container-layout u-container-layout-8">
+                    <h1 class="u-text u-text-default u-text-white u-text-19">Backpack</h1>
+                    <div class="DivWithScroll">
+                      <ul class="u-align-left u-custom-list u-text u-text-20" *ngFor="let item of actualPlayer?.backpack">
+                        <li >{{item.name}} <img  class="images" src="assets/items-icons/{{item.id}}.png"/> <button style="color: black;" (click)="throwItem(item)">throw</button> </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

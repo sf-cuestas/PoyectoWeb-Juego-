@@ -59,4 +59,8 @@ export class SessionService {
     return this.http.get<Player>("http://localhost:8080/api/player/attackplayer/" + user.id + "/" + attack);
   }
 
+  getPlayerList(room: Room):Observable<Player[]>{
+    return this.http.get<Player[]>("http://localhost:8080/api/room/roomplayers/" + room.id);
+  }
+
 }

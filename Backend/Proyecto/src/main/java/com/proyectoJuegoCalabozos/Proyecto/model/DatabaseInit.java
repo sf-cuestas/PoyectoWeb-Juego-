@@ -81,20 +81,22 @@ public class DatabaseInit implements ApplicationRunner{
         putDecorativesIntoRooms();
 
         // Players
-        playerRepository.save(new Player("escobartc","123",Role.PLAYER));
+        
+        playerRepository.save(new Player("jugador1","123",Role.PLAYER));
+        playerRepository.save(new Player("jugador2","123",Role.PLAYER));
+        playerRepository.save(new Player("jugador3","123",Role.PLAYER));
 
         List<Room> roomsxd = roomRepository.findAll();
-        List<Items> itemsPlayer = itemRepository.findAll();
         List<Player> activePlayers = playerRepository.findAll();
-        for(int i=0;i<5;i++){
-         activePlayers.get(0).getBackpack().add(itemsPlayer.get(i));
-         itemsPlayer.get(i).setPlayer(activePlayers.get(0));
-         itemRepository.save(itemsPlayer.get(i));
-        }
-        activePlayers.get(0).setRoom(roomsxd.get(0));
-        roomsxd.get(0).getPlayers().add(activePlayers.get(0));
-        playerRepository.save(activePlayers.get(0));
+
+      for(int i=0;i<activePlayers.size();i++){
+        activePlayers.get(i).setRoom(roomsxd.get(0));
+        roomsxd.get(0).getPlayers().add(activePlayers.get(i));
+        playerRepository.save(activePlayers.get(i));
         roomRepository.save(roomsxd.get(0));
+      }
+        
+        
 
 
         
@@ -317,7 +319,7 @@ public class DatabaseInit implements ApplicationRunner{
 
     for(int i=0;i<n;i++)
     {
-        Monster monster = new Monster("Monster " + getAlphaNumericString(5),1000);
+        Monster monster = new Monster("Monster " + getAlphaNumericString(5),0);
         monsterRepository.save(monster);
     }
     }
@@ -359,6 +361,7 @@ public class DatabaseInit implements ApplicationRunner{
     for(int i=0; i < monsters.size(); i++){
     long random_long = (long)Math.floor(Math.random()*(max-min+1)+min);
     monsters.get(i).setMonsterEsp(monsterEspRepository.getById(random_long));
+    monsters.get(i).setHp(monsterEspRepository.getById(random_long).getHitpoints());
     monsterRepository.save(monsters.get(i));
     monsterEspRepository.getById(random_long).getMonstruos().add(monsters.get(i));
     }

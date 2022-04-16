@@ -11,10 +11,12 @@ import { SessionService } from '../shared/session-service.service';
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
-  styleUrls: ['./game.component.css']
+  styleUrls: ['./game.component.css','./nicepage.css']
 })
 export class GameComponent implements OnInit {
   actualPlayer: Player | undefined;
+  actualRoomPlayers : Player[] | undefined;
+  actualType : MonstersEsp | undefined;
   isMonsterAlive: Boolean = true;
   sum: number = 0;
   numAux: number = 0;
@@ -26,11 +28,13 @@ export class GameComponent implements OnInit {
   ngOnInit(): void {
     this.actualPlayer = JSON.parse(sessionStorage.getItem("actualPlayer")!);
     this.logBook = JSON.parse(sessionStorage.getItem("logBook")!);
-    console.log(this.actualPlayer);
-    console.log(this.logBook);
-    if (this.actualPlayer?.room.monster == undefined || this.actualPlayer.room.monster.hp <= 0){
-      this.isMonsterAlive = false;
-    }
+    this.actualType
+    this.sumWeightBackpack();
+
+    this.sessionService.getPlayerList(this.actualPlayer?.room!).subscribe((players)=>{
+      this.actualRoomPlayers = players;
+    });
+
     if (this.actualPlayer?.hp as number <= 0 || this.actualPlayer?.clock as number >= 20){
       this.playAudioDeath();
       sessionStorage.setItem("actualPlayer",JSON.stringify(this.actualPlayer));
@@ -38,6 +42,11 @@ export class GameComponent implements OnInit {
       this.router.navigate(['end']);
     }
 
+    if (this.actualPlayer?.room.monster == undefined || this.actualPlayer.room.monster.hp <= 0){
+      this.isMonsterAlive = false;
+    } else {this.sessionService.getMonsterType(this.actualPlayer?.room.monster!).subscribe((espec)=>{
+      this.actualType = espec;
+    });}
   }
   throwItem(item: Item): void {
     this.playAudioDrop();
@@ -51,7 +60,7 @@ export class GameComponent implements OnInit {
 
   pickUpItem(item: Item): void {
     this.playAudioDrop();
-    if (this.actualPlayer?.weight as number > this.sumWeightBackpack() + item.weight){
+    if (this.actualPlayer?.weight as number >= this.sumWeightBackpack() + item.weight){
       this.sessionService.pickUpItemFromRoom(this.actualPlayer as Player, item).subscribe((player) => {
         this.actualPlayer = player;
         sessionStorage.setItem("actualPlayer",JSON.stringify(player));
@@ -99,8 +108,9 @@ export class GameComponent implements OnInit {
     console.log(monster);
     this.playAudioHit();
     this.sessionService.getMonsterType(this.actualPlayer?.room.monster!).subscribe((espec)=>{
-      this.numAux = this.random(0,this.actualPlayer?.attack_level as number +200 ) - this.random(0,-1 * espec.defence_slash);
-      this.sessionService.attackMonsterByPlayer(this.actualPlayer as Player, this.actualPlayer?.room.monster?.hp as number - this.numAux).subscribe((player)=>{
+      this.numAux = this.random(0,this.actualPlayer?.attack_level as number) - this.random(0,espec.defence_slash);
+      if (this.numAux < 0){this.numAux=this.numAux*(-1)}
+      this.sessionService.attackMonsterByPlayer(this.actualPlayer as Player, this.numAux).subscribe((player)=>{
         this.actualPlayer = player;
         sessionStorage.setItem("actualPlayer",JSON.stringify(player));
         this.logBook.push(this.actualPlayer.username + " Attacked " + this.actualPlayer?.room.monster?.name + "(" + espec.name + ") with " + this.numAux + " of damage.");
@@ -116,10 +126,11 @@ export class GameComponent implements OnInit {
 
 
   attackPlayerByMonster(): void{
-    if(this.isMonsterAlive == true  && this.actualPlayer?.hp! >0){
+    if(this.isMonsterAlive == true  && this.actualPlayer?.hp! > 0){
       this.playAudioHit();
       this.sessionService.getMonsterType(this.actualPlayer?.room.monster!).subscribe((a)=>{
-        this.numAuxp = this.random(0,a.attack_level as number +100) - this.random(0,this.actualPlayer?.defence_slash as number);
+        this.numAuxp = this.random(0,a.attack_level as number) - this.random(0,this.actualPlayer?.defence_slash as number);
+        if (this.numAuxp < 0){this.numAuxp=this.numAuxp*(-1)}
         this.sessionService.attackPlayerByMonster(this.actualPlayer as Player, (this.actualPlayer?.hp! - this.numAuxp) as number).subscribe((player)=>{
           this.actualPlayer = player;
           sessionStorage.setItem("actualPlayer",JSON.stringify(player));

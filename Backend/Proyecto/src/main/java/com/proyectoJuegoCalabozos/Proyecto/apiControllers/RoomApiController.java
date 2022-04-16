@@ -1,14 +1,13 @@
 package com.proyectoJuegoCalabozos.Proyecto.apiControllers;
 import java.util.List;
 
-import com.proyectoJuegoCalabozos.Proyecto.model.Items;
+
 import com.proyectoJuegoCalabozos.Proyecto.model.Player;
 import com.proyectoJuegoCalabozos.Proyecto.model.Room;
-import com.proyectoJuegoCalabozos.Proyecto.repository.ItemRepository;
 import com.proyectoJuegoCalabozos.Proyecto.repository.PlayerRepository;
 import com.proyectoJuegoCalabozos.Proyecto.repository.RoomRepository;
 
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,9 +27,6 @@ public class RoomApiController {
     private PlayerRepository playerRepository;
 
     @Autowired
-    private ItemRepository itemsRepository;
-
-    @Autowired
     private RoomRepository roomsRepository;
 
     // OpenAPI
@@ -47,4 +43,10 @@ public class RoomApiController {
 
         return roomsRepository.findById(playerRepository.findById(playerId).get().getRoom().getId()).get();
     }
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/roomplayers/{roomId}")
+    public List <Player> getPlayersFromRoom(@PathVariable Long roomId) {
+        return roomsRepository.findById(roomId).get().getPlayers();
+    }
+
 }

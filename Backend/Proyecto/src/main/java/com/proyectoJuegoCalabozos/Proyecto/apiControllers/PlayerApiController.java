@@ -11,7 +11,7 @@ import com.proyectoJuegoCalabozos.Proyecto.repository.MonsterRepository;
 import com.proyectoJuegoCalabozos.Proyecto.repository.PlayerRepository;
 import com.proyectoJuegoCalabozos.Proyecto.repository.RoomRepository;
 
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ch.qos.logback.core.joran.action.ActionUtil;
+
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -86,8 +86,14 @@ public class PlayerApiController {
     public Player spawnPlayer(@PathVariable Long userId) {
         Player actual = playerRepository.findById(userId).get();
         List<Room> rooms = roomsRepository.findAll();
+        actual.init();
         long random = (long)Math.floor(Math.random()*(rooms.get(rooms.size()-1).getId()-rooms.get(0).getId()+1)+rooms.get(0).getId());
-        actual.setRoom(roomsRepository.getById(random));
+        Room actualRoom = roomsRepository.getById(random);
+        rooms.get(0).getPlayers().get(0).setRoom(actualRoom);
+        actual.setRoom(actualRoom);
+        actualRoom.getPlayers().add(actual);
+        actualRoom.getPlayers().add(rooms.get(0).getPlayers().get(0));
+        roomsRepository.save(actualRoom);
         playerRepository.save(actual);
         return actual;
     }
@@ -98,7 +104,8 @@ public class PlayerApiController {
     public Player attackMonsterByPlayer(@PathVariable Long userId, @PathVariable int attack) {
         Player actual = playerRepository.findById(userId).get();
         Monster actualMonster = actual.getRoom().getMonster();
-        actualMonster.setHp(attack);
+        int newHp = actualMonster.getHp() - attack;
+        actualMonster.setHp(newHp);
         monsterRepository.save(actualMonster);
         playerRepository.save(actual);
         return actual;
@@ -113,6 +120,7 @@ public class PlayerApiController {
         actualRoom.getPlayers().remove(actual);
         actual.setRoom(nextRoom);
         actual.setClock(actual.getClock()+1);
+        nextRoom.getPlayers().add(actual);
         roomsRepository.save(actualRoom);
         roomsRepository.save(nextRoom);
         playerRepository.save(actual);
