@@ -114,7 +114,7 @@ export class GameComponent implements OnInit {
         this.actualPlayer = player;
         sessionStorage.setItem("actualPlayer",JSON.stringify(player));
         this.logBook.push(this.actualPlayer.username + " Attacked " + this.actualPlayer?.room.monster?.name + "(" + espec.name + ") with " + this.numAux + " of damage.");
-        if(this.actualPlayer.room.monster?.hp as number < 0 ){
+        if(this.actualPlayer.room.monster?.hp as number <= 0 ){
           this.isMonsterAlive = !this.isMonsterAlive
           this.logBook.push(this.actualPlayer.username + " killed " + this.actualPlayer?.room.monster?.name + "(" + espec.name + ")");
         }
@@ -136,6 +136,7 @@ export class GameComponent implements OnInit {
           sessionStorage.setItem("actualPlayer",JSON.stringify(player));
           this.logBook.push(this.actualPlayer?.room.monster?.name + "(" + a.name + ")"  + " Attacked " + this.actualPlayer.username + " with " + this.numAuxp + " of damage.");
           sessionStorage.setItem("logBook",JSON.stringify(this.logBook));
+          if(this.actualPlayer.hp<=0){window.location.reload();}
         });
       });
     } else {window.location.reload();}
@@ -165,8 +166,5 @@ export class GameComponent implements OnInit {
     audio.load();
     audio.play();
   }
-/*
-falta
-- mostrar jugadores de la habitacion
-*/
+
 }

@@ -89,10 +89,8 @@ public class PlayerApiController {
         actual.init();
         long random = (long)Math.floor(Math.random()*(rooms.get(rooms.size()-1).getId()-rooms.get(0).getId()+1)+rooms.get(0).getId());
         Room actualRoom = roomsRepository.getById(random);
-        rooms.get(0).getPlayers().get(0).setRoom(actualRoom);
         actual.setRoom(actualRoom);
         actualRoom.getPlayers().add(actual);
-        actualRoom.getPlayers().add(rooms.get(0).getPlayers().get(0));
         roomsRepository.save(actualRoom);
         playerRepository.save(actual);
         return actual;
