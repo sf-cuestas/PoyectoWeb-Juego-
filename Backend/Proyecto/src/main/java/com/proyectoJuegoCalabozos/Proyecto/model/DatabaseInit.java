@@ -24,10 +24,12 @@ import com.proyectoJuegoCalabozos.Proyecto.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 
 @Component
+@Profile({"default"})
 public class DatabaseInit implements ApplicationRunner{
 
     @Autowired
@@ -103,15 +105,12 @@ public class DatabaseInit implements ApplicationRunner{
         playerRepository.save(new Player("player","123",Role.PLAYER));
         playerRepository.save(new Player("admin","123",Role.ADMIN));
         playerRepository.save(new Player("designer","123",Role.DESIGNER));
-        
-
-
 
 
     }
 
     public void generateItems(){
-        File input = new File(System.getProperty("user.dir") + File.separator + "assets" + File.separator + "items.json");
+        File input = new File( "assets" + File.separator + "items.json");
             long id;
         
         try{
@@ -174,7 +173,7 @@ public class DatabaseInit implements ApplicationRunner{
     }
 
     public void generateDecoratives(){
-        File input = new File(System.getProperty("user.dir") + File.separator + "assets" + File.separator + "objetos-decorativos.json");
+        File input = new File( "assets" + File.separator + "objetos-decorativos.json");
             
         
         try{
@@ -204,7 +203,7 @@ public class DatabaseInit implements ApplicationRunner{
     }
 
     public void generateMonsterTypes(){
-        File input = new File(System.getProperty("user.dir") + File.separator + "assets" + File.separator + "monstruos.json");
+        File input = new File( "assets" + File.separator + "monstruos.json");
             
         
         try{
@@ -279,7 +278,7 @@ public class DatabaseInit implements ApplicationRunner{
     }
 
     public void generateRooms(){
-        File input = new File(System.getProperty("user.dir") + File.separator + "assets" + File.separator + "cities.json");
+        File input = new File( "assets" + File.separator + "cities.json");
             int n = 1100, i=0;
 
         
