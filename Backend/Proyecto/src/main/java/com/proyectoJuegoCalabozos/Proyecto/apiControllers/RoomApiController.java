@@ -40,9 +40,9 @@ public class RoomApiController {
    @CrossOrigin(origins = "http://localhost:4200")
    @GetMapping("/{playerId}")
     public Room findActualPlayerRoom(@PathVariable Long playerId) {
-
         return roomsRepository.findById(playerRepository.findById(playerId).get().getRoom().getId()).get();
     }
+    
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/roomplayers/{roomId}")
     public List <Player> getPlayersFromRoom(@PathVariable Long roomId) {

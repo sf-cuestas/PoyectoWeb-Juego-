@@ -2,7 +2,9 @@ package com.proyectoJuegoCalabozos.Proyecto;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import com.proyectoJuegoCalabozos.Proyecto.model.Player;
 import com.proyectoJuegoCalabozos.Proyecto.model.Role;
@@ -64,16 +66,26 @@ public class RoomControllerIntegrationTest {
 
     @Test
     void listPlayersFromRoom(){
+        Boolean allPlayers = false;
+        int numPlayers = 0;
         Player[] players = rest.getForObject("http://localhost:" + port + "/api/room/roomplayers/1", Player[].class);
-
-        assertEquals(players[0].getId(),r.getPlayers().get(0).getId());
+        for (Player playerA : players) {
+            for (Player playerB : r.getPlayers()){
+                if (playerA.getId() == playerB.getId()){
+                    numPlayers += 1;
+                }
+            }
+        }
+        if(numPlayers == players.length){
+            allPlayers = true;
+        }
+        assertEquals(allPlayers,true);
     }
 
     @Test
-    void aaaa(){
-        Player[] players = rest.getForObject("http://localhost:" + port + "/api/room/roomplayers/1", Player[].class);
-
-        assertEquals(players.length,r.getPlayers().size());
+    void findActualPlayerRoomTest(){
+        Room room = rest.getForObject("http://localhost:" + port + "/api/room/" + p.getId(), Room.class);
+        assertEquals(room.getId(), p.getRoom().getId());
     }
 
 }
