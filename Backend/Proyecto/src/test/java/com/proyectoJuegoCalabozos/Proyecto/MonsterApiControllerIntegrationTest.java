@@ -53,17 +53,37 @@ public class MonsterApiControllerIntegrationTest {
     
     @BeforeEach
     void init() {
-        monster = new Monster();
+        monster = new Monster("prueba",100);
         esp = new MonstersEsp("EspPrueba", "prueba", 12, 0, 0, 0, "prueba", "prueba", "prueba");
+        monstersEspRepository.save(esp);
         monster.setMonsterEsp(esp);
-        room = new Room();
-        room.setMonster(monster);
-        monster.setRoom(room);
-        esp.getMonstruos().add(monster);
+        //room = new Room();
+        //room.setMonster(monster);
+        //monster.setRoom(room);
+        ArrayList<Monster> listMonsters = new ArrayList<Monster>();
+        listMonsters.add(monster);
+        esp.setMonstruos(listMonsters);
         monsterRepository.save(monster);
         monstersEspRepository.save(esp);
-        roomRepository.save(room);
+        //roomRepository.save(room);
+    }
+    
+    @Test
+    void findMonsterTest(){
+        Monster monsterRest = rest.getForObject("http://localhost:" + port + "/api/monster/" + monster.getId(), Monster.class);
+        assertEquals(monster.getId(), monsterRest.getId());
+    }
 
+    @Test 
+    void getMonsterTypeTest(){
+        MonstersEsp monstersEspRest = rest.getForObject("http://localhost:" + port + "/api/monster/type/" + monster.getId(), MonstersEsp.class);
+        assertEquals(esp.getId(), monstersEspRest.getId());
+    }
+
+    @Test
+    void saveMonster(){
+        Monster monsterRest = rest.postForObject("http://localhost:" + port + "/api/monster", monster, Monster.class);
+        assertEquals(monster.getId(), monsterRest.getId());
     }
 
 }
