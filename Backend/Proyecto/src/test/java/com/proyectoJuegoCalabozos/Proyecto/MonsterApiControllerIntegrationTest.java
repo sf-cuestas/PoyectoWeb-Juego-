@@ -57,15 +57,11 @@ public class MonsterApiControllerIntegrationTest {
         esp = new MonstersEsp("EspPrueba", "prueba", 12, 0, 0, 0, "prueba", "prueba", "prueba");
         monstersEspRepository.save(esp);
         monster.setMonsterEsp(esp);
-        //room = new Room();
-        //room.setMonster(monster);
-        //monster.setRoom(room);
         ArrayList<Monster> listMonsters = new ArrayList<Monster>();
         listMonsters.add(monster);
         esp.setMonstruos(listMonsters);
         monsterRepository.save(monster);
         monstersEspRepository.save(esp);
-        //roomRepository.save(room);
     }
     
     @Test
