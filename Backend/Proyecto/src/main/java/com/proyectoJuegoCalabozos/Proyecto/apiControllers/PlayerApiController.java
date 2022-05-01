@@ -130,7 +130,7 @@ public class PlayerApiController {
     @GetMapping("/attackplayer/{userId}/{attack}")
     public Player attackPlayerByMonster(@PathVariable Long userId, @PathVariable int attack) {
         Player actual = playerRepository.findById(userId).get();
-        actual.setHp(attack);
+        actual.setHp(actual.getHp() - attack);
         playerRepository.save(actual);
         return actual;
     }
